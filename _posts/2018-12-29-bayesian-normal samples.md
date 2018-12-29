@@ -1,0 +1,10 @@
+---
+title: "Normal Samples"
+permalink: /bayesian/
+date: 2018-12-29 20:14:00 -0400
+categories: Bayesian
+---
+
+
+### Reference
+- STAT 578: Advanced Bayesian Modeling by Professor Trevor Park

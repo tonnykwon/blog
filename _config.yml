@@ -111,10 +111,10 @@ author:
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
-      # url: mailto:your.name@email.com
+      url: mailto:yjkwon2@illinois.edu
     - label: "LinkedIn"
       icon: "fas fa-fw fa-link"
-      # url: "https://your-website.com"
+      url: "https://www.linkedin.com/in/youngju-kwon-50943398/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/tonnykwon"
