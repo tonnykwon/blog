@@ -2,7 +2,7 @@
 main:
    - title: "Bayesian"
      url: /bayesian/
-   - title: "Text"
+   - title: "Text System"
      url: /text/
    - title: "About"
      url: /about/

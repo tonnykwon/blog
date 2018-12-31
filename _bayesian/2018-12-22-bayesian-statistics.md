@@ -1,7 +1,7 @@
 ---
 title: "Bayesian Statistic"
-permalink: /bayesian/
 date: 2018-12-22 15:24:00 -0400
+permalink: /Bayesian/
 categories: Bayesian
 ---
 ## Frequentist
@@ -64,7 +64,7 @@ Now, we can apply Bayes' rule above, and infer the posterior density.
 \\[ p(\theta | y= 55) \propto 1*\theta^{55}(1-\theta)^{45} \\]
 \\[ \propto \theta^{55} (1-\theta)^{45}, 0 <\theta < 1 \\]
 
-We can avoid calculating the normalizing factor $$ p(y) $$ by finding similar density function, Beta. <br/>
+We can recognize the above denstiy as the unnormalized density of Beta. <br/>
 \\[ \frac{\gamma(\alpha + \beta)}{\gamma(\alpha)\gamma(\beta)} \theta^{\alpha-1} (1-\theta)^{\beta -1}
 \propto \theta^{\alpha-1} (1-\theta)^{\beta-1}
  \\]

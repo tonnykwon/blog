@@ -1,8 +1,8 @@
 ---
 title: "Normal Samples"
-permalink: /bayesian/normal
+permalink: /posts/
 date: 2018-12-29 20:14:00 -0400
-categories: Bayesian
+categories: post
 ---
 
 test

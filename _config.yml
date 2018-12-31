@@ -109,9 +109,6 @@ author:
   location         : "Seoul"
   email            : "jykwon2@illinois.edu"
   links:
-    - label: "Email"
-      icon: "fas fa-fw fa-envelope-square"
-      url: mailto:yjkwon2@illinois.edu
     - label: "LinkedIn"
       icon: "fas fa-fw fa-link"
       url: "https://www.linkedin.com/in/youngju-kwon-50943398/"
@@ -268,6 +265,13 @@ compress_html:
     envs: development
 
 
+    
+# Collections
+collections:
+  bayesian:
+    output: true
+    permalink: /:collection/:path/
+
 # Defaults
 defaults:
   # _posts
@@ -281,3 +285,15 @@ defaults:
       comments: true
       share: true
       related: true
+  # _text
+  - scope:
+      path: ""
+      type: text
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: true
+      share: true
+      related: true
+      
