@@ -3,7 +3,7 @@ title: Bayesian
 layout: collection
 permalink: /bayesian/
 author_profile: true
-category: bayesian
+collection: bayesian
 ---
 
 Posts about Bayesian modeling.

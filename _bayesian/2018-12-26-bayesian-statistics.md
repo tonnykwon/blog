@@ -1,7 +1,6 @@
 ---
-title: "Bayesian Statistic"
+title: "1 - Bayesian Statistic"
 date: 2018-12-22 15:24:00 -0400
-permalink: /Bayesian/
 categories: Bayesian
 ---
 ## Frequentist
@@ -77,7 +76,7 @@ curve(dbeta(x, 56, 46), 0, 1, ylab=" Density")
 ```
 
 <p align="center"> 
-<img src="../assets/img/bayesian/w1-post-beta.jpg" style="width: 70%">
+<img src="../../assets/img/bayesian/w1-post-beta.jpg" style="width: 70%">
 </p>
 
 When flat prior used, most posterior probability ranges around 0.4 to 0.7.
