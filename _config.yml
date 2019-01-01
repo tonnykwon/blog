@@ -19,7 +19,7 @@ locale                   : "en-US"
 title                    : "tonnykwon"
 title_separator          : "-"
 name                     : "YougJu Kwon"
-description              : "tonnykwon"
+description              : "Data"
 url                      : "https://tonnykwon.github.io/"
 baseurl                  : #
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"

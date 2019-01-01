@@ -13,7 +13,7 @@ Single Data center consists of:
 - Front-end for submitting jobs and receiving client requests
 - Software servcies
 
-Before cloud computing, the distributed system has existed from 1940. However, there are several differences that distinguish the cloud computing from previous distributed system.
+Before cloud computing, the distributed system has existed from 1940, such as Grids, peer to pper systems and so on. However, there are several differences that distinguish the cloud computing from previous distributed system.
 - Massive scale: Data Centers store and process large amount of data
 - On-demand access: Only pay for the amount of used.
 - Data-intensive nature: Data stored and processed in real time
