@@ -281,7 +281,7 @@ defaults:
   # _posts
   - scope:
       path: ""
-      type: posts
+      type: bayesian
     values:
       layout: single
       author_profile: true
@@ -294,6 +294,18 @@ defaults:
   - scope:
       path: ""
       type: bayesian
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: true
+      share: true
+      related: true
+      
+  # _distributed
+  - scope:
+      path: ""
+      type: distributed
     values:
       layout: single
       author_profile: true
