@@ -21,7 +21,7 @@ title_separator          : "-"
 name                     : "YougJu Kwon"
 description              : "tonnykwon"
 url                      : "https://tonnykwon.github.io/"
-baseurl                  : "\bayesian"
+baseurl                  : #
 repository               : # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 # breadcrumbs            : false # true, false (default)
@@ -61,7 +61,7 @@ reCaptcha:
   secret                 :
 atom_feed:
   path                   : # blank (default) uses feed.xml
-search                   : # true, false (default)
+search                   : true # true, false (default)
 search_full_content      : # true, false (default)
 search_provider          : # lunr (default), algolia, google
 algolia:
@@ -271,6 +271,9 @@ collections:
   bayesian:
     output: true
     permalink: /:collection/:path/
+  distributed:
+    output: true
+    permalink: /:collection/:path/
 
 # Front Matter
 # Defaults
@@ -286,7 +289,8 @@ defaults:
       comments: true
       share: true
       related: true
-  # _text
+      
+  # _bayesian
   - scope:
       path: ""
       type: bayesian
@@ -297,6 +301,7 @@ defaults:
       comments: true
       share: true
       related: true
+      
   # _pages
   - scope:
       path: "_pages"

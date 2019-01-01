@@ -4,6 +4,8 @@ main:
      url: /bayesian/
    - title: "Text System"
      url: /text/
+   - title: "Distributed System"
+     url: /distributed/
    - title: "About"
      url: /about/
   # - title: "Sample Collections"
