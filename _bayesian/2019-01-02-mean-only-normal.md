@@ -1,5 +1,5 @@
 ---
-title: "3 - Normal Sampling Distribution"
+title: "3 - Mean-Only Normal"
 date: 2019-01-02
 categories: Bayesian
 ---

@@ -22,7 +22,7 @@ Before cloud computing, the distributed system has existed from 1940, such as Gr
 -- Lots of open-source
 
 ## What is Distributed System?
-Cloud is just another name of a distributed system, and all of the features of the cloud actually are the features of a distributed system? then what is a distributed system exactly?
+Cloud is just another name of a distributed system, and all of the features of the cloud actually are the features of a distributed system. then what is a distributed system exactly?
 
 This is definition by prof.Indranil Gupta: <br/>
 A distributed system is a collection of entities, each of which is *autonomous, programmable, asynchronous, and failure-prone*, and which communicate through an *unreliable* communication medium

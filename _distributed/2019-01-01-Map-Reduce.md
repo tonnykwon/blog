@@ -21,7 +21,7 @@ In reduce phase, similar to map phase, each nodes perform reduce function to all
 The slide shows that the reduce function merge by keys, which are words here, and sum up the values. As a result, whole MapReduce outputs counts for each word. 
 
 ## MapReduce Example
-Other than the simple example of word counting, we can utilize MapReduce function a bit complicated problem. Suppose we want to find sets of three people who follow each other on Instagram. We need to produce <a,b,c> where a, b, and c follow each others, given input <a,b> pair, meaning a follows b. Following is pseudo code of MapReduce of the function:
+Other than the simple example of word counting, we can utilize MapReduce function a bit complicated problem. Suppose we want to find sets of three people who follow each other on Instagram. We need to produce <a,b,c> where a, b, and c follow each others, given input <a,b> pair, meaning a follows b. Following is the pseudo code of MapReduce of the function:
 ``` r
 Mapper1(key, value) # where key follows value
 {
