@@ -31,3 +31,6 @@ curve(dunif(x, 0, 1), 0, 1, add=TRUE, col="blue", lty=2) # flat prior
 </p>
 
 As we can see in the plot, with informative knowledge, the posterior density is more concentrated.
+
+## Reference
+- Gelman, A., Stern, H. S., Carlin, J. B., Dunson, D. B., Vehtari, A., & Rubin, D. B. (2013). Bayesian data analysis. Chapman and Hall/CRC.
