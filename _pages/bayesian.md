@@ -1,5 +1,5 @@
 ---
-title: Bayesian
+title: Bayesian Modeling
 layout: collection
 permalink: /bayesian/
 author_profile: true
