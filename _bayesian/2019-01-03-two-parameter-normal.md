@@ -6,7 +6,7 @@ categories: Bayesian
 
 ## Multiparameter Model
 
-In the previous post, we used normal sampling distribution assuming variance $$ \sigma^2$$ is known. However, it is more realistic that both $$ \mu$$ and $$ \sigma^2 $$ are unknown.  In such case where we do not know multiple parameters, first, we get joint posterior distribution of all unknowns. Then, integrate over the unknowns that are not interest, and get the marginal distribution for the parameter of interest. Parameters that are required to build model but not in interest called *nuisance parameters*. Here we average out nuisance parameters to get posterior marginal distributions for parameters in interest.
+In the previous post, we used normal sampling distribution assuming variance $$ \sigma^2$$ is known. However, it is more realistic that both $$ \mu$$ and $$ \sigma^2 $$ are unknown.  In such case where we do not know multiple parameters, first, we get joint posterior distribution of all unknowns. Since in many Bayesian analysis, we are to obtain the marginal posterior distribution of the particular parameters, we integrate over the unknowns that are not interest. Parameters that are required to build model but not in interest called *nuisance parameters*. Here we average out nuisance parameters to get posterior marginal distributions for parameters in interest.
 
 Suppose we have two unknown parameters $$ \theta_1 $$ and $$\theta_2$$, and the posterior is:
 
@@ -20,6 +20,16 @@ $$ p(\theta_1 | y) = \int p(\theta_1, \theta_2 | y) d\theta_2$$
 
 $$ = \int p(\theta_1 | \theta_2, y) p(\theta_2| y) d\theta_2 $$
 
+And as we can see in the equation, the posterior distribution of $$ \theta_1 $$ is the mixture of the conditional distribution given $$ \theta_2 $$, *nuisance parameter*, and the posterior distribution of $$ \theta_2 $$. Considering the expense of computing the integral, we rarely evaluate explicitly. Rather, by simulating from drawing $$ \theta_2 $$ from its marginal posterior distribution and then $$ \theta_1 $$ from its conditional posterior distribution, we compute the posterior distribution.
+
+
+
+We apply this method to normal case where we do not know about both $$ \mu $$  and $$ \sigma^2 $$:
+
+$$ p(\mu, \sigma^2 |y) = p(\mu| \sigma^2, y) p(\sigma^2 |y) $$
+
+The posterior distribution is the product of conditional and marginal posterior distributions.
+
 
 
 ## Posterior Marginal Density of $ \sigma^2 $
@@ -28,15 +38,7 @@ Recall likelihood from the previous post:
 
  $$p(y | \mu, \sigma^2)  \propto \frac{1}{(\sigma^2)^{n/2}}{exp(-\frac{1}{2\sigma^2}\sum^n_{i=1}(y_i-\mu)^2})$$
 
-$$\propto \frac{1} {(\sigma^2)^{n/2}} exp(-\frac{1}{2\sigma^2}((n-1)s^2 + n(\mu - \bar y)^2)) $$
-
-
-
-Then, the posterior is:
-
-$$ p(\mu, \sigma^2|y)\propto \sigma^{-n-2} exp(-\frac{1}{2\sigma^2}((n-1)s^2 + n(\mu - \bar y)^2)) $$
-
-So, we look for prior density that has similar form of likelihood. 
+$$\propto \frac{1} {(\sigma^2)^{n/2}} exp(-\frac{1}{2\sigma^2}((n-1)s^2 + n(\mu - \bar y)^2)), \;\;where \; s^2 = sample \; variance $$
 
 
 
@@ -58,9 +60,92 @@ $$ \sigma^2 | y  \sim Inv-\chi^2 (n-1, s^2) $$
 
 
 
-## Posterior Marginal Density of $ \mu$
+## Conditional Posterior Density
 
-Very similar way, we can find posterior marginal density of mean.
+To find joint posterior density, we need to find the conditional posterior density of $$ p(\mu | \sigma^2 ,y) $$. W can simply bring the result from one normal sample example and a uniform distribution.
+
+$$ \mu | \sigma^2 , y \sim N (\bar y, \sigma^2 /n) $$
+
+
+
+Now we can draw samples from the joint posterior distribution: first we draw $$ \sigma^2 $$ from the posterior marginal distribution, which is a scaled inverse chi square, and then draw $$ \mu $$ from above conditional posterior distribution.
+
+Simulate
+
+$$ \sigma^2_{sim} = (n-1)s^2 /X $$
+
+Then simulate
+
+$$ \mu_{sim} N(\bar y, \sigma^2_{sim} /n) $$
+
+Finally we can easily simulate
+
+$$ \hat y \sim N(\mu_{sim}, \sigma^2_{sim}) $$
+
+
+
+## Example
+
+We can continue using flint data for two parameters normal sampling with non-informative priors. We set $$n$$, $$ \bar y $$, $$ s^2 $$ in log scale.
+
+``` r
+Flintdata = read.csv("Flintdata.csv", row.names = 1)
+(n = nrow(Flintdata))
+(ybar = mean(log(Flintdata$FirstDraw)))
+(s.2 = var(log(Flintdata$FirstDraw)))
+
+[1] 271
+[1] 1.402925
+[1] 1.684078
+```
+
+
+
+Now simulate $$ \sigma^2 $$ , then $$ \mu$$.
+
+``` r
+post.sigma.2.sim = (n-1)*s.2/rchisq(1000, n-1)
+post.mu.sim = rnorm(1000, ybar, post.sigma.2.sim/n)
+```
+
+
+
+By using `quantile` function we can find out posterior interval for both parameters(in log scale):
+
+``` r
+quantile(post.sigma.2.sim, c(0.025, 0.975))
+quantile(post.mu.sim, c(0.025, 0.975))
+
+    2.5%    97.5% 
+1.434001 2.010442 
+    2.5%    97.5% 
+1.390583 1.414756 
+```
+
+
+
+Now we can sample new observation from our posterior predictive distribution, 
+
+``` r
+post.pred.sim = rnorm(1000, post.mu.sim, sqrt(post.sigma.2.sim))
+
+hist(post.pred.sim)
+abline(v=log(15), col="red")
+```
+
+![](..\..\assets\img\bayesian\4-pred-post.png)
+
+
+
+Using posterior samples, we can check the posterior probability of exceeding the limit(15 ppb):
+
+``` r 
+mean(post.pred.sim>log(15))
+
+[1] 0.145
+```
+
+
 
 
 
@@ -69,6 +154,14 @@ Very similar way, we can find posterior marginal density of mean.
 Now all of the factors contain either $$\sigma^2$$ and $$ \mu $$. For the vague prior, we can use:
 
 $$ p(\mu, \sigma^2) \propto (\sigma^2)^{-1} $$
+
+
+
+Then, the posterior is:
+
+$$ p(\mu, \sigma^2|y)\propto \sigma^{-n-2} exp(-\frac{1}{2\sigma^2}((n-1)s^2 + n(\mu - \bar y)^2)) $$
+
+
 
 
 
