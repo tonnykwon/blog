@@ -62,7 +62,7 @@ $$ \sigma^2 | y  \sim Inv-\chi^2 (n-1, s^2) $$
 
 ## Conditional Posterior Density
 
-To find joint posterior density, we need to find the conditional posterior density of $$ p(\mu | \sigma^2 ,y) $$. W can simply bring the result from one normal sample example and a uniform distribution.
+To find joint posterior density, we need to find the conditional posterior density of $$ p(\mu | \sigma^2 ,y) ​$$. W can simply bring the result from one normal sample example and a uniform distribution.
 
 $$ \mu | \sigma^2 , y \sim N (\bar y, \sigma^2 /n) $$
 
