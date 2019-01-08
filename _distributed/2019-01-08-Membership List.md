@@ -81,6 +81,11 @@ Disadvantages:
 
 - One slow receiving process can cause ending up marking all other processes fail. Thus, high rate of false positive or accuracy
 
+<p align="center">
+<img src="../../assets/img/distributed/4-all.PNG" style="width: 100%"> <br/>
+<sub> All-To-All  Heartbeating slide from CS425 2.2 Failure Detector in week 3</sub>
+</p>
+
 
 
 ## Reference
