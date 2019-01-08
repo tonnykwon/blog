@@ -124,7 +124,7 @@ $$ \sigma^2_{sim} = (n-1)s^2 /X $$
 
 Then simulate
 
-$$ \mu_{sim} N(\bar y, \sigma^2_{sim} /n) $$
+$$ \mu_{sim} \sim N(\bar y, \sigma^2_{sim} /n) $$
 
 Finally we can easily simulate
 
@@ -194,6 +194,8 @@ mean(post.pred.sim>log(15))
 ```
 
 
+
+To do
 
 Conjugate prior for two parameter normal sampling.
 
