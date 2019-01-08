@@ -30,7 +30,7 @@ comments:
   provider               : "disqus" 
   # false (default), "disqus", "discourse", "facebook", "google-plus", "staticman", "staticman_v2", "utterances", "custom"
   disqus:
-    shortname            : # https://help.disqus.com/customer/portal/articles/466208-what-s-a-shortname-
+    shortname            : tonnykwon
   discourse:
     server               : # https://meta.discourse.org/t/embedding-discourse-comments-via-javascript/31963 , e.g.: meta.discourse.org
   facebook:
@@ -106,7 +106,7 @@ analytics:
 author:
   name             : "YoungJu Kwon"
   avatar           : "/assets/img/bio-photo3.jpg"
-  bio              : "Hi"
+  bio              : "All about Data"
   location         : "Seoul"
   email            : "jykwon2@illinois.edu"
   links:
