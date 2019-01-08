@@ -17,13 +17,13 @@ Here are two important requirements of multicast protocol:
 - Scalability: Multicast protocol can work with a big number of nodes. The overhead of a node should not be too high that it can accommodate lots of nodes.
 
 <p align="center">
-<img src="../../assets/img/distributed/3-multicast.png" style="width: 100%"> <br/>
+<img src="../../assets/img/distributed/3-multicast.PNG" style="width: 100%"> <br/>
 <sub> Multicast slide from CS425 1.1 Multicast Problem</sub>
 </p>
 
-The simplest multicast protocol is centralized protocol. The sender has a receiver list, and it simply sends the message to all the receivers. Implementation of centralized approach is clear, but overhead of sender is high and it is failure prone.
+The simplest multicast protocol is a centralized protocol. The sender has a receiver list, and it simply sends the message to all the receivers. Implementation of the centralized approach is clear, but the overhead of the sender is high and it is failure prone.
 
-Another approach is tree-based multicast. Nodes in the group build a spanning tree. If it is a balanced tree with N number of nodes, the latency of a message is O(log(N)) as the height of tree is O(log(N)). However, maintaining and developing the tree is difficult. Whenever new node comes, we need to change the structure of tree.
+Another approach is tree-based multicast. Nodes in the group build a spanning tree. If it is a balanced tree with N number of nodes, the latency of a message is O(log(N)) as the height of the tree is O(log(N)). However, maintaining and developing the tree is difficult. Whenever a new node comes, we need to change the structure of the tree.
 
 
 
@@ -32,16 +32,16 @@ Another approach is tree-based multicast. Nodes in the group build a spanning tr
 Another way of multicasting is using gossip protocol. So, a node periodically sends a message to a certain number of random targets. Once a node received a message, it becomes *infected*. The infected node should send the received message to random targets periodically.
 
 <p align="center">
-<img src="../../assets/img/distributed/3-gossip.png" style="width: 100%"> <br/>
+<img src="../../assets/img/distributed/3-gossip.PNG" style="width: 100%"> <br/>
 <sub> Gossip Protocol slide from CS425 1.2 Gossip Protocol</sub>
 </p>
 
 There are two types of gossip protocol; Push and Pull.
 
 - Push
-  - Turns into infected when receives message. Gossip a random subset of messages received(priority or recently received)
+  - Turns into infected when receives a message. Gossip a random subset of messages received(priority or recently received)
 - Pull
-  - Periodically poll randomly selected processes for message that are new
+  - Periodically poll randomly selected processes for messages that are new
 
 
 
@@ -84,7 +84,7 @@ $$ \approx (n+1) - \frac{1}{n^{cb-2}} $$
 This implies the above advantages of gossip:
 
 <p align="center">
-<img src="../../assets/img/distributed/3-push-pro.png" style="width: 100%"> <br/>
+<img src="../../assets/img/distributed/3-push-pro.PNG" style="width: 100%"> <br/>
 <sub> Gossip Protocol slide from CS425 1.3 Gossip Analysis</sub>
 </p>
 
@@ -96,11 +96,11 @@ Let $$p_i$$ be the fraction of non-infected processes at round i. Then the proba
 
 $$ p_{i+1} = (p_i)^{k+1} $$
 
-Second half of pull gossip finished in time O(log(log(n))), which is faster than push gossip with O(log(n)).
+The second half of pull gossip finished in time O(log(log(n))), which is faster than push gossip with O(log(n)).
 
 
 
-On next post, we will see how gossip used in maintaining membership protocol.
+On the next post, we will see how gossip used in maintaining membership protocol.
 
 
 
