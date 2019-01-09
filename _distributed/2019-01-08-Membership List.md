@@ -55,6 +55,7 @@ Disadvantages:
 
 
 
+
 ### Ring Heartbeating
 
 Ring heartbeating is a variant of centralized heartbeating. All processes construct virtual ring, and each process sends and receives heartbeating from its neighbors. It is better than centralized heartbeating in a sense that it does not have much overhead. However, it is not complete since multiple failures of process can go undetected. For instance, if $$p_i$$ and both its neighbors fail, the failure of $$p_i$$ cannot be detected.
@@ -85,6 +86,31 @@ Disadvantages:
 <img src="../../assets/img/distributed/4-all.PNG" style="width: 100%"> <br/>
 <sub> All-To-All  Heartbeating slide from CS425 2.2 Failure Detector in week 3</sub>
 </p>
+
+
+
+## Gossip Style
+
+Another variant of heartbeating is gossip-style failure detector, still shows better robustness. Basic operations are same. Each process contains membership lists of other processes, and receive or send heartbeats periodically. Receiver processes mark any process failure if heartbeats of that process does not get renewed within a timeout.
+
+<p align="center">
+<img src="../../assets/img/distributed/4-all.PNG" style="width: 100%"> <br/>
+<sub> Gossip-Style slide from CS425 2.3 Gossip-Style Membership in week 3</sub>
+</p>
+
+So suppose there are 4 processes as we can see in the slide, and each keeps membership list of other processes with their heartbeats, and local time when the process received the heartbeat. On process 1's list, the heartbeats of first and third row is higher than those on the process 2. If process one choose to send its membership list to process 2, the process 2's membership list gets renewed as received heartbeat which are '10120' and '10098' and its local time 70(the list on the right bottom).
+
+In gossip-style, there are two kinds of timeouts:
+
+- $$T_{fail}$$: time intervals after which a process marks another fail, if the heartbeat has not increased
+
+- $$T_{cleanup} $$: time intervals after which a process delete the member from the list after marking it as failure
+
+If a process delete a member from the list right after $$T_{fail}$$, any other processes that have not checked that failed process as failure may send the list including the failed process. As a result, the process who deleted failed process perceive the previously deleted member as new one, and add the member in the list. That is why there is $$ T_{cleanup} $$. Processes wait for other processes mark the failed process as failure.
+
+
+
+A single heartbeat takes O(log(N)) time to propagate to all other processes as discussed in the Gossip Protocol post.
 
 
 
