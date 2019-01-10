@@ -107,7 +107,7 @@ By choosing lambda close to zero, we can get less informative prior.
 In case of our rat tumor example, our DAG is:
 
 <p align ='center'>
-    <img src = "../assets/img/bayesian/5-dag.PNG" style="width: 60%"> <br/>
+    <img src = "../../assets/img/bayesian/5-dag.png" style="width: 60%"> <br/>
     <sub>Directed Acyclic Graph for the rat tumor exmaple</sub>
 </p>
 
@@ -134,7 +134,7 @@ $$ where \;\; j = 1, ..., J $$
 
 In JAGS, we define a stochastic relation, the nodes that are defined in terms of a distribution. So JAGS model looks like:
 
-``` JAGS
+``` 
 model {
   for (j in 1:length(y)){
     y[j] ~ dbin(theta[j], N[j])
@@ -175,7 +175,7 @@ with(d, hist(y/N, freq=FALSE, xlim=c(0,1)))
 ```
 
 <p align ='center'>
-    <img src = "../assets/img/bayesian/5-hist.PNG" style="width: 80%"> <br/>
+    <img src = "../../assets/img/bayesian/5-hist.png" style="width: 80%"> <br/>
     <sub>Histogram of theta</sub>
 </p>
 
@@ -218,7 +218,7 @@ update() function runs sampling that would not be used, but for reliability. We 
 
 Object x contains the output of simulation, $$ \alpha $$ and $$ \beta $$.
 
-```{r analysis}
+```r
 head(x)
 
 [[1]]
@@ -281,7 +281,7 @@ densityplot(x)
 ```
 
 <p align ='center'>
-    <img src = "../assets/img/bayesian/5-post-dense.png" style="width: 100%"> <br/>
+    <img src = "../../assets/img/bayesian/5-post-dense.png" style="width: 100%"> <br/>
     <sub>Histogram of theta</sub>
 </p>
 
@@ -299,9 +299,10 @@ plot(alpha, beta, pch=".", cex=2)
 ```
 
 <p align ='center'>
-    <img src = "../../assets/img/bayesian/5-cor.PNG" style="width: 100%"> <br/>
+    <img src = "../../assets/img/bayesian/5-cor.png" style="width: 100%"> <br/>
     <sub>Histogram of theta</sub>
 </p>
+
 
 It seems that both parameters have some correlations. It seems that exponential hyperpriors does not diffuse enough, and we may try different prior.
 
