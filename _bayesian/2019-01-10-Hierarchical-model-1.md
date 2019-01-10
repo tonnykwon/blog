@@ -273,7 +273,7 @@ $$ \sqrt{var(\beta|y)} \approx 8 $$
 
 
 
-```{r posterior density}
+```r
 require(lattice)
 
 # Posterior marginal distribution
@@ -292,7 +292,7 @@ Using `lattice` package, we can estimate posterior density of $$ \alpha $$ and $
 
 If we plot $$ \alpha $$ and $$ \beta $$:
 
-```{r joint posterior distribution}
+```r
 alpha =as.matrix(x)[,"alpha"]
 beta =as.matrix(x)[,"beta"]
 plot(alpha, beta, pch=".", cex=2)
