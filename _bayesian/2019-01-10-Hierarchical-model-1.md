@@ -107,7 +107,7 @@ By choosing lambda close to zero, we can get less informative prior.
 In case of our rat tumor example, our DAG is:
 
 <p align ='center'>
-    <img src = "../../assets/img/bayesian/5-dag.png" style="width: 60%"> <br/>
+    <img src = "../../assets/img/bayesian/5-rat-dag.png" style="width: 60%"> <br/>
     <sub>Directed Acyclic Graph for the rat tumor exmaple</sub>
 </p>
 
@@ -170,7 +170,7 @@ Rat tumor data consists of two variables, the number of rats developed tumor in 
 
 We can get naive estimate of $$ \theta_j = y_j / n_j$$ and plot histogram of it:
 
-```{r histogram}
+```r
 with(d, hist(y/N, freq=FALSE, xlim=c(0,1)))
 ```
 
