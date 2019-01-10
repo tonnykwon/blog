@@ -54,6 +54,8 @@ Disadvantages:
 </p>
 
 
+Suppose there are N processes and each sends
+
 
 
 ### Ring Heartbeating
@@ -111,6 +113,96 @@ If a process delete a member from the list right after $$T_{fail}$$, any other p
 
 
 A single heartbeat takes O(log(N)) time to propagate to all other processes as discussed in the Gossip Protocol post.
+
+
+
+## Comparison
+
+Now we can compare protocols based on above criteria:
+
+- Completeness: guarantee always
+- Accuracy: probability PM(T)
+- Speed: T time units to first detection of a failure
+- Scale: N*L compare across protocols
+
+
+
+Let's denote $$T =$$ time units process sending out heartbeat, and $$N = $$ number of processes,  $$L=$$ message load per process in terms of T, and $tg$ = period takes to send O(n) gossip messages (every process chooses k targets, k*N = O(N)).
+
+
+
+**All-To-All Heartbeating**
+
+It takes T time unit that processes find out failure, since every process sends out heartbeat to any other processes. Load increases linear with size:
+
+$$ L = N / T $$
+
+**Gossip**
+
+As it takes log(n) time to propagate to all other processes, time takes all processes for the detection is:
+
+$$ T = log(n) * tg $$
+
+As each member contains entire members, load for a process is O(n) per gossip period $$ tg $$. And $$ tg $$ can be substituted in terms of $$ T $$ and $$N $$:
+
+$$ L = N / tg = N * log(n) / T $$
+
+
+
+As we compared, gossip message load is lower than heartbeating protocol, since heartbeating sends more messages with higher accuracy.
+
+
+
+## SWIM Failure Detector
+
+SWIM(Scalable Weakly consistent Infection style Membership protocol) uses pining instead of heartbeating.
+
+<p align="center">
+<img src="../../assets/img/distributed/4-swim.PNG" style="width: 100%"> <br/>
+<sub> SWIM slide from CS425 2.5 Another Probablistic Failure Detector in week 3</sub>
+</p>
+
+Process pi ping randomly chosen process pj. If a process receives a ping message, it responds back with ack(acknowledgement). If pi receives ack message, everything is fine. However, if pj fails or ping message drops, pi indirectly check whether pj fails. It choose another third process and send ping, and that chosen process sends ping to pj. pj responds ack to the third process sends ack message to pi. If pi neither receive direct or indirect message, it marks pj failed.
+
+<p align="center">
+<img src="../../assets/img/distributed/4-swim-vs-heartbeat.PNG" style="width: 100%"> <br/>
+<sub> SWIM slide from CS425 2.5 Another Probablistic Failure Detector in week 3</sub>
+</p>
+
+For heartbeat protocol, if we decrease process load we get high detection time. For instance, if we set process load constant, then detection time would be O(n). In other case when we decrease detection time, we get high process load.
+
+For SWIM, it has both constant load and time.
+
+Probability of not being pinged by other process in T(ping period):
+
+$$ 1- \frac{1}{N} $$
+
+Probability of not being pinged by all other N-1 processes:
+
+$$(1-\frac{1}{N})^{N-1}$$
+
+Then, probability of being pinged by any process in T:
+
+$$1-(1-\frac{1}{N})^{N-1}$$
+
+If N goes infinite, we get:
+
+$$ 1 - e^{-1} $$ , which is $$ \frac{e} {e-1} $$
+
+Thus, expected detection time is:
+
+$$ E[T] = T \frac{e}{e-1} $$
+
+
+
+<p align="center">
+<img src="../../assets/img/distributed/4-swim-analysis.PNG" style="width: 100%"> <br/>
+<sub> SWIM Analysis from CS425 2.5 Another Probablistic Failure Detector in week 3</sub>
+</p>
+
+So expected detection time is constant which is independent of group size N. By changing k, number of ping targets, in time period.
+
+
 
 
 
