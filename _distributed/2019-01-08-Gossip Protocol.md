@@ -120,7 +120,9 @@ $$ \frac {dx}{dt} = -\beta x (n-x+1) $$
 
 $$ \frac {dx} {x(n-x+1)} = -\beta x dt $$
 
-$$ \frac {dx} {x(n+1)} + \frac{dx}{(n+1-x)(n+1)} = \beta dt, \; since \; \frac{1}{x(n+1-x)} = \frac{1}{x(n+1)} + \frac{1}{(n+1-x)(n+1)} $$
+$$ \frac {dx} {x(n+1)} + \frac{dx}{(n+1-x)(n+1)} = \beta dt, \; since$$
+
+$$ \frac{1}{x(n+1-x)} = \frac{1}{x(n+1)} + \frac{1}{(n+1-x)(n+1)} $$
 
  Integrate:
 

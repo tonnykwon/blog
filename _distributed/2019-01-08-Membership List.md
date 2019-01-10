@@ -96,9 +96,10 @@ Disadvantages:
 Another variant of heartbeating is gossip-style failure detector, still shows better robustness. Basic operations are same. Each process contains membership lists of other processes, and receive or send heartbeats periodically. Receiver processes mark any process failure if heartbeats of that process does not get renewed within a timeout.
 
 <p align="center">
-<img src="../../assets/img/distributed/4-all.PNG" style="width: 100%"> <br/>
+<img src="../../assets/img/distributed/4-gossip.PNG" style="width: 100%"> <br/>
 <sub> Gossip-Style slide from CS425 2.3 Gossip-Style Membership in week 3</sub>
 </p>
+
 
 So suppose there are 4 processes as we can see in the slide, and each keeps membership list of other processes with their heartbeats, and local time when the process received the heartbeat. On process 1's list, the heartbeats of first and third row is higher than those on the process 2. If process one choose to send its membership list to process 2, the process 2's membership list gets renewed as received heartbeat which are '10120' and '10098' and its local time 70(the list on the right bottom).
 
@@ -187,7 +188,7 @@ $$1-(1-\frac{1}{N})^{N-1}$$
 
 If N goes infinite, we get:
 
-$$ 1 - e^{-1} $$ , which is $$ \frac{e} {e-1} $$
+$$ 1 - e^{-1} = \frac{e} {e-1} $$
 
 Thus, expected detection time is:
 
