@@ -107,9 +107,10 @@ By choosing lambda close to zero, we can get less informative prior.
 In case of our rat tumor example, our DAG is:
 
 <p align ='center'>
-    <img src = "../../assets/img/bayesian/5-dag.PNG" style="width: 60%"> <br/>
+    <img src = "../assets/img/bayesian/5-dag.PNG" style="width: 60%"> <br/>
     <sub>Directed Acyclic Graph for the rat tumor exmaple</sub>
 </p>
+
 
 Each edge is from a parent to a child, and a distribution of a child is specified conditionally on its parents only. For instance, the distribution of $$\theta$$ is specified by its parents $$\alpha $$ and $$ \beta $$.
 
@@ -174,9 +175,10 @@ with(d, hist(y/N, freq=FALSE, xlim=c(0,1)))
 ```
 
 <p align ='center'>
-    <img src = "../../assets/img/bayesian/5-hist.PNG" style="width: 80%"> <br/>
+    <img src = "../assets/img/bayesian/5-hist.PNG" style="width: 80%"> <br/>
     <sub>Histogram of theta</sub>
 </p>
+
 
 $$ \theta$$ is within around 0 to 0.4, and skewed to right.
 
@@ -279,9 +281,10 @@ densityplot(x)
 ```
 
 <p align ='center'>
-    <img src = "../../assets/img/bayesian/5-post-dense.png" style="width: 100%"> <br/>
+    <img src = "../assets/img/bayesian/5-post-dense.png" style="width: 100%"> <br/>
     <sub>Histogram of theta</sub>
 </p>
+
 
 Using `lattice` package, we can estimate posterior density of $$ \alpha $$ and $$ \beta $$.
 
