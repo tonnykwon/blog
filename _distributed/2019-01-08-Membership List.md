@@ -128,7 +128,7 @@ Now we can compare protocols based on above criteria:
 
 
 
-Let's denote $$T =$$ time units process sending out heartbeat, and $$N = $$ number of processes,  $$L=$$ message load per process in terms of T, and $tg$ = period takes to send O(n) gossip messages (every process chooses k targets, k*N = O(N)).
+Let's denote $$T =$$ time units process sending out heartbeat, and $$N = $$ number of processes,  $$L=$$ message load per process in terms of T, and tg​ = period takes to send O(n) gossip messages (every process chooses k targets, k*N = O(N)).
 
 
 

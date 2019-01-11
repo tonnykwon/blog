@@ -306,6 +306,19 @@ defaults:
       share: true
       related: true
       
+            
+  # _distributed
+  - scope:
+      path: ""
+      type: text
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: true
+      share: true
+      related: true
+      
   # _pages
   - scope:
       path: "_pages"
