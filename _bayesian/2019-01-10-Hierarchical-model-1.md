@@ -6,7 +6,7 @@ categories: Bayesian
 
 Many statistical applications have multiple parameters related to each other. In some cases, similar parameters apply to different subsets of data with a common prior distribution with its *hyperparameters*. In such cases, we can build a hierarchical model. 
 
-Let's start with simple a rat tumor examples. Suppose there are 71 multiple experiments on rat whether they develop tumors or not. So, 
+Let's start with simple a rat tumor example. Suppose there are 71 multiple experiments on rat whether they develop tumors or not. So, 
 
 $$n_j = $$ total number of rats in experiment j
 
