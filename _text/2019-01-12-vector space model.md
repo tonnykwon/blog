@@ -8,10 +8,10 @@ In the last post, we talked about the vector space model for calculating relevan
 
 ## Bit Vector Representation
 
-We use our vocabulary to define dimensions. That is, each dimension represents each term in vocabulary $$ |V|​$$, and if the term is present, it is 1, otherwise 0.
+We use our vocabulary to define dimensions. That is, each dimension represents each term in vocabulary V, and if the term is present, it is 1, otherwise 0.
 
 <p align="center">
-    <img src= "../../assets/img/text/2-bit.PNG", style="width:100%">
+    <img src= "../../assets/img/text/2-bit.PNG" style="width:100%">
     <sub>Bit vector slide from CS410 Lesson 1.6: Vector Space Retrieval Model</sub>
 </p>
 
@@ -31,7 +31,7 @@ Based on the dot product, similarities of each document is 2, 3, 1, 3. With bit 
 
 ## Term Frequency
 
-Term frequency solves two limitations of bit representations by counting a term occurrence in a document:
+Term frequency solves the frequency issue of bit representations by counting a term occurrence in a document:
 
 $$ TF(w, d) = count(w,d) $$
 
