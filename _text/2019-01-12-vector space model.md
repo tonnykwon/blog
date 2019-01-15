@@ -109,7 +109,24 @@ $$ normalizer = 1 - b +b \frac{|d|}{avdl}, \; where \; b \in [0,1] ​$$
 
 \|d\| is the length of document and avdl is the average document length.
 
+<p>
+	<img src = "../assets/img/text/2-doclen.PNG">
+    <sub>Pivoted Length Normalization. Reprinted from Text data management and analysis: a practical introduction to information retrieval and text mining(p.107), by Zhai, C., & Massung, S. (2016). Morgan & Claypool.</sub>
+</p>
 
+As the name suggests, if the length of a document is on average, the score is about right. If it is longer than the average, it will get penalization based on its document length and the parameter b. If it is shorter, it will get reward. Depending on the value of b, the degree of penalization or reward varies.
+
+Everything we learned so far such as TF, IDF, document length normalization and so on combined, it looks like:
+
+$$ f(q,d) = \sum_{w in q \cap d} c(w,q) \frac{ln(1+ln(1+c(w,d)))}{k(1 - b +b \frac{\|d\|}{avdl})} log \frac { M+1 }{df(w) } \;\; b \in [0,1], \;\;, k \in [0, + \inf]  ​$$
+
+c(w,q) indicates the count of words, and for the first fraction, the nominator is TF transformation for sublinear, and the denominator is length normalizer. And lastly, we have IDF.
+
+Another state-of-the-art vector space model is Okapi BM25:
+
+$$ f(q,d) = \sum_{w in q \cap d} c(w,q) \frac{(k+1)c(w,d)}{c(w,d) + k(1 - b +b \frac{\|d\|}{avdl})} log \frac { M+1 }{df(w) } \;\; b \in [0,1], \;\;, k \in [0, + \inf]  $$
+
+It is very similar to the pivoted length normalization formula above, except it uses upper bound transformation instead of double logarithm for sublinear transformation.
 
 
 
