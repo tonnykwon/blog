@@ -61,6 +61,8 @@ $$ IDF(with) = log(\frac{1001}{500}) \approx 0.301 $$
 
 $$ IDF(mining) = log(\frac{1001}{100}) \approx 1 $$
 
+
+
 Now recalculate similarity of document 1 and 4 with TF-IDF Weighting:
 
 $$ f(q, d) = \sum_{i=1}^N x_i, y_i = \sum_{w \in q \cap d}  c(w,q) c(w,d) log\frac{M+1}{df(w)}​$$
@@ -110,13 +112,13 @@ $$ normalizer = 1 - b +b \frac{|d|}{avdl}, \; where \; b \in [0,1] ​$$
 \|d\| is the length of document and avdl is the average document length.
 
 <p>
-	<img src = "../assets/img/text/2-doclen.PNG">
+	<img src = "../../assets/img/text/2-doclen.PNG">
     <sub>Pivoted Length Normalization. Reprinted from Text data management and analysis: a practical introduction to information retrieval and text mining(p.107), by Zhai, C., & Massung, S. (2016). Morgan & Claypool.</sub>
 </p>
 
 As the name suggests, if the length of a document is on average, the score is about right. If it is longer than the average, it will get penalization based on its document length and the parameter b. If it is shorter, it will get reward. Depending on the value of b, the degree of penalization or reward varies.
 
-Everything we learned so far such as TF, IDF, document length normalization and so on combined, it looks like:
+With everything we learned so far such as TF, IDF, document length normalization and so on combined, pivoted length normalization looks like:
 
 $$ f(q,d) = \sum_{w in q \cap d} c(w,q) \frac{ln(1+ln(1+c(w,d)))}{k(1 - b +b \frac{\|d\|}{avdl})} log \frac { M+1 }{df(w) } \;\; b \in [0,1], \;\;, k \in [0, + \inf]  ​$$
 
