@@ -307,10 +307,22 @@ defaults:
       related: true
       
             
-  # _distributed
+  # _text
   - scope:
       path: ""
       type: text
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: true
+      share: true
+      related: true
+      
+# _machine learning
+  - scope:
+      path: ""
+      type: machine
     values:
       layout: single
       author_profile: true

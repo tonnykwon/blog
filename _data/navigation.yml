@@ -6,8 +6,8 @@ main:
      url: /text/
    - title: "Distributed System"
      url: /distributed/
-   - title: "About"
-     url: /about/
+   - title: "Machine Learning"
+     url: /machine/
   # - title: "Sample Collections"
   #   url: /collection-archive/
   # - title: "Sitemap"
