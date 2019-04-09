@@ -2,6 +2,7 @@
 title: "1 - Bayesian Statistic"
 date: 2018-12-22 15:24:00 -0400
 categories: Bayesian
+mathjax: true
 ---
 ## Frequentist
 Suppose we toss a coin and guess it is head or tail. Then, P(H) indicates the probability of getting the head side. In frequentist view, we see relative frequency of events. That is when we toss the coin infinite number of times and get head side half of times, then we can define P(H) equals 1/2. The true P(H) value is unknown but a fixed constant. Thus, in the frequentist paradigm, it tries to be objective in defining probabilities.

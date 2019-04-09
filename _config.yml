@@ -278,6 +278,9 @@ collections:
   text:
     output: true
     permalink: /:collection/:path/
+  machine:
+    output: true
+    permalink: /:collection/:path/
 
 # Front Matter
 # Defaults
