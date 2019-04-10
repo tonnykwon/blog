@@ -2,6 +2,7 @@
 title: "4 - Membership"
 date: 2019-01-08
 categories: Distributed
+mathjax:true
 ---
 
 ## Membership

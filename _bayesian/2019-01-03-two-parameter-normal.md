@@ -2,6 +2,7 @@
 title: "4 - Two Parameters Normal"
 date: 2019-01-03
 categories: Bayesian
+mathjax:true
 ---
 
 ## Multiparameter Model

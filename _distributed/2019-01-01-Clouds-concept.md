@@ -2,6 +2,7 @@
 title: "1 - Cloud Concept"
 date: 2018-01-01
 categories: Distributed
+mathjax:true
 ---
 ## What is Cloud?
 Cloud is a bunch of storage that can store big amount of data with computed cycle located data moving around.

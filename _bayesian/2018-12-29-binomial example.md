@@ -2,6 +2,7 @@
 title: "2 - Binomial Example Continued"
 date: 2018-12-26 23:15:00 -0400
 categories: Bayesian
+mathjax: true
 ---
 In the last post, we talked about the binomial example from Bayesian perspective. We only considered using the uniform prior distribution for $$ \theta $$. It is reasonable to use such non-informative prior when we do not have any knowledge about the $$ \theta $$. <br/>
 We consider other prior distribution for the coin tossing experiments. The prior express all plausible parameter values of $$ \theta $$, but it does not need to be concentrated on realistic values. This is because the information about $$ \theta $$ in data usually outweighs the prior knowledge about $$ \theta $$. <br/>

@@ -2,6 +2,7 @@
 title: "2 - MapReduce"
 date: 2019-01-01
 categories: Distributed
+mathjax:true
 ---
 ## What is MapReduce?
 MapReduce is a framework and implementation for processing and generating big data. The term originally comes from functional language such as Lisp. As name suggests, MapReduce consists of two procedures, mapping and reducing. <br/>
