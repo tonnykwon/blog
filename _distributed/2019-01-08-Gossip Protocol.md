@@ -2,7 +2,7 @@
 title: "3 - Gossip Protocol"
 date: 2019-01-08
 categories: Distributed
-mathjax:true
+mathjax: true
 ---
 
 

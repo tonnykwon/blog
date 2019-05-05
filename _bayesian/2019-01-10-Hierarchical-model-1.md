@@ -2,7 +2,7 @@
 title: "5 - Hierarchical Model I"
 date: 2019-01-10
 categories: Bayesian
-mathjax:true
+mathjax: true
 ---
 
 Many statistical applications have multiple parameters related to each other. In some cases, similar parameters apply to different subsets of data with a common prior distribution with its *hyperparameters*. In such cases, we can build a hierarchical model. 

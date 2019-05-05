@@ -2,7 +2,7 @@
 title: "6 - Hierarchical Model 2"
 date: 2019-01-18
 categories: Bayesian
-mathjax:true
+mathjax: true
 ---
 
 

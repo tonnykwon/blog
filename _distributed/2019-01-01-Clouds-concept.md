@@ -2,7 +2,7 @@
 title: "1 - Cloud Concept"
 date: 2018-01-01
 categories: Distributed
-mathjax:true
+mathjax: true
 ---
 ## What is Cloud?
 
