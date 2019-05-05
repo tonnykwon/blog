@@ -5,9 +5,11 @@ categories: Bayesian
 mathjax: true
 ---
 ## Frequentist
+
 Suppose we toss a coin and guess it is head or tail. Then, P(H) indicates the probability of getting the head side. In frequentist view, we see relative frequency of events. That is when we toss the coin infinite number of times and get head side half of times, then we can define P(H) equals 1/2. The true P(H) value is unknown but a fixed constant. Thus, in the frequentist paradigm, it tries to be objective in defining probabilities.
 
 ### Binominal Example
+
 Now, we want to know whether a coin is fair or not, which is kind of the same question above. As a result of tossing the coin 100 times, we get 55 heads and 45 tails. Based on the central limit theorem, the summed number of the head(x) will approximately follow a normal distribution.
 \\[ \sum_{i=1}^{100} x_i \sim N(100p, 100p(1-p))  \\] 
 That is, the 95% confidence interval would be $$  100p \pm 1.96 \sqrt{100p(1-p)}$$.

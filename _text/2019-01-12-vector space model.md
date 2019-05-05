@@ -5,6 +5,8 @@ categories: Text
 mathjax:true
 ---
 
+
+
 In the last post, we talked about the vector space model for calculating relevance between a document and a query. Here we go a little deeper about the vector space model. Recall that vector space model computes relevances based on similarity. Let's start with the basic vector space model, bit vector representation.
 
 ## Bit Vector Representation

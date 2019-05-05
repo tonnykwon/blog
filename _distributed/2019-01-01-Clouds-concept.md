@@ -5,8 +5,10 @@ categories: Distributed
 mathjax:true
 ---
 ## What is Cloud?
+
 Cloud is a bunch of storage that can store big amount of data with computed cycle located data moving around.
 Single Data center consists of:
+
 - Compute nodes
 - Switches, connecting the racks
 - A network topology
