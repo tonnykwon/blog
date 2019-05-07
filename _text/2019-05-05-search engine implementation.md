@@ -20,13 +20,14 @@ Tokenizer is to how to represent the raw strings. By separating a document to to
 Indexing is to convert the tokenized documents to data structures that enable fast search. As it takes too much time and memory to search over all text documents when queried, we instead use inverted index. Inverted index is a data structure that composed of two parts. First lexicon(or dictionary) part is a table that contains the number of documents and the number of total frequency of each term. Second part, postings, is a part which tells where the term shows up in which document and in where it is positioned.
 
 <p>
-	<img src = "../assets/img/text/3-inverted-index.PNG">
+	<img src = "../../assets/img/text/3-inverted-index.PNG">
     <sub>Inverted index. Reprinted from Text data management and analysis: a practical introduction to information retrieval and text mining(p.151), by Zhai, C., & Massung, S. (2016). Morgan & Claypool.</sub>
 </p>
 
+
 Following python code is not exactly inverted index, but builds dictionary of term id and lists of documents ids where the term shows.
 
-```{python}
+```python
 def inverted_index(corpus, min=1, max=10):
     """
     Create inverted index
@@ -47,7 +48,7 @@ def inverted_index(corpus, min=1, max=10):
     [[inv_idx[word].append(idx) 
       for word in text.split() if (len(word)>min and len(word)<max) ] 
      for idx, text in enumerate(corpus)]
-        
+    
     return inv_idx
 ```
 
