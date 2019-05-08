@@ -28,7 +28,7 @@ $$ \propto \prod^n_{i=1}  \frac{1}{\sqrt{\sigma^2} }{exp(-\frac{1}{2\sigma^2}(y_
 
 $$ \propto \frac{1}{(\sigma^2)^{n/2}}{exp(-\frac{1}{2\sigma^2}\sum^n_{i=1}(y_i-\mu)^2}) $$
 
-In the Bayesian analysis, we only need to know only proportionality of parameters. So on second line, we can drop two pi portion.  And then on third line, we combine product to so product of $$ \sqrt{\sigma^2} $$ becomes  $$ (\sigma^2)^{n/2} $$. On exponential portion , the product of exponential is the common factor multiplies the sum of $$ (y_i - \mu)^2 $$ factors.
+In the Bayesian analysis, we only need to know proportionality of parameters. So on second line, we can drop two pi portion.  And then on third line, we compute front product, so product of $$ \sqrt{\sigma^2} $$ becomes  $$ (\sigma^2)^{n/2} $$. On exponential portion, the product of exponential is the common factor multiplies the sum of $$ (y_i - \mu)^2 $$ factors.
 
 Note:
 
