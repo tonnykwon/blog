@@ -39,7 +39,7 @@ The posterior distribution is the product of conditional and marginal posterior 
 
 ## Non-informative Prior
 
-In the normal only sample, we assumed non-informative prior for mean as:
+Let's begin with non-informative prior with a convenient assumption for mean as:
 
 $$ p(\mu) \propto 1 $$
 
@@ -81,7 +81,7 @@ To get the marginal posterior distribution of $$ \sigma^2 $$, we need to average
 
 $$ p(\sigma^2 |y) \propto \int \sigma^{-n-2} exp(-\frac{1}{2\sigma^2} [ (n-1)s^2 + n(\bar y - \mu)^2 ]) d \mu $$
 
-$$ \propto \sigma^{-n-2} exp(-\frac{1}{2\sigma^2} [ (n-1)s^2]) \int exp([n(\bar y - \mu)^2 ]) d \mu  $$
+$$ \propto \sigma^{-n-2} exp(-\frac{1}{2\sigma^2} [ (n-1)s^2]) \int exp(-\frac{1}{2\sigma^2} [n(\bar y - \mu)^2 ]) d \mu  $$
 
 $$ \propto \sigma^{-n-2} exp(-\frac{1}{2\sigma^2} [ (n-1)s^2])  \sqrt{2\pi \sigma^2/n} $$
 
@@ -101,7 +101,7 @@ To find joint posterior density, we need to find the conditional posterior densi
 
  $$ p(\mu | \sigma^2, y) $$
 
-From the joint posterior density above, we eliminate other terms that are constant with respect to $$ \mu $$, and rewrite the term give:
+From the joint posterior density above, we eliminate other terms that are constant with respect to $$ \mu $$, rewrite the term and it gives:
 
 $$ p(\mu | \sigma^2 , y) \propto exp(- \frac{ n(\mu-\bar y)^2)}{2\sigma^2}$$
 
@@ -121,7 +121,11 @@ Now we can draw samples from the joint posterior distribution: first we draw $$ 
 
 Simulate
 
-$$ \sigma^2_{sim} = (n-1)s^2 /X $$
+$$ \sigma^2_{sim} \sim (n-1)s^2 / \chi^2(n-1) $$
+
+or
+
+$$ \sigma_{sim}^2  \sim Inv-\chi^2 (n-1, s^2) $$ 
 
 Then simulate
 
