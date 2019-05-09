@@ -5,7 +5,7 @@ categories: Bayesian
 mathjax: true
 ---
 
-
+In this post, we will discuss about hierarchical model based on normal distributions.
 
 
 

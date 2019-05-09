@@ -62,7 +62,7 @@ Then we can derive $$\theta_j$$ random from a common population distribution.
 Advantages:
 
 - Can define overall probability
-- Can asses variability among experiments
+- Can assess variability among experiments
 - Can improve estimation of $$ \theta_j$$ through more informative prior(pooling)
 
 In the experiments, no information is available about $$ \theta_j $$. In other words, we cannot distinguish each $$ \theta_j $$, and this symmetry is called *exchangeability* that their joint distribution is invariant to permutations of the indexes(1, .., J).
@@ -73,7 +73,7 @@ In the experiments, no information is available about $$ \theta_j $$. In other w
 
 ## Modeling
 
-Now we find out option 3, building a hierarchical model, has advantages over other options, we want to model $$ \theta_j $$ as if they are independent from same distribution.
+Now we found out option 3, building a hierarchical model, has advantages over other options, it is time to model $$ \theta_j $$ as if they are independent from same distribution.
 
 So based on hierarchical model, this model has two levels:
 
@@ -103,7 +103,7 @@ By choosing lambda close to zero, we can get less informative prior.
 
 ## Graphical Model
 
-**Directed Acyclic Graph(DAG)**  can show hierarchical models graphically with edges and arrows. Each variables are nodes, and connections are edges. The box is a plate that indicates nodes in the box are vector.
+**Directed Acyclic Graph(DAG)**  can show hierarchical models graphically with edges and arrows. Each variables are nodes, and connections are edges. The plate indicates that nodes in the plate are vector.
 
 In case of our rat tumor example, our DAG is:
 
@@ -119,7 +119,7 @@ Each edge is from a parent to a child, and a distribution of a child is specifie
 
 ## Simulation
 
-There are many Bayesian simulation software. And we will use JAGS(Just Another Gibbs Sampler), which automate posterior simulation, requiring only a DAG model to be specified.
+There are many Bayesian simulation software. And we will use JAGS(Just Another Gibbs Sampler), which automates posterior simulation, requiring only a DAG model to be specified.
 
 So our full model is:
 
@@ -133,7 +133,7 @@ $$ where \;\; j = 1, ..., J $$
 
 
 
-In JAGS, we define a stochastic relation, the nodes that are defined in terms of a distribution. So JAGS model looks like:
+In JAGS, we define a stochastic relation, which is the nodes that are defined in terms of a distribution. So JAGS model looks like:
 
 ``` 
 model {
@@ -215,7 +215,7 @@ x <- coda.samples(m, c("alpha", "beta"), n.iter=10000)
 |**************************************************| 100%
 ```
 
-update() function runs sampling that would not be used, but for reliability. We call this burn-in and cover int later posts. Then we run more samples with coda.samples(), specifying nodes to sample and the number of iterations.
+update() function runs sampling that would not be used, but for reliability. This process is called 'burn-in' and will be covered in later posts. After 'burn-in', we run more samples with coda.samples(), specifying nodes to sample and the number of iterations.
 
 Object x contains the output of simulation, $$ \alpha $$ and $$ \beta $$.
 
@@ -262,15 +262,15 @@ alpha 1.545  2.445  3.128  4.169  8.598
 beta  9.285 14.694 18.870 24.944 49.155
 ```
 
-summary() function explains pretty much about the sampling result. Iterations indicate the iterations number we used, and we discard burn-in iterations 1:2500 and another 1000 iterations are used for adaptations. And we can get estimates of posterior mean and quantiles of variables. From them. we can summarize results:
+summary() function explains most of the sampling result. Iterations indicate the iterations number used. Burn-in iterated over 1:2500 and another 1000 iterations are used for adaptations. And we can get estimates of posterior mean and quantiles of variables. From them. we can summarize results:
 
-$$ E(\alpha | y) \approx 3.4 $$
+$$ E(\alpha | y) \approx 3.5 $$
 
-$$ \sqrt{var(\alpha|y)} \approx 1.4 $$
+$$ \sqrt{var(\alpha|y)} \approx 1.7 $$
 
-$$ E(\beta | y) \approx 20 $$
+$$ E(\beta | y) \approx 21 $$
 
-$$ \sqrt{var(\beta|y)} \approx 8 $$
+$$ \sqrt{var(\beta|y)} \approx 10 $$
 
 
 
@@ -305,7 +305,20 @@ plot(alpha, beta, pch=".", cex=2)
 </p>
 
 
-It seems that both parameters have some correlations. It seems that exponential hyperpriors does not diffuse enough, and we may try different prior.
+It seems that both parameters have some correlations which violates the assumption that $\alpha$ and $\beta$ are independnet. It seems that exponential hyperpriors does not diffuse enough, and needs to try different prior.
+
+
+
+When we plot log($\alpha / \beta $) and log($\alpha +\beta$) instead:
+
+```R
+plot(log(alpha/beta), log(alpha+beta), pch=".", cex=2)
+```
+
+<p align ='center'>
+    <img src = "../../assets/img/bayesian/5-new-cor.png" style="width: 100%"> <br/>
+    <sub>Histogram of permutations of alpha and beta</sub>
+</p>
 
 
 
