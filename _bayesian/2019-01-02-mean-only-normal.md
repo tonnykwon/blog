@@ -115,7 +115,7 @@ And we assume the conjugate prior form:
 
 $$ \mu \sim N(\mu_0, \tau_0^2) $$
 
-$$ p(\mu) exp(\propto exp(-\frac{1}{2\tau_0^2}(\mu - \mu_0)^2) ) $$
+$$ p(\mu)  \propto exp(-\frac{1}{2\tau_0^2}(\mu - \mu_0)^2) $$
 
 Then according to Bayes' rule:
 
@@ -125,7 +125,9 @@ $$ \propto exp(-\frac{1}{2\sigma^2}(\mu - \mu_0)^2 -\frac{n}{2\sigma^2}(\mu - \b
 
 We can notify the first term from prior and the second term from likelihood is in quadratic form with $$ \mu $$. So, the product of two form is a normal:
 
-$$p(\mu | y) \propto exp(-\frac{1}{2\sigma^2}(\mu - \mu_0)^2 -\frac{n}{2\sigma^2}(\mu - \bar y)^2) $$
+$$p(\mu | y) \propto exp(-\frac{1}{2\tau_0^2}(\mu- \mu_0)^2 -\frac{n}{2\sigma^2}(\bar y - \mu)^2) $$
+
+$$ = exp(-\frac{1}{2}(\frac{(\mu-\mu_0)^2}{\tau_0^2} +\frac{n (\bar y-\mu)^2}{\sigma^2} ) )  $$
 
 $$ =  exp(- \frac{\mu^2 -2\mu\mu_0 + \mu_0^2}{2\tau_0^2} -\frac{n(\mu^2 -2\mu\bar y + \mu^2)}{2\sigma^2}) $$
 
@@ -193,15 +195,15 @@ curve(dnorm(x, mu0, sqrt(tau.2.0)), -1, 5, add=TRUE, lty=2)
 
 Now, we can get posterior central interval using calculated $$\mu_n$$ and $$ \tau_n $$:
 
-$$ \mu_n \pm 1.96 \sqrt(\tau_n^2) $$
+$$ \mu_n \pm 1.96 \sqrt{\tau_n^2} $$
 
 ```r
-(pci = mun+c(1, -1)*1.96*sqrt(tau.2.n))
-[1] 1.556031 1.247582
+(pci = mun+c(-1, 1)*1.96*sqrt(tau.2.n))
+[1] 1.247582 1.556031
 
 # original scale
 exp(pci)
-[1] 4.739971 3.481915
+[1] 3.481915 4.739971
 ```
 
 
