@@ -305,11 +305,11 @@ plot(alpha, beta, pch=".", cex=2)
 </p>
 
 
-It seems that both parameters have some correlations which violates the assumption that $\alpha$ and $\beta$ are independnet. It seems that exponential hyperpriors does not diffuse enough, and needs to try different prior.
+It seems that both parameters have some correlations which violates the assumption that $$\alpha$$ and $$\beta$$ are independnet. It seems that exponential hyperpriors does not diffuse enough, and needs to try different prior.
 
 
 
-When we plot log($\alpha / \beta $) and log($\alpha +\beta$) instead:
+When we plot log($$\alpha / \beta $$) and log($$\alpha +\beta$$) instead:
 
 ```R
 plot(log(alpha/beta), log(alpha+beta), pch=".", cex=2)
