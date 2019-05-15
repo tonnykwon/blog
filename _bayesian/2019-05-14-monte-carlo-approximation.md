@@ -5,6 +5,10 @@ categories: Bayesian
 mathjax: true
 ---
 
+So far we have computed the posterior distribution by simulating directly from a combinations of standard distributions such as normal, beta, Poisson, and so on. Since $$\theta$$ is almost always continuous, the simulation mostly includes integrations. We could compute the posterior this way because the computations are analytically in closed forms. 
+
+When it comes to high dimensions, or complex models, however, the posterior distribution may not have standard forms and it requires other methods to compute integration.
+
 
 
 ## Deterministic Method
@@ -56,6 +60,41 @@ The integral of $$xe^x$$ equals 1 when analytically calculated. As we can see ab
 
 
 ## Rejection Sampling
+
+Rejection sampling is a technique to sample efficiently from a distribution. Rejection sampling is used when the target distribution, $$p(\theta)$$ is known, but so complicated that makes hard to directly sample.
+
+First we need to set proposal distribution, let's say $$q(\theta)$$, which is easy to draw samples. We generate samples from q distribution and accept the samples that are in the distribution $$p(\theta)$$, while rejecting others. Given enough samples, it will converge to $$p(\theta)$$. It is important that the proposal distribution covers all the target distribution. That is, $$kq(\theta) > p(\theta)$$, where k is s scaling factor.
+
+```R
+x = seq(-10, 10,0.1)
+y = dnorm(x, 1, 1)
+y2 = dnorm(x, -2, 2)
+px = y+y2
+plot(x,px, type = 'l', col='blue')
+```
+
+<p align='center'>
+    <img src="../../assets/img/bayesian/7-px.png" style="width: 60%">
+    <br/>
+    <sub>Target distribution</sub>
+</p>
+
+Suppose above distribution is the target distribution, $$ p(\theta)$$. It is a mixture of Gaussian: N(1,1) +N(-2,2).
+
+```R
+qx = dnorm(x, 0, 3)
+plot(x, px, col= "blue", type='l')
+lines(x, qx)
+legend(7, 0.45, legend= c('px', 'qx'), col = c('black', 'blue'), lty=1)
+```
+
+<p align='center'>
+    <img src="../../assets/img/bayesian/7-qx.png" style="width: 60%">
+    <br/>
+    <sub>Proposal distribution</sub>
+</p>
+
+If we pick normal distribution with 0 mean and 3 variance as a proposal distribution, we can intuitively know samples from the proposal distribution will not cover the target distribution. Thus, we use a scaling factor, $$k$$, to envelop the target distribution. To do so, we need to get maximum ratio of the target distribution and the proposal distribution.
 
 
 
