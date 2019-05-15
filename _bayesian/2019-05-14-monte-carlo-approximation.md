@@ -7,12 +7,6 @@ mathjax: true
 
 
 
-So far we have computed the posterior distribution, $$ p(\theta| y) $$, by simulating directly from a combinations of standard distributions such as normal, beta, Poisson, and so on. Since $$\theta$$ is almost always continuous, the simulation mostly includes integrations. We could compute the posterior this way because the computations are analytically in closed forms. 
-
-When it comes to high dimensions, or complex models, however, the posterior distribution may not have standard forms and it requires other methods to compute integration.
-
-
-
 ## Deterministic Method
 
 Suppose we want to evaluate the posterior expectation of a function $$h(\theta)$$. That is:
@@ -58,6 +52,12 @@ mean(x*exp(x))
 ```
 
 The integral of $$xe^x$$ equals 1 when analytically calculated. As we can see above R code, simulating 10,000 times are much closer to 1 compared to simulating 1,000 times.
+
+
+
+## Rejection Sampling
+
+
 
 
 
