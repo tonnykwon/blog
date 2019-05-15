@@ -5,7 +5,7 @@ categories: Bayesian
 mathjax: true
 ---
 
-
+So far we have computed the posterior distribution, $$ p(\theta| y) $$, by simulating directly from a combinations of standard distributions such as normal, beta, Poisson, and so on. Since $$\theta$$ is almost always continuous, the simulation mostly includes integrations. We could compute the posterior this way because the computations are analytically in closed forms. 
 
 
 
