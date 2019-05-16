@@ -9,8 +9,6 @@ mathjax: true
 
 Naive Bayes Classifier is a classifier out of a probability model. Assume we already know the posterior probability, p(y|x), where x is a vector with multiple properties, and y is a scalar indicating  specific class. Now we will assign the class y for the data that has highest probability p(y|x). And the issue here is how to find the probability p(y|x).
 
-
-
 Applying Bayes' rule gives:
 
 $$ p(y|x) = \frac{p(x|y) p(y)} {p(x)} $$
@@ -27,11 +25,9 @@ Then the posterior would be:
 
 $$ p(y|x) = \frac{p(x|y) p(y)} {p(x)} $$
 
-$$ =  \frac{(\prod_j p(x^{(j)} | y))   p(y)} {p(x)} $$
+$$ =  \frac {\prod_j (p(x^{(j)} | y))   p(y)} {p(x)} $$
 
-$$ \propto (\prod_j p(x^{(j)} | y) ) p(y)$$
-
-
+$$ \propto \prod_j (p(x^{(j)} | y) ) p(y)$$
 
 Since we only need to know $\underset{y \in Y}{\operatorname{argmax}} p(y|x)$, we do not necessarily know the normalizer $$p(x)$$, which y is not dependent on. By taking the highest proportionality, we can get the class y which is the most probable.
 
@@ -65,7 +61,7 @@ data.head()
 4	5	116	74	0	0	25.6	0.201	30	0
 ```
 
-Most of features such as 'Glucose', 'BloodPressure' are continuous, and it is proper to use a normal distribution for modeling likelihood probability p(x|y). And the 'Class' feature is the target variable.
+Most of features such as 'Glucose', 'BloodPressure' are continuous, so it is proper to use a normal distribution for modeling likelihood probability p(x|y). And the 'Class' feature is the target variable.
 
 Split dataset into train, and test set. And we will use train set for fitting parameters with maximum likelihood, and then evaluate the model with test set.
 
