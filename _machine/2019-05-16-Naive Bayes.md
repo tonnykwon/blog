@@ -2,13 +2,12 @@
 title: "2 - Naive Bayes"
 date: 2019-05-16
 categories: Machine
+mathjax: true
 ---
 
-## temp
 
 
-
-Naive Bayes Classifier is a classifier out of a probability model. Assume we already know the posterior probability, \(p(y|x)\). Now we will assign the class y for the data that has highest probability $$p(y|x)$$. And the issue here is how to find the probability $$p(y|x) $$.
+Naive Bayes Classifier is a classifier out of a probability model. Assume we already know the posterior probability, \(p(y|x)\). Now we will assign the class y for the data that has highest probability \(p(y|x)​\). And the issue here is how to find the probability \(p(y|x) \).
 
 Applying Bayes' theorem gives:
 
