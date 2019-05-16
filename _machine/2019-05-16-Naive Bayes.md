@@ -33,7 +33,7 @@ $$ \propto (\prod_j p(x^{(j)} | y) ) p(y)$$
 
 
 
-Since we only need to know $$\underset{y \in Y}{\operatorname{argmax}} p(y|x)$$, we do not necessarily know the normalizer $$p(x)$$, which y is not dependent on. By taking the highest proportionality, we can get the class y which is the most probable.
+Since we only need to know $\underset{y \in Y}{\operatorname{argmax}} p(y|x)$, we do not necessarily know the normalizer $$p(x)$$, which y is not dependent on. By taking the highest proportionality, we can get the class y which is the most probable.
 
 Note that it requires multiplying probabilities. When a large number of probabilities are multiplied, we may end up getting zero due to the underflow of floating point system. Thus, we use log to the probabilities, and now we only need adding them up.
 
@@ -41,7 +41,7 @@ $$log(p(y|x)) \propto \sum_j log(p(x^{(j)}|y)) + log(p(y)) $$
 
 Since the logarithm function is monotonic that  a > b is equivalent to log(a) > log(b), we choose the class which gives the highest value of log probability. It is usual to get p(y) by counting the number of examples with class y, and divide it by the number of whole training examples.
 
-For $$p(x^{(j)}|y) $$, there are wide range of possible parametric models. If $$x^{(j)}$$ is continuous, we could use a normal distribution. When $$x^{(j)}$$ is a count, we could fit a Poisson distribution. If $$x^{(j)}$$ is a binary variable, we could use a Bernoulli distribution. And we choose parameters of distributions by using maximum likelihood. It turns out these basic forms of distributions work effectively.
+For $p(x^{(j)}|y) $, there are wide range of possible parametric models. If $x^{(j)}$ is continuous, we could use a normal distribution. When $x^{(j)}$ is a count, we could fit a Poisson distribution. If $x^{(j)}$ is a binary variable, we could use a Bernoulli distribution. And we choose parameters of distributions by using maximum likelihood. It turns out these basic forms of distributions work effectively.
 
 
 
