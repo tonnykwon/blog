@@ -7,8 +7,6 @@ mathjax: true
 
 
 
-Naive Bayes Classifier is a classifier out of a probability model. Assume we already know the posterior probability, p(y|x), where x is a vector with multiple properties, and y is a scalar indicating  specific class. Now we will assign the class y for the data that has highest probability p(y|x)​. And the issue here is how to find the probability p(y|x) .
-
 Applying Bayes' rule gives:
 
 $$ p(y|x) = \frac{p(x|y) p(y)} {p(x)} $$
@@ -29,9 +27,13 @@ $$ =  \frac{(\prod_j p(x^{(j)} | y))   p(y)} {p(x)} $$
 
 $$ \propto (\prod_j p(x^{(j)} | y) ) p(y)$$
 
+Since we only need to know $$\underset{y \in Y}{\operatorname{argmax}} p(y|x)$$, we do not necessarily know the normalizer $$p(x)$$, which y is not dependent on. By taking the highest proportionality, we can get the class y which is the most probable.
 
 
 
+
+
+Naive Bayes Classifier is a classifier out of a probability model. Assume we already know the posterior probability, p(y|x), where x is a vector with multiple properties, and y is a scalar indicating  specific class. Now we will assign the class y for the data that has highest probability p(y|x)​. And the issue here is how to find the probability p(y|x).
 
 
 
