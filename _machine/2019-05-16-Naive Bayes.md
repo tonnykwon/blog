@@ -13,7 +13,7 @@ Applying Bayes' rule gives:
 
 $$ p(y|x) = \frac{p(x|y) p(y)} {p(x)} $$
 
-The post <a href ="../bayesian/2018-12-26-bayesian-statistics/">Bayesian Statistics</a>> in Bayesian session covers specific of each probability in Bayes' rule.
+The post <a href ="<https://tonnykwon.github.io/blog/bayesian/2018-12-26-bayesian-statistics">Bayesian Statistics</a> in Bayesian session covers specific of each probability in Bayes' rule.
 
 
 
