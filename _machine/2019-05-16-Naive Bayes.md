@@ -5,15 +5,17 @@ categories: Machine
 mathjax: true
 ---
 
-## Naive Bayes Classifier
 
-Naive Bayes Classifier is a classifier out of a probability model. Assume we already know the posterior probability, p(y|x), where x is a vector with multiple properties, and y is a scalar indicating  specific class. Now we will assign the class y for the data that has highest probability p(y|x). And the issue here is how to find the probability p(y|x).
+
+Naive Bayes Classifier is a classifier out of a probability model. Assume we already know the posterior probability, $$p(y \mid x)$$, where x is a vector with multiple properties, and y is a scalar indicating  specific class. Now we will assign the class y for the data that has the highest probability $$p(y \mid x)$$. And the issue here is how to find that probability.
+
+
 
 Applying Bayes' rule gives:
 
 $$ p(y|x) = \frac{p(x|y) p(y)} {p(x)} $$
 
-The post <a href ="https://tonnykwon.github.io/blog/bayesian/2018-12-26-bayesian-statistics">Bayesian Statistics</a> in Bayesian session covers specific of each probability in Bayes' rule.
+The post <a href ="https://tonnykwon.github.io/blog/bayesian/2018-12-26-bayesian-statistics">Bayesian Statistics</a> in Bayesian session  specifically covers each probabilities in Bayes' rule.
 
 
 
@@ -29,7 +31,7 @@ $$ =  \frac {\prod_j (p(x^{(j)} | y))   p(y)} {p(x)} $$
 
 $$ \propto \prod_j (p(x^{(j)} | y) ) p(y)$$
 
-Since we only need to know $\underset{y \in Y}{\operatorname{argmax}} p(y|x)$, we do not necessarily know the normalizer $$p(x)$$, which y is not dependent on. By taking the highest proportionality, we can get the class y which is the most probable.
+Since we only need to know $$\underset{y \in Y}{\operatorname{argmax}} p(y\mid x)$$, we do not necessarily know the normalizer $$p(x)$$, which y is not dependent on. By taking the highest proportionality, we can get the class y which is the most probable.
 
 Note that it requires multiplying probabilities. When a large number of probabilities are multiplied, we may end up getting zero due to the underflow of floating point system. Thus, we use log to the probabilities, and now we only need adding them up.
 
@@ -37,13 +39,13 @@ $$log(p(y|x)) \propto \sum_j log(p(x^{(j)}|y)) + log(p(y)) $$
 
 Since the logarithm function is monotonic that  a > b is equivalent to log(a) > log(b), we choose the class which gives the highest value of log probability. It is usual to get p(y) by counting the number of examples with class y, and divide it by the number of whole training examples.
 
-For $p(x^{(j)}|y) $, there are wide range of possible parametric models. If $x^{(j)}$ is continuous, we could use a normal distribution. When $x^{(j)}$ is a count, we could fit a Poisson distribution. If $x^{(j)}$ is a binary variable, we could use a Bernoulli distribution. And we choose parameters of distributions by using maximum likelihood. It turns out these basic forms of distributions work effectively.
+For $$p(x^{(j)}\mid y) $$, there are wide range of possible parametric models. If $$x^{(j)}$$ is continuous, we could use a normal distribution. When $$x^{(j)}$$ is a count, we could fit a Poisson distribution. If $$x^{(j)}$$ is a binary variable, we could use a Bernoulli distribution. And we choose parameters of distributions by using maximum likelihood. It turns out these basic forms of distributions work effectively.
 
 
 
 ## Data
 
-Following dataset is the medical records for Pima Indians(https://www.kaggle.com/kumargh/pimaindiansdiabetescsv). It has several patients condition information and contains whether or not each patient had diabetes or not as a target.
+Following dataset is the medical records for Pima Indians(https://www.kaggle.com/kumargh/pimaindiansdiabetescsv). It has several patients condition information and contains whether or not each patient had diabetes as a target.
 
 ```python
 import pandas as pd
@@ -61,7 +63,7 @@ data.head()
 4	5	116	74	0	0	25.6	0.201	30	0
 ```
 
-Most of features such as 'Glucose', 'BloodPressure' are continuous, so it is proper to use a normal distribution for modeling likelihood probability p(x|y). And the 'Class' feature is the target variable.
+Most of features such as 'Glucose', 'BloodPressure' are continuous, so it is proper to use a normal distribution for modeling likelihood probability $$p(x\mid y)$$. And the 'Class' feature is the target variable.
 
 Split dataset into train, and test set. And we will use train set for fitting parameters with maximum likelihood, and then evaluate the model with test set.
 
@@ -97,7 +99,7 @@ $$ \sigma^2_{jk} = \frac{1}{\sum_i \delta(y^i = k)} \sum_i (x^{(j)}-\mu_{jk})^2 
 
 
 
-So the parameters needed for the classifier is 2 X j X k.
+So the number of parameters needed for the classifier is 2 X j X k.
 
 Now we can build Naive Bayes classifier.
 

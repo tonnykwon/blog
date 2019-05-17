@@ -19,7 +19,7 @@ That is:
 
 $$ E(h(\theta)|y) = \int h(\theta)p(\theta|y) d\theta $$
 
-Deterministic numerical integration methods evaluates $$ h(\theta) p(\theta|y) $$ at selected points $$\theta^s $$:
+Deterministic numerical integration methods evaluates $$ h(\theta) p(\theta \mid y) $$ at selected points $$\theta^s $$:
 
 $$ E(h(\theta) |y) = \int h(\theta) p(\theta | y) d\theta \approx \frac {1}{S} \sum_{s=1}^S w_s h(\theta^s) p(\theta^s |y)$$,
 
