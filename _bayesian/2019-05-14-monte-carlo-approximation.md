@@ -13,15 +13,15 @@ When it comes to high dimensions, or complex models, however, the posterior dist
 
 ## Deterministic Method
 
-Suppose we want to evaluate the posterior expectation of a function $h(\theta)$. 
+Suppose we want to evaluate the posterior expectation of a function $$h(\theta)$$. 
 
 That is:
 
-$$ E(h(\theta)|y) = \int h(\theta)p(\theta|y) d\theta $$
+$$ E(h(\theta) \mid y) = \int h(\theta)p(\theta\mid y) d\theta $$
 
 Deterministic numerical integration methods evaluates $$ h(\theta) p(\theta \mid y) $$ at selected points $$\theta^s $$:
 
-$$ E(h(\theta) |y) = \int h(\theta) p(\theta | y) d\theta \approx \frac {1}{S} \sum_{s=1}^S w_s h(\theta^s) p(\theta^s |y)$$,
+$$ E(h(\theta) \mid y) = \int h(\theta) p(\theta \mid y) d\theta \approx \frac {1}{S} \sum_{s=1}^S w_s h(\theta^s) p(\theta^s \mid y)$$,
 
 where weight $$w_s$$ corresponding to the volume of the space. The more the points $$\theta_s$$ are, the more accurate the accuracy would be. The deterministic numerical method typically has lower variance than simulation numerical method, however, when the dimensions get higher, it becomes intractable to compute integrations. For instance, suppose there are $$s$$ points in $$d$$-dimensions. Then it needs $$s^d$$ integrand evaluations to conduct deterministic numerical methods.
 
@@ -39,7 +39,7 @@ Unlike deterministic methods, simulation methods can be used for high-dimensiona
 
 Let's approximate the integral value of $$xe^x$$:
 
-$$ \int_0^1 xe^xdx  \approx \frac{1}{S} \sum_{s=1}^S x_i e^{x_i}$$
+$$ \int_0^1 xe^xdx  \approx \frac{1}{S} \sum_{i=1}^S x_i e^{x_i}$$
 
 
 
@@ -76,11 +76,11 @@ Following steps are how rejection sampling works:
   then accept the $$\theta$$, otherwise reject it.
 
 ```R
-x = seq(-10, 10,0.1)
-y = dnorm(x, 1, 1)
-y2 = dnorm(x, -2, 2)
-px = y+y2
-plot(x,px, type = 'l', col='blue')
+ptheta = function(x){
+  y = 0.4*dnorm(x,0.5,0.5)+0.6*dnorm(x, 2, 1)
+  return(y)
+}
+curve(ptheta, -1, 4, col='blue')
 ```
 
 <p align='center'>
@@ -89,13 +89,16 @@ plot(x,px, type = 'l', col='blue')
     <sub>Target distribution</sub>
 </p>
 
-Suppose above distribution is the target distribution, $$ p(\theta)$$. It is a mixture of Gaussian: N(1,1) +N(-2,2).
+Suppose above distribution is the target distribution, $$ p(\theta)$$. It is a mixture of Gaussian: N(0.5,0.5) +N(2,1).
 
 ```R
-qx = dnorm(x, 0, 3)
-plot(x, px, col= "blue", type='l')
-lines(x, qx)
-legend(7, 0.45, legend= c('px', 'qx'), col = c('black', 'blue'), lty=1)
+qtheta = function(x, k=1){
+  y = dnorm(x, 1, 2)
+  return(k*y)
+}
+curve(ptheta, -2, 5, col='blue')
+curve(qtheta, -2, 5, add = TRUE)
+legend(3, 0.6, legend= c('px', 'qx'), col = c('black', 'blue'), lty=1)
 ```
 
 <p align='center'>
@@ -104,13 +107,14 @@ legend(7, 0.45, legend= c('px', 'qx'), col = c('black', 'blue'), lty=1)
     <sub>Proposal distribution</sub>
 </p>
 
-If we pick normal distribution with 0 mean and 3 variance as a proposal distribution, we can intuitively know samples from the proposal distribution will not cover the target distribution. Thus, we use a scaling factor, $$k$$, to envelop the target distribution. To do so, we need to get maximum ratio of the target distribution and the proposal distribution.
+If we pick normal distribution with 1 mean and 2 variance as a proposal distribution, we can intuitively know samples from the proposal distribution will not cover the target distribution. Thus, we use a scaling factor, $$k$$, to envelop the target distribution. To do so, we need to get maximum ratio of the target distribution and the proposal distribution.
 
 ```R
-k = max(px/qx)
-plot(x, k*qx, type= 'l')
-lines(x,px,col= "blue")
-legend(7, 0.45, legend= c('px', 'qx'), col = c('black', 'blue'), lty=1)
+x = seq(0, 1, 0.01)
+k = max(ptheta(x)/qtheta(x))
+curve(ptheta, -2, 5, col='blue')
+curve(qtheta(x,k), -2, 5, add = TRUE)
+legend(3, 0.6, legend= c('px', 'qx'), col = c('black', 'blue'), lty=1)
 ```
 
 <p align='center'>
@@ -118,7 +122,35 @@ legend(7, 0.45, legend= c('px', 'qx'), col = c('black', 'blue'), lty=1)
     <br/>
     <sub>Scaled Proposal distribution</sub>
 </p>
+Now we build rejection function to sample q and accept proper samples for simulating p.
 
+```R
+# rejection function
+rejection = function(n , k){
+  x = rnorm(n, 1, 2)
+  u = runif(n, 0, 1)
+  
+  ratio = ptheta(x)/ (qtheta(x,k))
+  samples = x[u<ratio]
+  
+  return(samples)
+}
+
+n = 10000
+# create real p data, and rejection sample
+real <- data.frame(real_y = ptheta(seq(-2, 5, length.out = n)), real_x = seq(-2, 5, length.out = n))
+sampling <- data.frame(rejection = rejection(n, k))
+
+# create histograms with curve
+ggplot(sampling, aes(rejection)) + geom_histogram(aes(y = ..density.., fill = ..density..)) + 
+    geom_line(aes(x = real_x, y = real_y), data = real, colour = "red") + scale_fill_gradient2(guide = guide_legend(reverse = TRUE))
+```
+
+<p align='center'>
+    <img src="../../assets/img/bayesian/7-rejection.png" style="width: 70%">
+    <br/>
+    <sub>Simulated Distribution</sub>
+</p>
 
 
 

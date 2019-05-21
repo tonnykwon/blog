@@ -5,7 +5,7 @@ categories: Machine
 mathjax: true
 ---
 
-Support Vector Machine is a linear model that can separate classes with a hyperplane. Suppose we are given a feature vector $$x$$, and we need to classify the class y either 1 or -1. the linear model forms:
+Support Vector Machine is a linear model that can separate classes with a hyperplane. Suppose we are given a feature vector $$a$$, and we need to classify the class y either 1 or -1. the linear model forms:
 
 $$ f(x) = w^T a +b $$
 
@@ -19,7 +19,7 @@ For the convenience, we assume the data is linearly separable. Then, there would
     <sub>Decision Boundary</sub>
 </p>
 
-Here $$+$$ signs are positives where $$y$$ should be 1, and $$-$$ signs are negatives where $$y$$ should be -1. And the data on the yellow line, margin, are support vectors like the one of the data vector $$\vec a$$. Using the hyperplane $$\vec w$$ and the real number $$b$$, we classify data vector:
+Here $$+$$ signs are positives where $$y$$ should be 1, and $$-$$ signs are negatives where $$y$$ should be -1. And the data on the yellow line are support vectors like the one of the data vector $$\vec a$$. Using the hyperplane $$\vec w$$ and the real number $$b$$, we classify data vector:
 
 $$ \vec w \cdot \vec a +b \geq 1 $$, then $$y_i = 1$$
 
@@ -45,7 +45,7 @@ The dot product of vector $$\vec w$$ on vector $$\vec a$$ gives the magnitude of
     <sub>Margin between hyperplanes</sub>
 </p>
 
-Now we need to find a vector $$w$$ and a real number $$b$$ which gives us the largest margin between the support vectors. Suppose $$a_0$$ is a point in the hyperplane $$\vec w \cdot \vec a +b = -1 $$. To get margin, all we need to calculate is the distance between $$a_0$$ and the hyperplane $$\vec w \cdot \vec a +b = 1 $$. And let's denote this distance as $$r$$. Then, the point in the hyperplane $$\vec w \cdot \vec a +b = 1 $$ would be:
+Now we need to find a vector $$w$$ and a real number $$b$$ which gives us the largest margin between the support vectors. Suppose $$a_0$$ is a point in the hyperplane $$\vec w \cdot \vec a +b = -1 $$ as in the above plot. To get margin, all we need to calculate is the distance between $$a_0$$ and the hyperplane $$\vec w \cdot \vec a +b = 1 $$. And let's denote this distance as $$r$$. Then, the point in the hyperplane $$\vec w \cdot \vec a +b = 1 $$ would be:
 
 $$ a_0 + r \frac {w}{\| w \|} $$
 
@@ -73,13 +73,13 @@ $$ y_i (\vec w \cdot \vec a +b) -1 \geq 0$$
 
 ## Lagrangian Multiplier Method
 
-We can transform this into quadratic programming that is to minimize $$ \|w\|^2  $$. Now this is a constrained optimization, where we can solve it by the Lagrangian multiplier method. Since it becomes quadratic programming, the cost surface is paraboloid with a single global minimum. We can rewrite this:
+We can transform this into quadratic programming that is to minimize $$ \|w\|^2  $$. Now this is a constrained optimization, where we can solve it by the Lagrangian multiplier method. Since it becomes quadratic programming, the cost surface is paraboloid with a single global minimum. We can rewrite this into:
 
 $$ L(\vec w, b, \lambda) = \frac{1}{2} \| w\|^2  - \sum_{i=1}^N \lambda_i (y_i(w \cdot a_i +b)-1 )$$
 
 where $$\lambda = (\lambda_i, ..., \lambda_N) $$
 
-Setting the derivative of $$L(\vec w, b, \lambda)$$ with regard to $$\vec w$$ and $$b$$ to zero, we get:
+Setting the derivative of $$L(\vec w, b, \lambda)$$ to zero with regard to $$\vec w$$ and $$b$$, we get:
 
 $$ \frac {dL}{dw} = w - \sum_{i=1}^N \lambda_i y_i a_i$$
 
