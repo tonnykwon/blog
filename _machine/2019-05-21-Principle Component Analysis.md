@@ -25,7 +25,7 @@ $$\operatorname{Covmat}({m}) = A \operatorname{ Covmat}({x})A^T $$
 
 Next one is diagonalization. Suppose there is a $$d $$ X $$d$$ symmetric matrix, S. Then we can form,
 
-$$ S u = \lambda u $$,
+$$ S u = \lambda u $$
 
 where $$u$$ is a d by 1 vector, and $$\lambda$$ is a scalar. Here $$u$$ is refereed as **eigenvector** of $$S$$ and $$\lambda$$ is the **eigenvalue**. There can be d distinct eigenvectors and eigenvalues, and the stacked eigenvectors can be represented as $$U = [u_1, u_2, ..., u_d]$$, which is orthonormal matrix. Then we can rewrite diagonalization:
 
@@ -71,7 +71,7 @@ $$r_i = U^T (x_i - \operatorname{mean}(x))$$
 
 
 
-Good things of new data $$r$$ is that it has zero mean, and its covariance matrix is diagonal.
+Good things of new data $$r$$ is that it has zero mean, and its covariance matrix is diagonal. That means that every pairs of column or row vectors in $$r$$ has covariance 0 and so has correlation 0. 
 
 $$ \operatorname{Covmat}(r) = \operatorname{Covmat}(U^T x)$$
 
@@ -80,8 +80,6 @@ $$ = U^T \operatorname{Covmat}(x) U $$
 $$ = \Lambda$$
 
 Here we assume the diagonal values of $$\Lambda$$ is in descending order for convenience, which also implies corresponding eigenvectors of $$U$$ is ordered.
-
-Then what is good about it? This means that every pairs of column or row vectors in $$r$$ has covariance 0 and so has correlation 0. 
 
 So the each eigenvalues of $$\operatorname{Covmat}(x)$$ or of the covariance matrix of $$r$$ corresponds to the variance of $$x$$. Now using only subset of eigenvalues or components with the highest variance, we can reconstruct $$x$$. In that way, we can preserve the variance of the data and remove noise. Suppose the newly projected data in $$s$$- dimension($$s<d$$) is $$p$$. That is:
 
@@ -100,13 +98,7 @@ $$ \hat x_i = \operatorname {mean}(x) + \sum_{j=1}^s[u^T_j (x_i - mean(x))]u_j $
 Now we can build PCA using python.
 
 ```python
-def pca(ndata, n_comp=2, cdata=None):
-    # use noiseless data
-    if cdata is not None:
-        data = cdata
-    else:
-        # use noisy data
-        data = ndata
+def pca(data, n_comp=2):
     
     # mean and covariance
     mean = np.array(np.mean(data))
@@ -132,7 +124,7 @@ def pca(ndata, n_comp=2, cdata=None):
     return recon, eigval, eigvec
 ```
 
-Ignore first noisy, noiseless data part. As we covered above, we first get mean and extract mean from data. Then get covariance matrix of data. After diagonalizing the covariance matrix, we reconstruct data.
+As we covered above, we first get mean and extract mean from data. Then get covariance matrix of data. After diagonalizing the covariance matrix, we reconstruct data.
 
 
 
