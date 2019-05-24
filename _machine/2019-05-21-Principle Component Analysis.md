@@ -71,7 +71,7 @@ $$r_i = U^T (x_i - \operatorname{mean}(x))$$
 
 
 
-Good things of new data $$r$$ is that it has zero mean, and its covariance matrix is diagonal. That means that every pairs of column or row vectors in $$r$$ has covariance 0 and so has correlation 0. 
+The good thing of new data $$r$$ is that it has zero mean, and its covariance matrix is diagonal. That means that every pair of column or row vectors in $$r$$ has covariance 0 and so has correlation 0. $$r$$ is called "Principal Component", to which original data is transformed linearly uncorrelated data.
 
 $$ \operatorname{Covmat}(r) = \operatorname{Covmat}(U^T x)$$
 
@@ -81,7 +81,7 @@ $$ = \Lambda$$
 
 Here we assume the diagonal values of $$\Lambda$$ is in descending order for convenience, which also implies corresponding eigenvectors of $$U$$ is ordered.
 
-So the each eigenvalues of $$\operatorname{Covmat}(x)$$ or of the covariance matrix of $$r$$ corresponds to the variance of $$x$$. Now using only subset of eigenvalues or components with the highest variance, we can reconstruct $$x$$. In that way, we can preserve the variance of the data and remove noise. Suppose the newly projected data in $$s$$- dimension($$s<d$$) is $$p$$. That is:
+So the each eigenvalues of $$\operatorname{Covmat}(x)$$ or of the covariance matrix of $$r$$ corresponds to the variance of $$x$$. Now using only subset of eigenvalues or components with the highest variance, we can reconstruct $$x$$. In that way, we can preserve the variance of the data and remove noise. Suppose the newly projected data in $$s$$ - dimension($$s<d$$) is $$p$$. That is:
 
 $$ p_i = u_i (x_i - mean(x))$$
 
