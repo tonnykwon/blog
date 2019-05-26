@@ -86,7 +86,7 @@ station
 [3,] 0.6153879 0.1758214 0.2087907
 ```
 
-If we look at more distance future when h =5 or 10, the transition distribution appears to converge. That is, the state we are currently in is not important in determining future. This is the case for the continuous variable. This is called **unique limit distribution**, where the chain has forgotten its past. Using Markov Chain helps converging to this unique limit distribution.
+If we look at more distance future when h =5 or 10, the transition distribution appears to converge. That is, the state we are currently in is not important in determining future. This is the case for the continuous variable. This is called **stationary distribution**, where the chain has forgotten its past. Using Markov Chain helps converging to this stationary distribution.
 
 
 
