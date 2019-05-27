@@ -10,10 +10,11 @@ mathjax: true
 In this post, we will see how Metropolis-Hasting algorithm converges to target distribution. Before we get into the proof, we need to know some of the notions.
 
 <p align = 'center'>
-    <img src = '../../assets/img/bayesian/9-periodic.png' style='width:70%'>
+    <img src = '../../assets/img/bayesian/9-periodic.png' style='width:50%'>
     <br/>
     <sub>Periodic state</sub>
 </p>
+
 
 - **Periodic**: If the state $$i$$ is visited after a number of steps that is an integer greater than 1, then the state is called periodic. For instance, if state 0 is visited in above plot, there should be two steps to return to state 0. So the state is periodic. If one can return to any state $$i$$ at anytime, it is called **Aperiodic**. 
 
@@ -25,7 +26,7 @@ In this post, we will see how Metropolis-Hasting algorithm converges to target d
 
 - **Irreducible**: One can get to any other state z from any state x with probability greater than zero. The opposite is reducible. If you look at the above plot, when it gets to state 3 or 0, it is absorbed and cannot get out, which is **reducible** to the orange rectangle.
 - **Ergodic**: One have both irreducible and aperiodic properties.
-- **Transient**: Let's denote $$\tau_{ii}$$  is amount of time until the chain returns to the state $$i$$ given that is started at state $$i$$. If the chain has $$p(\tau_{ii} < \infin )  = 1$$, the probability of ever returning to state $$i$$ given started $$i$$, it is called **recurrent**. On the other hand if it is $$p(\tau_{ii}<\infin) < 1$$, it is called **transient**.
+- **Transient**: Let's denote $$\tau_{ii}$$  is amount of time until the chain returns to the state $$i$$ given that is started at state $$i$$. If the chain has $$p(\tau_{ii} < \infty )  = 1$$, the probability of ever returning to state $$i$$ given started $$i$$, it is called **recurrent**. On the other hand if it is $$p(\tau_{ii}<\infty) < 1$$, it is called **transient**.
 
 
 
@@ -59,7 +60,11 @@ $$ = p(\theta_b \mid y) J_t(\theta_a \mid \theta_b) \frac{p(\theta_a \mid y)}{p(
 
 $$ = p(\theta_a \mid y) J_t(\theta_a \mid \theta_b)$$
 
-Since the Metropolis algorithm uses symmetric transitional distribution, $$J_t(\theta_a \mid \theta_b) = J_t(\theta_b \mid \theta_a) $$. Therefore,
+Since the Metropolis algorithm uses symmetric transitional distribution, $$J_t(\theta_a \mid \theta_b) = J_t(\theta_b \mid \theta_a) $$. Therefore, the joint distribution of two consecutive state is same:
+
+$$ p(\theta^{t-1} = \theta_a, \theta^t = \theta_b) = p(\theta^{t-1}=\theta_b, \theta^t = \theta_a) $$
+
+
 
 
 
