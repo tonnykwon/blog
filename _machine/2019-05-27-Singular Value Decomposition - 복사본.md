@@ -77,6 +77,16 @@ True
 
 
 
+## Smoothing Effects
+
+Like PCA, SVD also removes noise in data, as it projects data into lower dimension. Suppose we have movie review data, viewer on rows with movies on columns. It is very likely that people with similar tastes like similar movies. For instance, horror movie lovers like horror movies and dislike comedy movies. That is, each rows can be highly or even linearly dependent. So, the true matrix form has row ranks. This means row rank approximation, SVD, would give better representations of data.
+
+
+
+To do:
+
+- Why SVD is faster?
+
 
 
 ## Reference
