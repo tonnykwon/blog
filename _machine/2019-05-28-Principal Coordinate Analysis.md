@@ -11,7 +11,7 @@ Visualization is a great tool to understand data. However, when it comes to visu
 
 ## Principal Coordinate Analysis
 
-Principal Coordinate Analysis is one of the methods of multidimensional scaling. As its name refers, it visualizes data based on its coordinate between data points. Let's say we are to plot the high dimensional points $$x$$ into the low dimensional points $$y$$. And we want the distance between data points in low dimensions reflects those in high dimensions. We are using distance function:
+Principal Coordinate Analysis is one of the methods of multidimensional scaling. As its name refers, it visualizes data based on its coordinate distance between data points. Let's say we are to plot the high dimensional points $$x$$ into the low dimensional points $$y$$. And we want the distance between data points in low dimensions reflects those in high dimensions. We are using distance function:
 
 $$ D^{(2)}_{ij}(x) = (x_i - x_j)^T(x_i - x_j)$$
 
@@ -19,17 +19,19 @@ And the data points far away in $$x$$ space must be far away in $$y$$ space. The
 
 $$ \sum_{ij}(D^{(2)}_{ij}(x) - D^{(2)}_{ij}(y))^2 $$
 
-which is same as minimizing the difference between $$X X^T$$ and $$Y Y^T$$.
+which is same as minimizing the difference between $$X X^T$$ and $$Y Y^T$$, where $$X$$ is stack of $$x$$ vectors and $$Y$$ is stack of $$y$$ vectors.
 
 For convenience, we center the mean of data, as the exact data points do not matter much. Now we form,
 
 $$ A = [I - \frac{1}{N}1 1^T]$$
 
-where $$1$$ refers to an n dimension vector.
+where $$1$$ refers to an $$N$$-dimension column vector.
 
-Then we can have
+Then we have
 
 $$ X X^T =  -\frac{1}{2}A D^{(2)}(X) A^T$$
+
+
 
 
 
@@ -49,7 +51,9 @@ $$ = U_s \Sigma_s V_s^T V_s \Sigma_s^T U_s^T$$
 
 $$ = U_s \Sigma_s^2 U_s^T $$
 
-We can realize $$X_s$$ is actually $$Y$$ and then rewrite the equations,
+since $$V_s$$ is orthonormal matrix.
+
+We can realize $$X_s$$ is actually $$Y$$. That being said, rewrite the equations:
 
 $$ Y_s = U_s \Sigma_s$$
 
@@ -61,7 +65,7 @@ Using $$D^{(2)}(X)$$ instead of actual $$X$$, we can find out the row rank appro
 
 ## Code
 
-Suppose we have 5 cities and the distance data between each city. Using Principal Coordinate Analysis, we will plot these 5 dimensional data into 2 dimensional data.
+Suppose we have the distance data between 5 cities; "Sydney", "Brisbane", "Perth", "Melbourne", and "Alice Spring". Using Principal Coordinate Analysis, we will plot these 5 dimensional data into 2 dimensions.
 
 ```python
 city_distance = 
@@ -81,7 +85,7 @@ d = 5
 A = np.identity(d)-np.dot(np.ones((d,1)), np.ones((1,d)))/d
 ADA = -np.dot(np.dot(A, D), A.T)/2
 
-# check if ADA is smae as XXT
+# check if ADA is same as XXT
 distance = city_distance - np.mean(city_distance, axis=1)
 XXT = np.dot(distance, distance.T)
 np.allclose(XXT, ADA)

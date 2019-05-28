@@ -116,23 +116,25 @@ The drawback of Gibbs sampler is that when parameters have high posterior correl
 
 ## Metropolis Algorithm
 
-The Metropolis-Hasting algorithm is a general term for MCMC which is useful for simulating posterior distribution. Gibbs sampler is a one of special case of Metropolis-Hasting. First we go through basic model Metropolis algorithm. 
+The Metropolis-Hasting algorithm is a general method for MCMC which is useful for simulating posterior distribution. Gibbs sampler and Metropolis are some of special case of Metropolis-Hasting. First we go through basic model Metropolis algorithm. Here we want to sample from target distribution $$f(\theta)$$. However, due to inability to evaluate the function, we rather sample from *proposal distribution* $$ p(\theta)$$. As its name refers, it is proposed and it is easier to sample from.
 
 Steps are following:
 
-- Define a random walk on the parameter space or *jumping distribution*(proposal distribution) $$J_t(\theta^* \mid \theta^{t-1}) $$. The jumping distribution should be symmetric, which is $$ J_t(\theta_a \mid \theta_b) = J_t(\theta_b \mid \theta_a) $$. This includes $$Uniform(\theta - \delta, \theta + \delta)$$ and $$Normal(\theta, \delta^2)$$.
+- Define a random walk on the parameter space or *proposal distribution*(jumping distribution) $$p(\theta^* \mid \theta^{t-1}) $$. The proposal distribution should be symmetric, which is $$ p(\theta_a \mid \theta_b) = p(\theta_b \mid \theta_a) $$. This includes $$\operatorname{Uniform}(\theta - \delta, \theta + \delta)$$ and $$Normal(\theta, \delta^2)$$.
 
 - Calculate the ratio of the densities,
 
-  $$ r = \frac{p(\theta^* \mid y)}{p(\theta^{t-1} \mid y)}$$
+  $$ r = \frac{f(\theta^* \mid y)}{f(\theta^{t-1} \mid y)}$$
 
 - Accept new parameter with probability of $$min(r, 1)$$. Otherwise reject the new parameter.
 
 If $$r > 1$$, it means the proposal has higher posterior density value, and it is always accepted. On the other hand, when $$r < 1 $$, it means the proposal has lower posterior density value, and it is accepted with the probability of $$r$$.
 
+Each accepted parameters are the samples.
+
 Note that normalizer in the ratio cancels out:
 
-$$ r = \frac{p(\theta^*) p(y \mid \theta^*) }{p(\theta^{t-1})p(y \mid \theta^{t-1})}$$
+$$ r = \frac{f(\theta^*) f(y \mid \theta^*) }{f(\theta^{t-1})f(y \mid \theta^{t-1})}$$
 
 
 
@@ -146,7 +148,7 @@ $$ \mu \sim N(\mu_0, \tau_0^2) $$
 
 $$ \sigma^2 \sim Inv-\chi^2(\gamma_0, \sigma_0^2) $$
 
-Parameters $$\theta = (\mu, sigma^2)$$ is in two-dimensional real space.
+Parameters $$\theta = (\mu, \sigma^2)$$ is in two-dimensional real space.
 
 
 
@@ -275,22 +277,37 @@ As an acceptance rate, we got about 0.53, which is fairy high. And plot of simul
 
 
 
+## Metropolis-Hastings Algorithm
 
-## Metropolis-Hasting Algorithm
+Sometimes sampling efficiency is better when the proposal distribution is not symmetric. Metropolis-Hasting Algorithm is a lot like Metropolis, but it uses asymmetric proposal distribution. Beside proposal distribution, we need $$q(\theta)$$ distribution which is proportional to the target distribution $$f(\theta)$$
 
-Sometimes sampling efficiency is better when the proposal distribution is not symmetric. Metropolis-Hasting Algorithm is a lot like Metropolis, but it uses asymmetric proposal distribution.
-
-- Define proposal distribution $$J_t(\cdot \mid \theta^{t-1})$$ and sample proposal $$\theta^*$$
+- Define proposal distribution $$p(\cdot \mid \theta^{t-1})$$ and sample proposal $$\theta^*$$
 
 - Calculate the ratio of
 
-  $$ r = \frac{p(\theta^* \mid y)/ J_t(\theta^* \mid \theta^{t-1})} {p(\theta^{t-1} \mid y) / J_t (\theta^{t-1} \mid \theta^*)} $$
+  $$ r = \frac{q(\theta^* \mid y)/ p(\theta^* \mid \theta^{t-1})} {q(\theta^{t-1} \mid y) / p (\theta^{t-1} \mid \theta^*)} $$
 
 - Accept new parameter with probability of $$min(r, 1)$$. Otherwise reject the new parameter.
 
 Unlike Metropolis, Metropolis-Hasting needs evaluation of the proposal density.
 
 
+
+We can interpret the acceptance ratio as the ratio between accepting $$ r(\theta^* \mid \theta^{t-1})$$ and $$ r(\theta^{t-1} \mid \theta^*) $$.
+
+In Metropolis-Hastings, acceptance ratio of new parameter given previous parameter is
+
+$$ r(\theta^* \mid \theta^{t-1}) = \frac{T(\theta^* \mid \theta^{t-1})} {p(\theta^* \mid \theta^{t-1})}$$
+
+That is, if the $$T(\theta^* \mid \theta^{t-1})$$ is higher than $$p(\theta^* \mid \theta^{t-1})$$, it means $$\theta^* $$ is more likely to be sampled from transition distribution compared to $$\theta$$ while it is not in our proposed distribution. Therefore we should take new parameter $$\theta^*$$. However, we are not able to evaluate this ratio. That is because transition distribution $$T(\cdot) $$ is abstract and unknown. Thus we rather use the ratio between the acceptance rates:
+
+$$ \frac{r(\theta^* \mid \theta^{t-1})}{r(\theta^{t-1} \mid \theta^*) } = \frac{T(\theta^* \mid \theta^{t-1}) /p(\theta^* \mid \theta^{t-1})}{T(\theta^{t-1} \mid \theta^*) /p(\theta^{t-1} \mid \theta^*)} $$
+
+$$ = \frac{f(\theta^*)p(\theta^* \mid \theta^{t-1})}{f(\theta^{t-1})p(\theta^{t-1} \mid \theta^*)}$$
+
+$$ = \frac{q(\theta^*)p(\theta^* \mid \theta^{t-1})}{q(\theta^{t-1})p(\theta^{t-1} \mid \theta^*)}$$
+
+since $$ f(\theta)T(\theta^{t-1} \mid \theta) = f(\theta^{t-1})T(\theta \mid \theta^{t-1})$$ thanks to **detailed balance**. We will cover this condition in later post.
 
 Overall the fraction of iterations that are accepted is called **acceptance rate** in both Metropolis and Metropolis-Hasting algorithm. While the proposal highly concentrated around $$\theta$$ may have high acceptance rate, the wide proposal would have low acceptance rate. It normally ranges from 0.23 ~ 0.44. We can tune the proposal scale periodically to get optimal acceptance rate. This process is called **adaptive algorithm**. These adaptation iterations are not exactly a Markov chain. Therefore, we need to discard these iterations, after scales are fixed.
 
