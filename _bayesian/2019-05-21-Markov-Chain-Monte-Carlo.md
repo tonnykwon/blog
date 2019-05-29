@@ -359,7 +359,7 @@ And this is proposal distribution.
 Suppose we start from $$\theta = 0$$, And 
 
 <p align='center'>
-    <img src = ../'../assets/img/bayesian/8-theta1.png' style='width: 70%'>
+    <img src = '../../assets/img/bayesian/8-theta1.png' style='width: 70%'>
     <br/>
     <sub>Sampling Process 1</sub>
 </p>
@@ -392,6 +392,7 @@ After iterating this process about 3000 times, we get the density histogram:
     <br/>
     <sub>Histogram of samples</sub>
 </p>
+
 
 It seems samples represent the target distribution quite well.
 
