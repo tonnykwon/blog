@@ -5,7 +5,7 @@ categories: Bayesian
 mathjax: true
 ---
 
-Markov Chain Monte Carlo(MCMC) is a general method of drawing samples from a target distribution with relatively faster speed to converge and its capability of simulating various distributions. In addition, compared to previously introduced Monte Carlo Simulation such as importance sampling and rejection sampling, it is capable of simulating complicated distribution, and easy to implement with fair reliability. Some of drawbacks are difficulty in assessing it convergence and accuracy. Although specific methods differ by each algorithms, general steps are following:
+Markov Chain Monte Carlo(MCMC) is a general method of drawing samples from a target distribution with relatively faster speed to converge and its capability of simulating various distributions. In addition, compared to previously introduced Monte Carlo Simulation such as importance sampling and rejection sampling, it is capable of simulating complicated distribution and easy to implement with fair reliability. Some of the drawbacks are difficulty in assessing it convergence and accuracy. Although specific methods differ by each algorithm, general steps are the following:
 
 1 - Set initial parameter values
 
@@ -19,7 +19,7 @@ Markov Chain Monte Carlo(MCMC) is a general method of drawing samples from a tar
 
 Repeat 3-5 steps.
 
-After it converges, those parameters accepted become the actual samples from our target distribution.
+After it converges, those parameters accepted become the actual simulated samples.
 
 
 
@@ -303,7 +303,7 @@ In Metropolis-Hastings, acceptance ratio of new parameter given previous paramet
 
 $$ r(\theta^* \mid \theta^{t-1}) = \frac{T(\theta^* \mid \theta^{t-1})} {p(\theta^* \mid \theta^{t-1})}$$
 
-As we covered in Markov Chain, $$T(\theta^* \mid \theta^{t-1})$$ is the transition distribution. That is, if the $$T(\theta^* \mid \theta^{t-1})$$ is higher than $$p(\theta^* \mid \theta^{t-1})$$, it means $$\theta^* $$ is more likely to be sampled from transition distribution compared to $$\theta$$ while it is not in our proposed distribution. Therefore we should take new parameter $$\theta^*$$. However, we are not able to evaluate this ratio. That is because transition distribution $$T(\cdot) $$ is actually abstract concept, and therefore unknown. Hence, we rather use the ratio between the acceptance rates:
+As we covered in Markov Chain, $$T(\theta^* \mid \theta^{t-1})$$ is the transition distribution. That is, if the $$T(\theta^* \mid \theta^{t-1})$$ is higher than $$p(\theta^* \mid \theta^{t-1})$$, it means $$\theta^* $$ is more likely to be sampled from transition distribution compared to $$\theta^{t-1}$$ while it is not in our proposed distribution. Therefore we should take new parameter $$\theta^*$$. However, we are not able to evaluate this ratio. That is because transition distribution $$T(\cdot) $$ is actually abstract concept, and therefore unknown. Hence, we rather use the ratio between the acceptance rates:
 
 $$ \frac{r(\theta^* \mid \theta^{t-1})}{r(\theta^{t-1} \mid \theta^*) } = \frac{T(\theta^* \mid \theta^{t-1}) /p(\theta^* \mid \theta^{t-1})}{T(\theta^{t-1} \mid \theta^*) /p(\theta^{t-1} \mid \theta^*)} $$
 
@@ -328,10 +328,11 @@ curve(f, -5, 15)
 ```
 
 <p align='center'>
-    <img src = '../../assets/img/bayesian/8-target.png', style='width: 70%'>
+    <img src = '../../assets/img/bayesian/8-target.png' style='width: 70%'>
     <br/>
     <sub>Target distribution</sub>
 </p>
+
 
 Here is our target distribution
 
@@ -347,43 +348,47 @@ curve(f, add=TRUE)
 ```
 
 <p align='center'>
-    <img src = '../../assets/img/bayesian/8-proposal.png', style='width: 70%'>
+    <img src = '../../assets/img/bayesian/8-proposal.png' style='width: 70%'>
     <br/>
     <sub>Proposal distribution</sub>
 </p>
+
 
 And this is proposal distribution.
 
 Suppose we start from $$\theta = 0$$, And 
 
 <p align='center'>
-    <img src = ../'../assets/img/bayesian/8-theta1.png', style='width: 70%'>
+    <img src = ../'../assets/img/bayesian/8-theta1.png' style='width: 70%'>
     <br/>
     <sub>Sampling Process 1</sub>
 </p>
 
+
 Red plus sign is the initial parameter where we started. From the proposal distribution where $$\theta=0$$, we draw blue plus sign $$\theta^* = 0.746$$, and we accept the new parameter with the probability of 0.856.
 
 <p align='center'>
-    <img src = '../../assets/img/bayesian/8-theta2.png', style='width: 70%'>
+    <img src = '../../assets/img/bayesian/8-theta2.png' style='width: 70%'>
     <br/>
     <sub>Sampling Process 2</sub>
 </p>
 
+
 Now from the proposal distribution where $$\theta = 0.746$$, we draw new parameter here, $$\theta^* = 1.48$$. And the acceptance ratio is about 0.7, and we take new parameter, the blue plus sign.
 
 <p align='center'>
-    <img src = '../../assets/img/bayesian/8-theta3.png', style='width: 70%'>
+    <img src = '../../assets/img/bayesian/8-theta3.png' style='width: 70%'>
     <br/>
     <sub>Sampling Process 3</sub>
 </p>
+
 
 Our proposal distribution with the parameter $$\theta=1.48$$ draws new parameter $$\theta^*=-3$$. Since the value of $$\frac{f(\theta^*)}{f(\theta)}$$ is low, we reject new parameter, the plus sign.
 
 After iterating this process about 3000 times, we get the density histogram:
 
 <p align='center'>
-    <img src = '../../assets/img/bayesian/8-hist.png', style='width: 70%'>
+    <img src = '../../assets/img/bayesian/8-hist.png' style='width: 70%'>
     <br/>
     <sub>Histogram of samples</sub>
 </p>
