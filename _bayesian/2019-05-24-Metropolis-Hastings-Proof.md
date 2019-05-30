@@ -5,9 +5,29 @@ categories: Bayesian
 mathjax: true
 ---
 
+This post is not done...
+
 
 
 In this post, we will see how Metropolis-Hasting algorithm converges to target distribution. Before we get into the proof, we need to know some of the notions.
+
+Note that $$p^{(t)}(\theta)$$ is a probability distribution for state $$\theta$$ at time $$t$$. And a transition distribution $$T(\theta^* \mid \theta)$$ represents the probability of moving from state $$\theta$$ to $$\theta^*$$. Then we can define the probability of getting the state $$\theta^*$$ at time $$t+1$$ is:
+
+$$ p^{(t+1)}(\theta^*) = \sum_{\theta} p^{(t)}(\theta) T(\theta^* \mid \theta) $$
+
+We call the probability distribution as a **stationary distribution** when the distribution $$p(\theta)$$ is invariant distribution of Markov chain with transition distribution if
+
+$$p^*(\theta^*) = \sum_{\theta} p^*(\theta) T(\theta^* \mid \theta)$$
+
+With regard to a Markov chain, the probability distribution stays invariant. However, there is more than one invariant distribution. Suppose the transition distribution is just a identity transformation. Then, any $$p(\theta)$$ will be invariant. Another sufficient condition for the state probability distribution $$p(\theta)$$ being invariant is
+
+$$ p^*(\theta^*) T(\theta \mid \theta^*) = p^*(\theta) T(\theta^* \mid \theta)$$
+
+for particular distribution $$p^*(\theta)$$. This condition is called **detailed balance**. 
+
+
+
+
 
 <p align = 'center'>
     <img src = '../../assets/img/bayesian/9-periodic.png' style='width:50%'>
