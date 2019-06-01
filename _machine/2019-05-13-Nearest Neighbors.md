@@ -2,6 +2,7 @@
 title: "1 - Nearest Neighbors"
 date: 2019-05-13
 categories: Machine
+mathjax: true
 ---
 
 Suppose we are given data $$x$$ that we want to find out label for. We can simply find the closest data from given data $${(x_1, y_1), ..., (x_N, y_N)} $$ to the $$x$$. And then vote for label $$x$$ based on the closest data points labels $$y_1, ..., y_K$$. This technique is called K-Nearest Neighbors or K-NN in brief.
