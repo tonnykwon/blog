@@ -49,9 +49,9 @@ $$ u^T \Sigma_{xy} v - \lambda_1(u^T \Sigma_{xx} u - c) - \lambda_2 (v^T \Sigma_
 
 Now we have to solve
 
-$$ \Sigma_{xy} v - \lambda_1\Sigma_{xx}u = 0$$
+$$ \nabla_u =  \Sigma_{xy} v - \lambda_1\Sigma_{xx}u = 0$$
 
-$$ \Sigma_{xy}^Tu - \lambda_2 \Sigma_{yy}v =0 $$
+$$ \nabla_v =  \Sigma_{xy}^Tu - \lambda_2 \Sigma_{yy}v =0 $$
 
 
 
@@ -88,6 +88,99 @@ It means that the eigenvectors with the highest eigenvalues give the the highest
 
 
 ## Code
+
+Now we will find canonical correlation and variates about psychological data and academic data.
+
+```python
+import pandas as pd
+import numpy as np
+
+# read data
+data =  pd.read_csv("https://stats.idre.ucla.edu/stat/data/mmreg.csv")
+# 600 university freshman
+data.head()
+
+	locus_of_control	self_concept	motivation	read	write	math	science	female
+0	-0.84	-0.24	1.00	54.8	64.5	44.5	52.6	1
+1	-0.38	-0.47	0.67	62.7	43.7	44.7	52.6	1
+2	0.89	0.59	0.67	60.6	56.7	70.5	58.0	0
+3	0.71	0.28	0.67	62.7	56.7	54.7	58.0	0
+4	-0.64	0.03	1.00	41.6	46.3	38.4	36.3	1
+```
+
+"locus of control", "self concept", and "motivation" variables are psychological variables and "read", "write", "math",  and "science" are academic variables, with higher values indicating higher abilities of each area.
+
+
+
+```python
+# center mean
+p = data.iloc[:,:-1]
+mean = np.mean(p)
+std = np.std(p)
+center_data = p - mean
+
+# divide data into psychological variables(X) and academic variables(Y)
+X = center_data.iloc[:,:3] # 600 x 3
+Y = center_data.iloc[:, 3:] # 600 x 4
+```
+
+We center the data and divide into each variables set, psychological(X) and academic(Y).
+
+
+
+```python
+# sigma is block of sigma xx, sigma xy, sigma yx, and sigma yy
+sig = np.cov(center_data.T)
+sigx = sig[:dx, :dx]
+sigy = sig[dx:, dx:]
+sigxy = sig[:dx, dx:]
+```
+
+And get covariance of each and between variables, $$\Sigma_{xx}, \Sigma_{yy}, \Sigma_{xy}$$.
+
+
+
+```python
+# get inverse matrix of simga xx, and sigma yy
+invx = np.linalg.inv(sigx)
+invy = np.linalg.inv(sigy)
+
+# get eigenvalues and eigenvectors of matrix
+umat = invx.dot(sigxy).dot(invy).dot(sigxy.T)
+lambda12, u = np.linalg.eig(umat) # u: 3 x 3
+idx = np.argsort(-lambda12)
+u = u[idx]
+vmat = invy.dot(sigxy.T).dot(invx).dot(sigxy)
+_, v = np.linalg.eig(vmat) # v: 4 x 4
+```
+
+Now by using eigenvalue decomposition, we get $$ \Sigma_{xx}^{-1} \Sigma_{xy}^{-1} \Sigma_{yy}^{-1} \Sigma_{xy}^T u = \lambda_1 \lambda_2 u$$, and$$ \Sigma_{yy}^{-1} \Sigma_{xy}^T \Sigma_{xx}^{-1} \Sigma_{xy} v = \lambda_1 \lambda_2 v  $$  to evaluate $$u, v$$ and $$\lambda1, \lambda2$$.
+
+
+
+```python
+# correlation scores
+np.sqrt(lambda12)
+
+array([0.44643648, 0.15335902, 0.02250348])
+```
+
+Since $$ Corr(u^Tx, v^Ty) = \frac{u^T \Sigma_{xy}v}{\sqrt{u^T \Sigma_{xx}u} \sqrt{v^T \Sigma_{yy}v}} = \sqrt{\lambda_1} \sqrt{\lambda_2}$$, the canonical correlations between first canonical variate pair $$ u^Tx, v^Ty$$ are about 0.446.
+
+
+
+```python
+u1 = u[:, 0]
+v1 = v[:, 0]
+utx = u1.dot(X.T)
+vty = v1.dot(Y.T)
+np.corrcoef(utx, vty)
+
+array([[ 1.        , -0.44643648],
+       [-0.44643648,  1.        ]])
+```
+
+As we can see, the canonical variate pair has high correlations. Psychological variables comes out to be effective at predicting academic variables and vice versa.
 
 
 
