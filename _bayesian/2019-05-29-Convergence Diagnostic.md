@@ -1,5 +1,5 @@
 ---
-title: "10 - Assessing MCMC"
+title: "10 - Convergence Diagnostic"
 date: 2019-05-29
 categories: Bayesian
 mathjax: true
