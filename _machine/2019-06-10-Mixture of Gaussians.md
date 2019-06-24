@@ -2,6 +2,7 @@
 title: "10 - Mixture of Gaussian"
 date: 2019-06-10
 categories: Machine
+mathjax: true
 ---
 
 K-means clustering is about grouping data based on its distance or similarity. We can think clustering in different perspective. Each of data points comes from a certain probability model. That is, if two data points are close, they are more likely to be from same probability model. Just like the problem of K-means, for the probability model, we do not know which model produced which points. For now, we suppose know which data point is from which probability model, and build a model.
@@ -106,9 +107,15 @@ $$ = p(\delta_{ij} = 1 \mid \theta^{(n)}, X) $$
 
 where the probability is
 
-$$p(\delta_{ij} = 1 \mid \theta^{(n)}, X) = \frac{p(X, \delta_{ij}=1 \ mid \theta^{(n)})}{p(X \mid \theta^{(n)})} $$
+$$p(\delta_{ij} = 1 \mid \theta^{(n)}, X) = \frac{p(X, \delta_{ij}=1 \mid \theta^{(n)})}{p(X \mid \theta^{(n)})} $$
 
+$$ = \frac {p(X, \delta_{ij} =1 \mid \theta^{(n)})} {\sum_l p(X, \delta_{il} \mid \theta^{(n)})}$$
 
+$$ = \frac{p(x_i, \delta_{ij} = 1 \mid \theta^{(n)})} {\sum_l p(x_i, \delta_{ij} = 1 \mid \theta^{(n)})} $$
+
+$$ p(x_i, \delta_{ij} \mid \theta) = p(x_i \mid \delta_{ij} = 1, \theta^{(n)}) \cdot p(\delta_{ij} = 1 \mid \theta^{(n)})$$
+
+$$ = \frac{1}{(2\pi)^d} exp( - \frac{1}{2}(x_i - \mu_j)^T (x_i - \mu_j))\pi_j $$
 
 
 
