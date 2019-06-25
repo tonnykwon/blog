@@ -39,7 +39,7 @@ $$ \theta^{(n+1)} = \underset{\theta} {\operatorname{argmax \operatorname Q(\the
 
 
 
-<br/>
+### E-step
 
 Now let's work on how to define the loss function.
 
@@ -113,15 +113,33 @@ $$ = \frac {p(X, \delta_{ij} =1 \mid \theta^{(n)})} {\sum_l p(X, \delta_{il} \mi
 
 $$ = \frac{p(x_i, \delta_{ij} = 1 \mid \theta^{(n)})} {\sum_l p(x_i, \delta_{ij} = 1 \mid \theta^{(n)})} $$
 
-$$ p(x_i, \delta_{ij} \mid \theta) = p(x_i \mid \delta_{ij} = 1, \theta^{(n)}) \cdot p(\delta_{ij} = 1 \mid \theta^{(n)})$$
+$$ p(x_i, \delta_{ij} \mid \theta^{(n)}) = p(x_i \mid \delta_{ij} = 1, \theta^{(n)}) \cdot p(\delta_{ij} = 1 \mid \theta^{(n)})$$
 
 $$ = \frac{1}{(2\pi)^d} exp( - \frac{1}{2}(x_i - \mu_j)^T (x_i - \mu_j))\pi_j $$
 
+<br/>
+
+If we rewrite the Q function,
+
+$$ Q(\theta, \theta^{(n)}, X) = \sum_i \sum_j \{[-1/2 (x_i-\mu_j)^T(x_i - \mu_j) ] + log(\pi_j)\} \cdot w_{ij}^{(n)} +K $$
+
+where $$w_{ij} = E(\delta_{ij})$$.
+
+Since $$w_{ij}$$ depends on $$\theta^{(n)}$$, we can easily calculate it.
 
 
-Since 
 
-$$ p(x_i \mid \theta) = \sum_{\delta_i} p(\delta_i)p(x_i \mid \delta_i, \theta) = \sum_j \pi_j N(x_i \mid \mu_1, ... , \mu_k) $$
+### M-step
+
+Recall that in M-step, we find new parameters
+
+$$ \theta^{(n+1)} = \underset {\operatorname{\theta}} {argmax} \operatorname Q (\theta; \theta^{(n)}, X)$$
+
+If we get derivative of $$Q$$ with respect to parameters $$\mu_j$$ and $$\pi_j$$, then we have
+
+$$\mu_j^{(n+1)} = \frac{\sum_i x_i w_{ij}}{\sum_i w_{ij}} $$
+
+$$ \pi_j^{(n+1)} = \frac{\sum_i w_{ij}}{N}$$
 
 
 
