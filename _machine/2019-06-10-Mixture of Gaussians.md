@@ -9,13 +9,15 @@ K-means clustering is about grouping data based on its distance or similarity. W
 
 Let's assume data points are from several normal distributions with known covariance matrix $$\Sigma$$ while mean is unknown. We can factorize the covariance matrix $$\Sigma = A A^T$$, and apply $$A^{-1}$$ to data points, and we now have identity covariance matrix.
 
-Let's call $$\mu_j$$ is the mean of the $$j$$th normal distribution, and $$\pi_j$$ is the probability of a point belongs to cluster $$j$$ (which is the number of points in cluster $$j$$ divided by the number of all data points), where $$\sum_j \pi_j = 1$$. Then, we can have the probability of sampling words from the probability distribution,
+Let's call $$\mu_j$$ is the mean of the $$j$$th normal distribution, and $$\pi_j$$ is the probability of a point belongs to cluster $$j$$ (which is the number of points in cluster $$j$$ divided by the number of all data points), where $$\sum_j \pi_j = 1$$. Then, we can have the marginal likelihood of X given parameters,
 
 $$p(x \mid \mu_1, ..., \mu_k, \pi_1, ..,. \pi_k) = \sum_j \pi_j [\frac{1}{\sqrt{(2 \pi)^d}} exp(-\frac{1}{2} (x-\mu_j)^T (x - \mu_j)) ]$$
 
 $$ = \sum_j \pi_j N(x \mid \mu_1, ..., \mu_k)$$
 
-First we choose one of distribution from normal distributions, $$\pi_j$$. Then generate data points from that distribution. This form of multiple distributions is called a mixture of normal distributions. If we take log-likelihood, we have
+First we choose one of distribution from normal distributions, $$\pi_j$$. Then generate data points from that distribution. This form of multiple distributions is called a mixture of normal distributions. We of course want to maximize the marginal likelihood by getting proper parameters of $$\mu$$ and $$\pi$$.
+
+And, if we take log-likelihood to do so, we have
 
 $$ \sum_j \operatorname{log}(\pi_j N(x \mid \mu_1, ..., \mu_k) ) $$
 
@@ -41,7 +43,7 @@ $$ \theta^{(n+1)} = \underset{\theta} {\operatorname{argmax \operatorname Q(\the
 
 ### E-step
 
-Now let's work on how to define the loss function.
+Now let's work on how to define the log likelihood.
 
 With a hidden variable known, we can rewrite our likelihood,
 
@@ -77,7 +79,7 @@ $$ = \prod_j [\pi_j N(x_i \mid \theta)]^{\delta_{ij}} $$
 
 <br/>
 
-Finally we define loss function using a log-likelihood.
+Finally we define the log-likelihood.
 
 $$ L(\mu_1, ..., \mu_k, \pi_1, ... , \pi_k ; X, \delta) = L(\theta; X, \delta)$$
 
@@ -140,6 +142,8 @@ If we get derivative of $$Q$$ with respect to parameters $$\mu_j$$ and $$\pi_j$$
 $$\mu_j^{(n+1)} = \frac{\sum_i x_i w_{ij}}{\sum_i w_{ij}} $$
 
 $$ \pi_j^{(n+1)} = \frac{\sum_i w_{ij}}{N}$$
+
+
 
 
 
