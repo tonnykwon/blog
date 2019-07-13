@@ -159,8 +159,6 @@ $$ q^{k+1}(t_i) = p(t_i \mid x_i, \theta^k) $$
 
 
 
-
-
 ### M-Step
 
 In M-step, we maximize the lower bound with respect to $$\theta$$.
@@ -175,9 +173,55 @@ since the second term does not depend on $$\theta$$
 
 We only need to maximize the expectation of joint posterior probability.
 
+In short,
+
+$$ \theta^{k+1} = \underset{\theta}{argMax} E_{q^{k+1}} \operatorname{log} p(X,T \mid \theta)$$
+
+
+
+### Example
+
+Let's say we have mixture of Gaussian model.
+
+In **E-step**, we want to find $$q$$, which minimizes KL divergence.
+
+That is, we want to evaluate $$p(t_i \mid x_i, \theta^k)$$. It can be decomposed as
+
+$$ p(t_i = c \mid x_i, \theta_c) = \frac{p(t_i = c) p(x_i, \theta_c \mid t_i = c)}{\sum_{j=1}^k p(t_i =c) p(x_i, \theta_c \mid t_i = c)}$$
+
+$$ = \frac{ \pi_c N(x_i \mid \mu_c, \Sigma_c) }{\sum_{j=1}^k \pi_j N(x_i \mid \mu_j , \Sigma_j)}$$
+
+$$ = \frac{ \pi_c \frac{1}{(2\pi )^{n/2} \mid \Sigma_c \mid^{1/2}} \operatorname{exp} (-1/2 (x_i - \mu_c)^T \Sigma_c^{-1} (x_i - \mu_c) ) } {\sum_{j=1}^k \pi_j \frac{1}{(2\pi )^{n/2} \mid \Sigma_j \mid^{1/2}} \operatorname{exp} (-1/2 (x_i - \mu_j)^T \Sigma_j^{-1} (x_i - \mu_j) } $$
+
+where $$\pi_c$$ indicates the probability of a data point belongs to cluster c, while $$\pi$$ is just mathematical pi. Note that the constant part of pi disappear, then
+
+$$ \frac{\mid \Sigma_c \mid^{-1/2}\operatorname{exp} (-1/2 (x_i - \mu_c)^T \Sigma_c^{-1} (x_i - \mu_c) ) }{\sum_{j=1}^K \mid \Sigma_j \mid^{-1/2}\operatorname{exp} (-1/2 (x_i - \mu_j)^T \Sigma_j^{-1} (x_i - \mu_j) )}$$
+
+
+
+In **M-step**, we maximize the lower bound with respect to $$\theta$$, which is maximizing
+
+$$ E_{q} \operatorname{log} p(X, T \mid \theta)$$
+
+Start with mean.
+
+$$ \frac{\partial L(\theta,q)} { \partial\mu_c} = \frac{ \partial \sum_{i=1}^N \sum_{c=1}^K q(t_i = c) \operatorname {log} p(x_i \mid t_i =c, \theta)} {\partial \mu_c}$$
+
+Note that we set $$q(t_i = c)$$ as $$p(t_i = c \mid x_i, \theta)$$, and we can decompose the likelihood given the latent variable and parameters. Then
+
+$$ \frac{ \partial \sum_{i=1}^N \sum_{c=1}^K p(t_i = c \mid x_i, \theta) \operatorname {log} p(x_i \mid t_i = c, \theta)  p(t_i = c \mid \theta) } {\partial \mu_c}$$
+
+Note that $$p(x_i \mid t_i, \theta) = N(x_i \mid \mu_c, \Sigma_c)$$ and $$p(t_i = c \mid \theta) = p(t_i = c) = \pi_c$$, since it does not depend on parameters. Now the nominator becomes
+
+$$ \sum_{i=1}^N \sum_{c=1}^K p(t_i=c \mid x_i, \theta) \operatorname{log} \{ \frac{1}{ 2 \pi^{n/2} \mid \Sigma_c \mid^{1/2}} exp(-1/2 (x_i - \mu_c)^T \Sigma_c^{-1} (x_i - \mu_c)) \pi_c \}$$
+
+
+
+
+
 
 
 ## Reference
 
-- Bayesian Methods for Machine Learning by
+- Bayesian Methods for Machine Learning by National Research University Higher School of Economics
 - CS498 Applied Machine Learning by Professor Trevor Walker
