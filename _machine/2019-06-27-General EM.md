@@ -43,7 +43,7 @@ which is expected value of log ratio of q and p.
 
 It has several properties:
 
-- $$ KL(q \| p) \neq  KL([ p\|q])$$. It is not symmetric.
+- $$ KL(q \| p) \neq  KL( p\|q)$$. It is not symmetric.
 - $$KL( q \| q) = 0 $$, since log 1 is zero.
 - $$ KL(q \| p) \geq 0 $$
 
@@ -205,19 +205,45 @@ $$ E_{q} \operatorname{log} p(X, T \mid \theta)$$
 
 Start with mean.
 
-$$ \frac{\partial L(\theta,q)} { \partial\mu_c} = \frac{ \partial \sum_{i=1}^N \sum_{c=1}^K q(t_i = c) \operatorname {log} p(x_i \mid t_i =c, \theta)} {\partial \mu_c}$$
+$$ \nabla{u_c} L(\theta,q) = \nabla{u_c} \sum_{i=1}^N  q(t_i = c) \operatorname {log} p(x_i \mid t_i =c, \theta) = 0$$
 
 Note that we set $$q(t_i = c)$$ as $$p(t_i = c \mid x_i, \theta)$$, and we can decompose the likelihood given the latent variable and parameters. Then
 
-$$ \frac{ \partial \sum_{i=1}^N \sum_{c=1}^K p(t_i = c \mid x_i, \theta) \operatorname {log} p(x_i \mid t_i = c, \theta)  p(t_i = c \mid \theta) } {\partial \mu_c}$$
+$$ \nabla{u_c} \sum_{i=1}^N p(t_i = c \mid x_i, \theta) \operatorname {log} p(x_i \mid t_i = c, \theta)  p(t_i = c \mid \theta)$$
 
-Note that $$p(x_i \mid t_i, \theta) = N(x_i \mid \mu_c, \Sigma_c)$$ and $$p(t_i = c \mid \theta) = p(t_i = c) = \pi_c$$, since it does not depend on parameters. Now the nominator becomes
+Note that $$p(x_i \mid t_i, \theta) = N(x_i \mid \mu_c, \Sigma_c)$$ and $$p(t_i = c \mid \theta) = p(t_i = c) = \pi_c$$, since it does not depend on parameters. Now it becomes
 
-$$ \sum_{i=1}^N \sum_{c=1}^K p(t_i=c \mid x_i, \theta) \operatorname{log} \{ \frac{1}{ 2 \pi^{n/2} \mid \Sigma_c \mid^{1/2}} exp(-1/2 (x_i - \mu_c)^T \Sigma_c^{-1} (x_i - \mu_c)) \pi_c \}$$
+$$ = \nabla{u_c} \sum_{i=1}^N p(t_i=c \mid x_i, \theta) \operatorname{log} \{ \frac{1}{ 2 \pi^{n/2} \mid \Sigma_c \mid^{1/2}} exp(-1/2 (x_i - \mu_c)^T \Sigma_c^{-1} (x_i - \mu_c)) \pi_c \}$$
 
+$$ = \nabla{u_c} \sum_{i=1}^N p(t_i = c \mid x_i, \theta) \{  \operatorname{log}(\frac{\pi_c}{2 \pi^{n/2} \mid \Sigma_c \mid^{1/2}} ) +\operatorname{log} \operatorname{exp}(-1/2 (x_i \ - \mu_c)^T \Sigma_c^{-1} (x_i -\mu_c)) \}$$
 
+$$= \nabla{u_c} -\frac{1}{2} \sum_{i=1}^N p(t_i = c \mid x_i, \theta )\{ (x_i - \mu_c)^T \Sigma_c^{-1} (x_i - \mu_c) \} $$
 
+since the first log term does not depend on $$\mu_c$$.
 
+$$ = -\frac{1}{2} \sum_{i=1}^N p(t_i =c \mid x_i, \theta) \nabla_{u_c}\{ (x_i-\mu)^T \Sigma_c^{-1}(x_i - \mu_c) \} $$
+
+$$ = \frac{1}{2} \sum_{i=1}^N p(t_i =c \mid x_i, \theta) \{ (\Sigma_c^{-1} + (\Sigma_c^{-1})^T) (x_i - \mu_c) \} $$
+
+since $$\nabla_x x^T A x = (A + A^T)x $$
+
+$$ = \sum_{i=1}^N p(t_i = c \mid x_i, \theta) \{ (\Sigma_c^{-1}) (x_i - \mu_c) \}$$
+
+as the covariance matrix is symmetric, so is its inverse. And we multiply $$\Sigma_c$$ to both sides.
+
+$$ = \sum_{i=1}^N p(t_i = c \mid x_i, \theta) (x_i - \mu_c)$$
+
+$$ \sum_{i=1}^N p(t_i = c \mid x_i, \theta)x_i = \sum_{i=1}^N p(t_i = c \mid x_i, \theta) \mu_c$$
+
+$$ \mu_c = \frac{\sum_{i=1}^N p(t_i = c \mid x_i, \theta)x_i }{ \sum_{i=1}^N p(t_i = c \mid x_i, \theta)} $$
+
+ 
+
+Note that  $$ p(t_i = c \mid x_i, \theta) = \frac{p(x_i, t_i = c \mid \theta)}{p(x_i \mid \theta)} $$
+
+$$ = \frac{p(x_i \mid t_i = c , \theta) p(t_i =c \mid \theta)} {p(x_i \mid \theta)}$$
+
+$$ = \frac{ N(\mu_c, \Sigma_c) \pi_c }{ \sum_{j=1}^K \pi_c N(\mu_j, \Sigma_j)}$$
 
 
 
