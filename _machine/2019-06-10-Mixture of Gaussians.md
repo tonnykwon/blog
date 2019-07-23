@@ -13,7 +13,7 @@ Let's call $$\mu_j$$ is the mean of the $$j$$th normal distribution, and $$\pi_j
 
 $$p(x \mid \mu_1, ..., \mu_k, \pi_1, ..,. \pi_k) = \sum_j \pi_j [\frac{1}{\sqrt{(2 \pi)^d}} exp(-\frac{1}{2} (x-\mu_j)^T (x - \mu_j)) ]$$
 
-$$ = \sum_j \pi_j N(x \mid \mu_1, ..., \mu_k)$$
+$$ p(x_i \mid \theta)= \sum_j \pi_j N(x_i \mid \mu_1, ..., \mu_k)$$
 
 First we choose one of distribution from normal distributions, $$\pi_j$$. Then generate data points from that distribution. This form of multiple distributions is called a mixture of normal distributions. We of course want to maximize the marginal likelihood by getting proper parameters of $$\mu$$ and $$\pi$$.
 

@@ -55,7 +55,7 @@ $$ = E_q (-log \frac{q} {p})$$
 
 $$ = E_q(log \frac{p}{q})$$
 
-Here we can apply Jesen's inequality.
+Here we can apply Jensen's inequality.
 
 $$ \leq log ( E_q \frac{p}{q} ) $$
 
@@ -75,7 +75,13 @@ $$ t_i  \rightarrow x_i$$
 
 Then we have marginal likelihood of x:
 
-$$ p(x_i \mid \theta) = \sum_{c=1}^3 p( x_i \mid t_i = c, \theta) p(t_i = c \mid \theta)$$
+$$ p(X \mid \theta) = \sum_T p(X, T \mid \theta)$$
+
+$$ p(x_i \mid \theta) = \sum_{c=1}^3 p( x_i, t_i = c \mid \theta) $$
+
+$$ = \sum_c^3 p(t_i  =c \mid \theta) p(x_i \mid \theta, t_i = c)$$
+
+
 
 assuming that the latent variable can have three discrete values 1~3.
 
@@ -85,21 +91,37 @@ $$ \operatorname{max}p(X \mid \theta) $$
 
 $$ = \prod_i^N p(x_i \mid \theta)$$
 
+$$ = \prod_i^N p(x_{i1},x_{i2}, ..., x_{id}   \mid \theta) $$ 
+
+ 
+
 With log, we can simplify the equation:
 
-$$ = \sum_i^N log(p(x_i \mid \theta) )$$
+$$L(\theta) =  \sum_i^N log(p(x_i \mid \theta) )$$
 
 $$ = \sum_i^N log( \sum_{c=1}^3 p(x_i , t_i = c \mid \theta) )$$
 
-$$ \geq L(\theta)$$
+$$ = \sum_i^N log( \sum_{c=1}^3 p(t_i =c\mid \theta) p(x_i \mid \theta,  t_i = c ) )$$
+
+However, since above equation requires sum of all values of the latent variable t, it is not easy to calculate.
+
+<br/>
 
 With Jensen's inequality, we can set lower bound of the log likelihood. Here we introduce any function on the latent variable, which does not change anything.
 
-$$ \sum_i^N log \sum_{c=1}^3  \frac{q(t_i = c)}{q(t_i = c)}  p(x_i , t_i = c \mid \theta) $$
+$$ = \sum_i^N log \sum_{c=1}^3  \frac{q(t_i = c)}{q(t_i = c)}  p(x_i , t_i = c \mid \theta) $$
 
 By treating q as a weight in Jenesen' inequality, we get
 
 $$ \geq \sum_i^N \sum_{c=1}^3 q(t_i = c) log \frac{p(x_i, t_i = c \mid \theta)}{q(t_i = c)}$$
+
+Because
+
+$$ \operatorname{log} (\sum_c \alpha_c v_c) \geq \sum_c \alpha_c log(v_c)$$ 
+
+where $$\alpha_c = q(t_i = c)$$ and $$ v_c = p(x_i, t_i=c \mid \theta) / q(t_i = c)$$
+
+$$ p(x_i \mid \theta) = \sum_j^K \pi_j N(x_i \mid \mu_1, ..., \mu_k, \Sigma_1, ..., \Sigma_k)$$
 
 Now the lower bound depends on q, that is
 
@@ -123,7 +145,7 @@ $$ \theta^{k+1} = \underset{\theta}{argmax} L(\theta, q^{k+1})$$
 
 There is a gap between the log likelihood we want to maximize and the lower bound of it. Which is
 
-$$ GAP = \operatorname {log} p(X \mid \theta) - L(\theta, q)$$
+$$ \operatorname{GAP} = \operatorname {log} p(X \mid \theta) - L(\theta, q)$$
 
 $$ = \sum_i^N \operatorname{log} p(x_i \mid \theta) - \sum_i^N \sum_{c=1}^3 q(t_i = c) log \frac{p(x_i, t_i = c \mid \theta)}{ q(t_i = c)}$$
 
@@ -153,7 +175,7 @@ Recall the property of KL that it is always equal to or greater than zero. And i
 
 In short, 
 
-$$q^{k+1} = \underset{q}{arg min} KL[q(T) \| p(T \mid X, \theta^k)]$$
+$$q^{k+1} =  \operatorname {\underset{q}{arg min}} KL[q(T) \| p(T \mid X, \theta^k)]$$
 
 $$ q^{k+1}(t_i) = p(t_i \mid x_i, \theta^k) $$
 
@@ -175,7 +197,7 @@ We only need to maximize the expectation of joint posterior probability.
 
 In short,
 
-$$ \theta^{k+1} = \underset{\theta}{argMax} E_{q^{k+1}} \operatorname{log} p(X,T \mid \theta)$$
+$$ \theta^{k+1} = \operatorname{ \underset{\theta}{argmax}} E_{q^{k+1}} \operatorname{log} p(X,T \mid \theta)$$
 
 
 
@@ -187,7 +209,9 @@ In **E-step**, we want to find $$q$$, which minimizes KL divergence.
 
 That is, we want to evaluate $$p(t_i \mid x_i, \theta^k)$$. It can be decomposed as
 
-$$ p(t_i = c \mid x_i, \theta_c) = \frac{p(t_i = c) p(x_i, \theta_c \mid t_i = c)}{\sum_{j=1}^k p(t_i =c) p(x_i, \theta_c \mid t_i = c)}$$
+$$ p(t_i = c \mid x_i, \theta) =\frac{p(x_i, t_i = c \mid \theta)}{p(x_i \mid \theta)} = \frac{p(x_i, t_i = c \mid \theta)}{\sum_j^K p(x_i, t_i= j \mid \theta)}$$
+
+$$ \frac{p(t_i = c \mid \theta) p(x_i, \theta \mid t_i = c)}{\sum_{j=1}^k p(t_i =j\mid \theta) p(x_i, \theta \mid t_i = j)}$$
 
 $$ = \frac{ \pi_c N(x_i \mid \mu_c, \Sigma_c) }{\sum_{j=1}^k \pi_j N(x_i \mid \mu_j , \Sigma_j)}$$
 
@@ -195,7 +219,7 @@ $$ = \frac{ \pi_c \frac{1}{(2\pi )^{n/2} \mid \Sigma_c \mid^{1/2}} \operatorname
 
 where $$\pi_c$$ indicates the probability of a data point belongs to cluster c, while $$\pi$$ is just mathematical pi. Note that the constant part of pi disappear, then
 
-$$ \frac{\mid \Sigma_c \mid^{-1/2}\operatorname{exp} (-1/2 (x_i - \mu_c)^T \Sigma_c^{-1} (x_i - \mu_c) ) }{\sum_{j=1}^K \mid \Sigma_j \mid^{-1/2}\operatorname{exp} (-1/2 (x_i - \mu_j)^T \Sigma_j^{-1} (x_i - \mu_j) )}$$
+$$ p(t_i = c\mid x_i, \theta_c) = \frac{\pi_c \mid \Sigma_c \mid^{-1/2}\operatorname{exp} (-1/2 (x_i - \mu_c)^T \Sigma_c^{-1} (x_i - \mu_c) ) }{\sum_{j=1}^K \pi_j \mid \Sigma_j \mid^{-1/2}\operatorname{exp} (-1/2 (x_i - \mu_j)^T \Sigma_j^{-1} (x_i - \mu_j) )}$$
 
 
 
@@ -203,21 +227,23 @@ In **M-step**, we maximize the lower bound with respect to $$\theta$$, which is 
 
 $$ E_{q} \operatorname{log} p(X, T \mid \theta)$$
 
+<br/>
+
 Start with mean.
 
 $$ \nabla{u_c} L(\theta,q) = \nabla{u_c} \sum_{i=1}^N  q(t_i = c) \operatorname {log} p(x_i \mid t_i =c, \theta) = 0$$
 
 Note that we set $$q(t_i = c)$$ as $$p(t_i = c \mid x_i, \theta)$$, and we can decompose the likelihood given the latent variable and parameters. Then
 
-$$ \nabla{u_c} \sum_{i=1}^N p(t_i = c \mid x_i, \theta) \operatorname {log} p(x_i \mid t_i = c, \theta)  p(t_i = c \mid \theta)$$
+$$ \nabla_{u_c} \sum_{i=1}^N p(t_i = c \mid x_i, \theta) \operatorname {log} p(x_i \mid t_i = c, \theta)  p(t_i = c \mid \theta)$$
 
-Note that $$p(x_i \mid t_i, \theta) = N(x_i \mid \mu_c, \Sigma_c)$$ and $$p(t_i = c \mid \theta) = p(t_i = c) = \pi_c$$, since it does not depend on parameters. Now it becomes
+Note that $$p(x_i \mid t_i, \theta) = N(x_i \mid \mu_c, \Sigma_c)$$ and $$p(t_i = c \mid \theta)  = \pi_c$$. Now it becomes
 
-$$ = \nabla{u_c} \sum_{i=1}^N p(t_i=c \mid x_i, \theta) \operatorname{log} \{ \frac{1}{ 2 \pi^{n/2} \mid \Sigma_c \mid^{1/2}} exp(-1/2 (x_i - \mu_c)^T \Sigma_c^{-1} (x_i - \mu_c)) \pi_c \}$$
+$$ = \nabla_{u_c} \sum_{i=1}^N p(t_i=c \mid x_i, \theta) \operatorname{log} \{ \frac{1}{ 2 \pi^{n/2} \mid \Sigma_c \mid^{1/2}} exp(-1/2 (x_i - \mu_c)^T \Sigma_c^{-1} (x_i - \mu_c)) \pi_c \}$$
 
-$$ = \nabla{u_c} \sum_{i=1}^N p(t_i = c \mid x_i, \theta) \{  \operatorname{log}(\frac{\pi_c}{2 \pi^{n/2} \mid \Sigma_c \mid^{1/2}} ) +\operatorname{log} \operatorname{exp}(-1/2 (x_i \ - \mu_c)^T \Sigma_c^{-1} (x_i -\mu_c)) \}$$
+$$ = \nabla_{u_c} \sum_{i=1}^N p(t_i = c \mid x_i, \theta) \{  \operatorname{log}(\frac{\pi_c}{2 \pi^{n/2} \mid \Sigma_c \mid^{1/2}} ) +\operatorname{log} \operatorname{exp}(-1/2 (x_i \ - \mu_c)^T \Sigma_c^{-1} (x_i -\mu_c)) \}$$
 
-$$= \nabla{u_c} -\frac{1}{2} \sum_{i=1}^N p(t_i = c \mid x_i, \theta )\{ (x_i - \mu_c)^T \Sigma_c^{-1} (x_i - \mu_c) \} $$
+$$= \nabla_{u_c} -\frac{1}{2} \sum_{i=1}^N p(t_i = c \mid x_i, \theta )\{ (x_i - \mu_c)^T \Sigma_c^{-1} (x_i - \mu_c) \} $$
 
 since the first log term does not depend on $$\mu_c$$.
 
@@ -239,15 +265,65 @@ $$ \mu_c = \frac{\sum_{i=1}^N p(t_i = c \mid x_i, \theta)x_i }{ \sum_{i=1}^N p(t
 
  
 
-Note that  $$ p(t_i = c \mid x_i, \theta) = \frac{p(x_i, t_i = c \mid \theta)}{p(x_i \mid \theta)} $$
+Note that 
 
-$$ = \frac{p(x_i \mid t_i = c , \theta) p(t_i =c \mid \theta)} {p(x_i \mid \theta)}$$
+$$ p(t_i = c \mid x_i, \theta_c) = q(t_i=c) \frac{p(t_i = c) p(x_i, \theta_c \mid t_i = c)}{\sum_{j=1}^k p(t_i =c) p(x_i, \theta_c \mid t_i = c)}$$
 
-$$ = \frac{ N(\mu_c, \Sigma_c) \pi_c }{ \sum_{j=1}^K \pi_c N(\mu_j, \Sigma_j)}$$
+$$ = \frac{ \pi_c N(x_i \mid \mu_c, \Sigma_c) }{\sum_{j=1}^k \pi_j N(x_i \mid \mu_j , \Sigma_j)}$$
+
+$$ = \frac{ \pi_c \frac{1}{(2\pi )^{n/2} \mid \Sigma_c \mid^{1/2}} \operatorname{exp} (-1/2 (x_i - \mu_c)^T \Sigma_c^{-1} (x_i - \mu_c) ) } {\sum_{j=1}^k \pi_j \frac{1}{(2\pi )^{n/2} \mid \Sigma_j \mid^{1/2}} \operatorname{exp} (-1/2 (x_i - \mu_j)^T \Sigma_j^{-1} (x_i - \mu_j) } $$
+
+$$ = \frac{\mid \Sigma_c \mid^{-1/2}\operatorname{exp} (-1/2 (x_i - \mu_c)^T \Sigma_c^{-1} (x_i - \mu_c) ) }{\sum_{j=1}^K \mid \Sigma_j \mid^{-1/2}\operatorname{exp} (-1/2 (x_i - \mu_j)^T \Sigma_j^{-1} (x_i - \mu_j) )}$$
+
+<br/>
+
+Now for the covariance,
+
+$$ \nabla_{\Sigma_c} \sum_{i=1}^N p(t_i = c \mid x_i, \theta) \operatorname {log} p(x_i \mid t_i = c, \theta)  p(t_i = c \mid \theta)$$
+
+$$ = \nabla_{\Sigma_c} \sum_{i=1}^N p(t_i=c \mid x_i, \theta) \operatorname{log} \{ \frac{1}{ 2 \pi^{n/2} \mid \Sigma_c \mid^{1/2}} exp(-1/2 (x_i - \mu_c)^T \Sigma_c^{-1} (x_i - \mu_c)) \pi_c \}$$
+
+$$ = \nabla_{\Sigma_c} \sum_{i=1}^N p(t_i = c \mid x_i, \theta) \{ \operatorname{log} (\frac{1} {\mid \Sigma_c \mid^{1/2}}) - 1/2 (x_i -\mu_c)^T \Sigma_c^{-1} (x_i - \mu_c) \}$$
+
+$$  = -\frac{1}{2} \sum_{i=1}^N p(t_i = c \mid x_i, \theta) \{ \frac{\partial log \mid \Sigma_c \mid}{ \partial \Sigma_c} +\frac{\partial}{\partial \Sigma_c} (x_i - \mu_c)^T \Sigma_c^{-1} (x_i - \mu_c) \} $$
+
+First we evaluate the derivative of log determinant,
+
+$$ \frac{\partial \operatorname{log} \mid \Sigma_c \mid}{\partial \Sigma_c} = \frac{1}{\mid \Sigma_c \mid} \frac{\partial \mid \Sigma_c \mid}{\partial \Sigma_c}$$
+
+$$ = \frac{1}{\mid \Sigma_c \mid} \mid \Sigma_c \mid (\Sigma_c^{-1})^T $$
+
+as $$ \frac{\partial \mid X \mid}{ \partial X} = \mid X \mid (X^{-1})^T$$
+
+$$ = \Sigma_j^{-1}$$
+
+And for the second part of the derivative,
+
+
+
+$$\Sigma_c = \frac{\sum_i^N p(t_i = c \mid x_i, \theta) (x_i - \mu_c) (x_i - \mu_c)^T } {\sum_{i=1}^N p(t_i = c \mid x_i, \theta)}$$
+
+
+
+<br/>
+
+Lastly for $$\pi_c$$,
+
+$$ \pi_c = \frac{\sum_{i=1}^N q(t_i = c)}{N} $$
+
+
+
+$$p(t_i =c \mid \theta)  = \pi_c$$
+
+$$p(x_i \mid t_i =c, \theta) = N(x_i \mid \mu_c, \Sigma_c)$$
+
+$$ p(x_i \mid \theta) = \sum_c^k p(x_i \mid t_i = c, \theta )p(t_i = c \mid \theta)$$
+
+$$p(x_i, t_i= c \mid \theta) = p(x_i \mid t_i = c, \theta) p(t_i =c \mid \theta)$$
 
 
 
 ## Reference
 
 - Bayesian Methods for Machine Learning by National Research University Higher School of Economics
-- CS498 Applied Machine Learning by Professor Trevor Walker
+-  CS498 Applied Machine Learning by Professor Trevor Walker
