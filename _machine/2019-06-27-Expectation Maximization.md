@@ -1,5 +1,5 @@
 ---
-title: "11 - General EM"
+title: "10 - Expectation Maximization"
 date: 2019-06-27
 categories: Machine
 mathjax: true
@@ -30,6 +30,8 @@ $$ f(\alpha_1 a_1 + \alpha_2 a_2 + \alpha_3 a_3) \geq \alpha_1 f(a_1) + \alpha_2
 $$ p(t = a_1) = \alpha_1, p(t = a_2) = \alpha_2, p(t = a_3) = \alpha_3$$ 
 
 where left hand side is expected value of $$E_{p(t)} t$$ and right hand side is expected value of function of $$E_{p(t)} f(t) $$.
+
+That is, the function of expected value is greater than or equal to the expected value of function when the function is concave.
 
 
 
@@ -67,21 +69,23 @@ $$ = log \int{q(x) \frac{p(x)}{q(x)} dx} = 0 $$
 
 ## General Expectation Maximization
 
-Suppose we have a latent variable $$t$$ that affects the data points.
+The two concepts take important part in expectation maximization algorithm. EM algorithm is basically to estimate likelihood when there are latent variables or missing values. EM algorithm enables approximate likelihood when likelihood is intractable. Let's get into details.
+
+<br/>
+
+Suppose we have a latent variable $$t$$ that affects the data points. Here we assume the latent variable t is discrete variable for simplicity, but it can be continuous.
 
 $$ t_i  \rightarrow x_i$$
 
 
 
-Then we have marginal likelihood of x:
+Then we have marginal likelihood of x and decompose it:
 
 $$ p(X \mid \theta) = \sum_T p(X, T \mid \theta)$$
 
 $$ p(x_i \mid \theta) = \sum_{c=1}^3 p( x_i, t_i = c \mid \theta) $$
 
 $$ = \sum_c^3 p(t_i  =c \mid \theta) p(x_i \mid \theta, t_i = c)$$
-
-
 
 assuming that the latent variable can have three discrete values 1~3.
 
@@ -103,11 +107,11 @@ $$ = \sum_i^N log( \sum_{c=1}^3 p(x_i , t_i = c \mid \theta) )$$
 
 $$ = \sum_i^N log( \sum_{c=1}^3 p(t_i =c\mid \theta) p(x_i \mid \theta,  t_i = c ) )$$
 
-However, since above equation requires sum of all values of the latent variable t, it is not easy to calculate.
+However, since above equation requires solving log sum of all values of the latent variable t, it is not easy to calculate.
 
 <br/>
 
-With Jensen's inequality, we can set lower bound of the log likelihood. Here we introduce any function on the latent variable, which does not change anything.
+Therefore, with Jensen's inequality, we rather set lower bound of the log likelihood and make the lower bound as close as possible to the log likelihood. Here we introduce any probability function on the latent variable, which does not change anything.
 
 $$ = \sum_i^N log \sum_{c=1}^3  \frac{q(t_i = c)}{q(t_i = c)}  p(x_i , t_i = c \mid \theta) $$
 
@@ -131,19 +135,21 @@ $$ = L(\theta, q)$$
 
 From here, we iterate E and M steps.
 
-In E-step, we fix $$\theta$$ and maximize $$q$$:
+In E-step, we fix $$\theta$$ and find $$q$$ that maximize lower bound so that it is closest as possible to likelihood :
 
-$$q^{k+1} = \underset{q}{arg max} L(\theta^k, q)$$
+$$q^{k+1} = \underset{q}{\operatorname{argmax} } L(\theta^k, q)$$
 
-In M-step, we fix $$q$$ and maximize $$\theta$$:
+In M-step, we fix $$q$$ and find  $$\theta$$  that maximize lower bound:
 
-$$ \theta^{k+1} = \underset{\theta}{argmax} L(\theta, q^{k+1})$$
+$$ \theta^{k+1} = \underset{\theta}{\operatorname{argmax}} L(\theta, q^{k+1})$$
 
 
 
 ### E-Step
 
-There is a gap between the log likelihood we want to maximize and the lower bound of it. Which is
+As we defined, the lower bound is smaller or equal to the log likelihood according to Jensen's inequality, indicating the gap between the lower bound and the log likelihood.
+
+We want to maximize the lower bound in order to minimize the gap.  And by definition the gap is:
 
 $$ \operatorname{GAP} = \operatorname {log} p(X \mid \theta) - L(\theta, q)$$
 
@@ -201,6 +207,10 @@ $$ \theta^{k+1} = \operatorname{ \underset{\theta}{argmax}} E_{q^{k+1}} \operato
 
 
 
+In next article we will look at how this EM algorithm works in Gaussian Mixture Model.
+
+
+
 ### Example
 
 Let's say we have mixture of Gaussian model.
@@ -211,7 +221,7 @@ That is, we want to evaluate $$p(t_i \mid x_i, \theta^k)$$. It can be decomposed
 
 $$ p(t_i = c \mid x_i, \theta) =\frac{p(x_i, t_i = c \mid \theta)}{p(x_i \mid \theta)} = \frac{p(x_i, t_i = c \mid \theta)}{\sum_j^K p(x_i, t_i= j \mid \theta)}$$
 
-$$ \frac{p(t_i = c \mid \theta) p(x_i, \theta \mid t_i = c)}{\sum_{j=1}^k p(t_i =j\mid \theta) p(x_i, \theta \mid t_i = j)}$$
+$$ \frac{p(t_i = c \mid \theta) p(x_i \mid \theta, t_i = c)}{\sum_{j=1}^k p(t_i =j\mid \theta) p(x_i \mid \theta, t_i = j)}$$
 
 $$ = \frac{ \pi_c N(x_i \mid \mu_c, \Sigma_c) }{\sum_{j=1}^k \pi_j N(x_i \mid \mu_j , \Sigma_j)}$$
 
