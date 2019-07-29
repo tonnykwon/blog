@@ -28,7 +28,7 @@ mathjax: true
 추천 알고리즘들을 비교해본 결과, ALS와 item2vec과 다른 분류 알고리즘을 조합한 방법 0.02~0.03의 MAP 값으로 가장 잘 나왔다. 하지만 ALS는 실시간 분석에 있어서 메모리를 많이 차지하고 새로운 사용자에 대해 추천하는 방법이 쉽지 않아 item2vec을 활용하는 방법을 사용하기로 결정했다.
 
 <p align='center'>
-    <img src = "../assets/img/portfolio/1-item2vec.png" width="70%">
+    <img src = "../../assets/img/portfolio/1-item2vec.png" width="70%">
     <br/>
     <sub>item2vec 샘플 결과</sub>
 </p>
