@@ -286,6 +286,9 @@ collections:
   machine:
     output: true
     permalink: /:collection/:path/
+  portfolio:
+    output: true
+    permalink: /:collection/:path/
 
 # Front Matter
 # Defaults
@@ -314,7 +317,6 @@ defaults:
       share: true
       related: true
       
-            
   # _text
   - scope:
       path: ""
@@ -331,6 +333,18 @@ defaults:
   - scope:
       path: ""
       type: machine
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: true
+      share: true
+      related: true
+      
+# _portfolio learning
+  - scope:
+      path: ""
+      type: portfolio
     values:
       layout: single
       author_profile: true
