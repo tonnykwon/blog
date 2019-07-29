@@ -1,7 +1,7 @@
 ---
 title: "앱 설치 데이터 기반 추천 시스템 개발"
 date: 2019-07-29
-categories: Portfolio
+categories: portfolio
 mathjax: true
 ---
 
