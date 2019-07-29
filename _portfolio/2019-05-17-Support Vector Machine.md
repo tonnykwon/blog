@@ -1,7 +1,7 @@
 ---
 title: "3 - Support Vector Machine"
 date: 2019-05-17
-categories: Machine
+categories: Portfolio
 mathjax: true
 ---
 

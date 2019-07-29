@@ -25,8 +25,8 @@ $$ \Gamma(x) = \int_0^\infty \theta^{x-1} e^{-\theta} d\theta$$
 
 Beta distribution is widely used, because it is  conjugate priors for the binomial and Bernoulli distribution. Here is how Beta distribution looks like with different parameters:
 
-<p align='center'>
-    <img src = '../../assets/img/machine/12-beta.png' width= 70%>
+<p align= "center">
+    <img src = "../../assets/img/machine/12-beta.png" width= "70%">
     <br/>
     <sub>Beta Distribution</sub>
 </p>
