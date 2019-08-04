@@ -7,7 +7,7 @@ mathjax: true
 
 We have discussed about general Expectation Maximization algorithm and how it can be used in optimizing Gaussian Mixture Model. In this article, we will talk how EM can be used in Latent Dirichlet Allocation, which is one of method of topic modeling.
 
-Before we get into LDA, let's see what Dirichlet distribution  and Beta distribution is.
+Before we get into LDA, let's see what Dirichlet distribution and Beta distribution are.
 
 
 
@@ -23,7 +23,7 @@ And gamma function in above equation is:
 
 $$ \Gamma(x) = \int_0^\infty \theta^{x-1} e^{-\theta} d\theta$$
 
-Beta distribution is widely used, because it is  conjugate priors for the binomial and Bernoulli distribution. Here is how Beta distribution looks like with different parameters:
+Beta distribution is widely used, because it is conjugate priors for the binomial and Bernoulli distribution. Here is how Beta distribution looks like with different parameters:
 
 <p align= "center">
     <img src = "../../assets/img/machine/12-beta.png" width= "70%">
@@ -61,27 +61,51 @@ We can say Dirichlet distribution is an extension of Beta distribution.
 
 ## Latent Dirichlet Allocation
 
-Suppose we have a customer review on a product. Then the review might consists of several different topics such as positive, negative, opinions about products, price or any other subjects. A document is a distribution over several topics. And the topic is a distribution over words. That is, we assume each document consists of words $$w$$ that are generated from selected topic $$z$$.  And the topic is selected with topic probabilities $$\theta$$, like it does in Gaussian Mixture Model. Directed Acyclic Graph of LDA looks like:
-
-
+Suppose we have a customer review on a product. Then the review might consists of several different topics such as positive, negative, opinions about products, price or any other subjects. A document is a distribution over several topics. And the topic is a distribution over words. That is, we assume each document consists of words $$w$$ that are generated from selected topic $$z$$.  And the topic is selected with topic probabilities $$\theta$$. From the original paper[^1], it uses Poisson distribution to choose the distribution of words for topic, here we will use Dirichlet distribution. Then Directed Acyclic Graph would look like:
 
 <p align="center">
-    <img src ="../../assets/img/machine/12-lda-dag.png" style="width:70%">
+    <img src ="../assets/img/machine/12-lda-dag.png" style="width:70%">
     <br/>
     <sub>DAG of LDA</sub>
 </p>
 
-So each document has topic proportions which is $$\theta_d$$. And for each document and each word, it has per word topic assignment $$z_{dn}$$. And the latent variable $$z_{dn}$$ can take values from 1 to T, the number of topics. We will find this latent variable values from the corpus. Finally, each word $$w_{dn}$$ can take values from 1 to V, where V is the size of category.
+- D is the number of documents and N is the number of words in the document $$d$$.
+- K is the number of topics.
+- $$\alpha$$ and $$\beta$$ are the hyperparameters of the prior distribution over $$\theta$$ and $$\phi$$ respectively.
+- $$\theta_d$$ is the distribution of topics over documents d(K-length vector).
+- $$\phi_k$$ is the distribution of words for topic k(V-length vector).
+- $$ z_{d,n}$$ is the topic for the $$n$$th word in the $$d$$th document, $$w_{d,n}$$.
 
-Now we can define joint probability from above DAG:
 
-$$ p(W, Z, \Theta) = \prod_{d=1}^D p(\theta_d) \prod_{n=1}^{N_d} p(z_{dn}\mid \theta_d) p(w_{dn} \mid z_{dn} ) $$
 
-$$p(\theta_d) \sim Dir(\alpha)$$
+Here is the process of generating documents in LDA:
 
-$$ p(z_{dn} \mid \theta ) = \theta_{dz_{dn}}$$
+1. Draw $$\theta_d \sim \operatorname{Dir}(\alpha)$$
+2. Draw $$\phi_k \sim \operatorname {Dir}(\beta)$$
+3. For each word in each document, draw per-word topic assignment $$z_{d,n} \sim \operatorname{Multinomial}(\theta)$$
+4. For each word in each document, draw observed word $$w_{d,n} \sim \operatorname{Multinomial}(\phi_{z_{d,n},n})$$
 
-$$ p(w_{dn} \mid z_{dn}) = \phi_{z_{dn}w_{dn}}$$
+
+
+From DAG of LDA, we can define the joint probability of the word $$w$$, the latent variable $$z$$, topic distribution over documents $$\theta$$, and the topic distribution over words $$\phi$$ given $$\alpha$$ and $$\beta$$:
+
+$$ p (\theta, z, w, \phi \mid \alpha, \beta) = \prod_k p(\phi_k \mid \beta) \prod_d[ p(\theta_d \mid \alpha) \prod_n p(z_{d,n} \mid \theta_d) p(w_{d,n} \mid z_{d,n}, \phi)]$$
+
+where
+
+$$ p(\phi_k \mid \beta) \sim Dir (\beta)$$
+
+$$p(\theta_d \mid \alpha) \sim Dir(\alpha)$$
+
+$$ p(z_{d,n} \mid \theta_d ) \sim Multinomial(\theta_d)$$
+
+$$ p(z_{d,n} = k \mid \theta_d) = (\theta_d)_k$$
+
+$$ p(w_{d,n} \mid z_{n}, \phi) \sim Multinomial(\phi)$$
+
+$$p(w_{d,n} = v \mid z_{d,n}, \phi_1, ... ,\phi_K) = (\phi_{z_{d,n}})_v$$
+
+<br/>
 
 
 
@@ -95,22 +119,40 @@ $$ L(\theta, q) \rightarrow \underset{q}{\operatorname{argmin}} KL [q(T) \| p(T 
 
 $$ L(\theta, q) \rightarrow \underset{q}{\operatorname{argmax}} \mathbb{E}_{q(T)} \operatorname{log} p (X, T \mid \theta)$$
 
-Here in EM, we evaluate full posterior of T, $$p(T \mid X, \theta)$$. However, this way of evaluating could be slow or even intractable sometimes. Instead, we 
+Here in EM, we evaluate full posterior of T, $$p(T \mid X, \theta)$$ to optimize q. However, this way of evaluating could be slow or even intractable sometimes. Instead, we restrict q to lie in some class of distribution $$Q$$. For instance, we can assume the variational family factorizes:
+
+$$ q(z_1, .., z_m) = \prod_{j=1}^m q(z_j)$$
+
+where each variables are assumed to be independent.
+
+<br/>
+
+So the probability of word given hyperparameters:
+
+$$ p(w \mid \alpha, \beta) = \int \prod_k (\phi_k \mid \beta) \int \sum_z \prod_d[p(\theta_d, \alpha) \prod_n p(z_{d,n } \mid \theta_d) p(w_{d,n} \mid z_{d,n}, \phi) ] d\theta d\phi$$
+
+Then log probability would be
+
+$$ \operatorname{log}p(w \mid \alpha, \beta) = \operatorname{log} \int \int \sum_z p(w, z, \theta, \phi \mid \alpha, \beta) d\theta d\phi $$
+
+using Jensen's inequality gives:
+
+$$ \geq q(z, \theta, \phi) log \int \int \sum_z \frac{p(w, z, \theta, \phi \mid \alpha, \beta)}{q(z, \theta, \phi)} d\theta d\phi $$
+
+Here we restrict the form of q:
+
+$$q(z, \theta, \phi)  = \prod_k q(\phi_k \mid \beta) \prod_d q(\theta_d \mid \alpha) \prod_n q(z_{d,n})$$
 
 
-
-In **E- step**,
-
-$$ L(\theta, q)  $$
-
-To find out latent parameters $$\theta, z, \phi$$, we can use EM algorithm we learned from previous articles.
-
-In **E-step**, we maximize 
 
 
 
 ## Reference
 
+- [^1]: D.M. Blei, A.Y. Ng, and M.I. Jordan. Latent Dirichlet allocation. JMLR, 3:993–1022, 2003.
+
 - Bayesian Methods for Machine Learning by National Research University Higher School of Economics
--  CS498 Applied Machine Learning by Professor Trevor Walker
--  데이터 사이언스 스쿨. (2016, 05 25 Published). 디리클레분포. https://datascienceschool.net/view-notebook/e0508d3b7dd6427eba2d35e1f629d3de/
+
+- CS498 Applied Machine Learning by Professor Trevor Walker
+
+-  will wolf. (2018, 11 11 Published). Deriving Expectation Maximization. http://willwolf.io/2018/11/11/em-for-lda/
