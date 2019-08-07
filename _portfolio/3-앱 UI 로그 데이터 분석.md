@@ -10,7 +10,7 @@ mathjax: true
 카메라 필터 앱 내에서 기능 사용 로그를 통해 사용자를 이해
 
 - 앱 내부 기능 사용 패턴 분석 
-- 각 기능 사용과 총 사용량 관계 분석
+- 각 기능 사용과 KPI(Key Performance Indicator) 관계 분석
 - 각 기능별 이탈율 및 전환율 파악
 
 
@@ -46,17 +46,19 @@ mathjax: true
 
 #### 2. KPI 회귀분석
 
-어느 기능이 KPI에 가장 영향력이 있는 지 알아보기 전에 KPI 지표를 설정했다. 따로 구매나 결제 기능이 없었기에 월별 총 사용 시간, 전체 방문 횟수 그리고 방문시 활동 횟수를 표준화하여 평균을 내서 KPI를 만들었다. 이를 기반으로 각 기능과 KPI의 관계를 분석해보았다. 대략 41만여개의 로그 데이터를 사용하였고 총 3만5천여명의 사용자가 있었다. 기본 변수 혹은 기능 30여가지를 먼저 전체 사용량에 대해 회귀분석을 실시한 후에 Cook's distance를 통해 회귀선으로부터 잔차가 크고 influential한 이상치들을 제거해주었다. 이후 AIC를 기반으로 단계별 선택법을 통해 변수를 추가 제거하여 최적의 모델을 만들었다. 이를 기반으로 각 기능과 KPI에 대해 어떤 관계가 있는 지 나타내보았다.
+어느 기능이 KPI에 가장 영향력이 있는 지 알아보기 전에 KPI 지표를 설정했다. 따로 구매나 결제 기능이 없었기에 월별 총 사용 시간, 전체 방문 횟수 그리고 방문시 활동 횟수를 표준화하여 평균을 내서 KPI를 만들었다. 이를 기반으로 각 기능과 KPI의 관계를 분석해보았다. 
+
+대략 41만여개의 로그 데이터를 사용하였고 총 3만5천여명의 사용자가 있었다. 기본 변수 혹은 기능 30여가지를 먼저 전체 사용량에 대해 회귀분석을 실시한 후에 Cook's distance를 통해 회귀선으로부터 잔차가 크고 influential한 이상치들을 제거해주었다. 이후 AIC를 기반으로 단계별 선택법을 통해 변수를 추가 제거하여 최적의 모델을 만들었다. 이를 기반으로 각 기능과 KPI에 대해 어떤 관계가 있는 지 나타내보았다.
 
 
 
-#### 2. 패턴 마이닝
+#### 3. 패턴 마이닝
 
 대표적으로 사용자들이 앱 내부에서 어디서 어디로 이동하는 지 파악하기 위해 PrefixSpan을 사용하여 sequential pattern을 추출하였다. 전체에서 20%이상 나타난 패턴만을 파악하였다.
 
 
 
-#### 3. 각 기능의 Conversion Rate 및 이탈율 분석
+#### 4. 각 기능의 Conversion Rate 및 이탈율 분석
 
 각 기능에서 다음에는 어느 기능으로 이동이 가장 많았는 지 파악하고 어느 기능에서 가장 사용자들의 이탈이 많았는 지 파악하기 위해서 전환율, 이탈율을 둘 다 분석해보았다. 일별로 각 사용자당 행동 리스트로 데이터를 정리해 분석했다.
 
@@ -90,4 +92,4 @@ Python: pyspark
 
 ### 참조
 
-- [^1]:Saneifar, H., Bringay, S., Laurent, A., & Teisseire, M. (2008, November). S 2 MP: similarity measure for sequential patterns. In *Proceedings of the 7th Australasian Data Mining Conference-Volume 87* (pp. 95-104). Australian Computer Society, Inc..
+[^1]:Saneifar, H., Bringay, S., Laurent, A., & Teisseire, M. (2008, November). S 2 MP: similarity measure for sequential patterns. In *Proceedings of the 7th Australasian Data Mining Conference-Volume 87* (pp. 95-104). Australian Computer Society, Inc..
