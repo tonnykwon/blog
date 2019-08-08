@@ -1,5 +1,5 @@
 ---
-title: "앱 내 이동 로그 데이터 분석"
+title: "4 - 앱 내 이동 로그 데이터 분석"
 date: 2019-07-31
 categories: portfolio
 mathjax: true
