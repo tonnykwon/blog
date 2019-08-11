@@ -64,7 +64,7 @@ We can say Dirichlet distribution is an extension of Beta distribution.
 Suppose we have a customer review on a product. Then the review might consists of several different topics such as positive, negative, opinions about products, price or any other subjects. A document is a distribution over several topics. And the topic is a distribution over words. That is, we assume each document consists of words $$w$$ that are generated from selected topic $$z$$.  And the topic is selected with topic probabilities $$\theta$$. From the original paper[^1], it uses Poisson distribution to choose the distribution of words for topic, here we will use Dirichlet distribution. Then Directed Acyclic Graph would look like:
 
 <p align="center">
-    <img src ="../assets/img/machine/12-lda-dag.png" style="width:70%">
+    <img src ="../../assets/img/machine/12-lda-dag.png" style="width:70%">
     <br/>
     <sub>DAG of LDA</sub>
 </p>

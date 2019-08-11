@@ -1,6 +1,6 @@
 ---
-title: "3 - VOC 데이터 분류"
-date: 2019-08-05
+title: "VOC 데이터 분류"
+date: 2019-08-01
 categories: portfolio
 mathjax: true
 ---
@@ -13,7 +13,7 @@ mathjax: true
 
 ### 회사
 
-테스트웍스
+테스트웍스(TestWorks)
 
 
 
@@ -25,9 +25,10 @@ mathjax: true
 
 ### 주요 역할(진행중)
 
-- 데이터 전처리 및 가공
+- 비정형 데이터 전처리 및 가공
 - 적합한 분류 모델 고안
 - 분석 진행
+- 코드북 수정
 - 결과 발표 및 피드백 반영
 
 
@@ -39,7 +40,6 @@ mathjax: true
 현재 고안중인 분석 방향:
 
 - TF, TF-IDF 등 기반 Term-Document 행렬을 생성 후, 기본적인 Naive Bayes 모델 등으로 기준 분류기 성능을 설정
-
 - Word2Vec을 통해 단어당 Embedding 생성
   - 기본 분류기 모델  학습 및 성능 테스트
   - CNN 모델 학습 및 성능 테스트
