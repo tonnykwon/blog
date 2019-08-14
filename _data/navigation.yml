@@ -8,8 +8,8 @@ main:
      url: /distributed/
    - title: "Machine Learning"
      url: /machine/
-   - title: "My Portfolio"
-     url: /portfolio/
+  # - title: "My Portfolio"
+  #   url: /portfolio/
   # - title: "Sample Collections"
   #   url: /collection-archive/
   # - title: "Sitemap"

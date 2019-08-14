@@ -1,6 +1,6 @@
 ---
 title: "VOC 데이터 분류"
-date: 2019-08-01
+date: 2019-07-31
 categories: portfolio
 mathjax: true
 ---

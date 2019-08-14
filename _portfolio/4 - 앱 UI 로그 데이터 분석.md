@@ -1,6 +1,6 @@
 ---
 title: "앱 내 이동 로그 데이터 분석"
-date: 2019-07-31
+date: 2019-08-01
 categories: portfolio
 mathjax: true
 ---
