@@ -59,6 +59,19 @@ mean(x*exp(x))
 
 The integral of $$xe^x$$ equals 1 when analytically calculated. As we can see above R code, simulating 10,000 times are much closer to 1 compared to simulating 1,000 times.
 
+```R
+theta = 0
+n = 3000
+theta_sim = numeric(n)
+for(i in 1:n){
+  new_theta = psample(1,theta)
+  r = f(new_theta)*p(theta, new_theta) /(f(theta)*p(new_theta, theta))
+  if(min(c(r,1)) >runif(1, 0,1))
+    theta = new_theta
+  theta_sim[i] = theta
+}
+```
+
 
 
 ## Rejection Sampling
@@ -159,10 +172,6 @@ To do
 
 - Importance Sampling
 - Monte Carlo Error
-
-
-
-
 
 ## Reference
 
