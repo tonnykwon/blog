@@ -289,6 +289,9 @@ collections:
   portfolio:
     output: true
     permalink: /:collection/:path/
+  psl:
+    output: true
+    permalink: /:collection/:path/
 
 # Front Matter
 # Defaults
@@ -345,6 +348,18 @@ defaults:
   - scope:
       path: ""
       type: portfolio
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: true
+      share: true
+      related: true
+      
+# _psl
+  - scope:
+      path: ""
+      type: psl
     values:
       layout: single
       author_profile: true
