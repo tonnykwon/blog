@@ -8,6 +8,8 @@ main:
      url: /distributed/
    - title: "Machine Learning"
      url: /machine/
+   - title: "Statistical Learning"
+     url: /psl/
   # - title: "My Portfolio"
   #   url: /portfolio/
   # - title: "Sample Collections"
