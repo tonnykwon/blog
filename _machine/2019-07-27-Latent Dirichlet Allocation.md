@@ -39,9 +39,11 @@ Beta distribution is widely used, because it is conjugate priors for the binomia
 
 Dirichlet Distribution is a family of continuous multivariate distribution which is parameterized by a vector of $$\alpha$$:
 
-$$Dir(\theta \mid \alpha) = Dir(\theta_1, .., \theta_K, \alpha_1, .., \alpha_K) = \frac{1}{Beta(\alpha_1, ..., \alpha_K)} \prod_{i=1}^K \theta_i^{\alpha_i -1}$$
+$$Dir(\theta \mid \alpha) = Dir(\theta_1, .., \theta_K, \alpha_1, .., \alpha_K) = \frac{1}{B(\alpha_1, ..., \alpha_K)} \prod_{i=1}^K \theta_i^{\alpha_i -1}$$
 
-where $$ \theta_i \in (0,1)$$ and $$\sum_{i=1}^K \theta_i = 1$$.
+where $$ \theta_i \in (0,1)$$, $$\sum_{i=1}^K \theta_i = 1$$, and
+
+$$B(\alpha_1, .., \alpha_K) = \frac{\prod_i^K \Gamma(\alpha_i)}{\Gamma(\sum_i^K \alpha_i)}$$
 
 <br/>
 
@@ -51,11 +53,17 @@ $$Beta(\theta \mid \alpha, \beta)  = \frac{\Gamma(\alpha + \beta)} {\Gamma(\alph
 
 $$ = \frac{\Gamma(\alpha_1 + \alpha_2)} {\Gamma(\alpha_1) \Gamma( \alpha_2)} \theta_1^{\alpha_1-1}\theta_2^{\alpha_2-1}$$
 
-$$ = \frac{1}{Beta(\alpha_1, \alpha_2)} \prod_{i=1}^2 \theta_i^{\alpha_i -1} $$
+$$ = \frac{1}{B(\alpha_1, \alpha_2)} \prod_{i=1}^2 \theta_i^{\alpha_i -1} $$
 
 We can say Dirichlet distribution is an extension of Beta distribution.
 
 <br/>
+
+
+
+$$ E[\theta_k] =  \frac{\alpha_k}{\sum \alpha} $$
+
+$$ Var[\theta_k] = \frac{\alpha_k(\sum \alpha - \alpha_k)}{(\sum \alpha)^2 (\sum \alpha + 1)} $$
 
 
 
@@ -89,7 +97,7 @@ Here is the process of generating documents in LDA:
 
 From DAG of LDA, we can define the joint probability of the word $$w$$, the latent variable $$z$$, topic distribution over documents $$\theta$$, and the topic distribution over words $$\phi$$ given $$\alpha$$ and $$\beta$$:
 
-$$ p (\theta, z, w, \phi \mid \alpha, \beta) = \prod_k p(\phi_k \mid \beta) \prod_d[ p(\theta_d \mid \alpha) \prod_n p(z_{d,n} \mid \theta_d) p(w_{d,n} \mid z_{d,n}, \phi)]$$
+$$ p (\theta, z, w, \phi ; \alpha, \beta) = \prod_k p(\phi_k ; \beta) \prod_d[ p(\theta_d ; \alpha) \prod_n p(z_{d,n} \mid \theta_d) p(w_{d,n} \mid z_{d,n}, \phi)]$$
 
 where
 
@@ -101,11 +109,45 @@ $$ p(z_{d,n} \mid \theta_d ) \sim Multinomial(\theta_d)$$
 
 $$ p(z_{d,n} = k \mid \theta_d) = (\theta_d)_k$$
 
-$$ p(w_{d,n} \mid z_{n}, \phi) \sim Multinomial(\phi)$$
+$$ p(w_{d,n} \mid z_{d, n}, \phi) \sim Multinomial(\phi_{z_{d,n}})$$
 
 $$p(w_{d,n} = v \mid z_{d,n}, \phi_1, ... ,\phi_K) = (\phi_{z_{d,n}})_v$$
 
 <br/>
+
+
+
+### Gibbs Sampling
+
+$$p(\theta, z, \phi \mid w, \alpha, \beta) = \frac{p(\theta, \phi, z, w \mid \alpha, \beta)}{p(w \mid \alpha, \beta)}$$
+
+1. $$ \theta, \phi, z$$ 초기화
+
+2. 수렴때까지 반복
+
+   $$p(\theta \mid w, z, \phi)  $$ 에서 $$\theta$$ 추출
+
+   $$ p(\phi \mid w, z, \theta)$$에서 $$\phi$$ 추출
+
+   $$ p(z \mid x, \theta, \phi)$$ 에서 z 추출
+
+
+
+$$z_{d,n}$$의 사후 분포
+
+$$ p(z_{d,n} = k \mid z_{-d,n}, w, \alpha, \beta) \propto \frac{n^v_{k, -(d,n)} + \beta}{\sum_{t=1}^V(n_{k, -(d,n)}^t)+ V\beta}(n^k_{d, -(d,n)}+ \alpha) $$
+
+$$ n_k^v$$: v번째 단어가 k토픽에서 나타난 수($$w_{d,n} = v $$)
+
+$$n_d^k$$: d 문서에서 k토픽에 할당된 단어가 나타난 수
+
+$$n^k_{d, -(d,n)}$$: d문서에서 n번째 단어를 제외하고 k토픽에 할당된 단어가 나타난 수
+
+
+
+$$ \phi_{k,v} = \frac{n^v_k + \beta}{\sum_t^V(n^t_k + \beta) } = \frac{n^v_k + \beta}{n_k + V \beta}$$
+
+$$ \theta_{d,n} = \frac{n^k_d + \alpha}{\sum^K_k (n^k_d + \alpha) } = \frac{n^k_d + \alpha}{n_d + K\alpha}$$
 
 
 
