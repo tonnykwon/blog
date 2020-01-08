@@ -292,6 +292,9 @@ collections:
   psl:
     output: true
     permalink: /:collection/:path/
+  recommender:
+    output: true
+    permalink: /:collection/:path/
 
 # Front Matter
 # Defaults
@@ -360,6 +363,18 @@ defaults:
   - scope:
       path: ""
       type: psl
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: true
+      share: true
+      related: true
+      
+# _recommender
+  - scope:
+      path: ""
+      type: recommender
     values:
       layout: single
       author_profile: true
