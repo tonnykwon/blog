@@ -5,6 +5,4 @@ categories: Recommender
 mathjax: true
 ---
 
-
-
 Collaborative filtering is a way of 
