@@ -10,6 +10,8 @@ main:
      url: /machine/
    - title: "Statistical Learning"
      url: /psl/
+   - title: "Recommendation System"
+     url: /recommender/
   # - title: "My Portfolio"
   #   url: /portfolio/
   # - title: "Sample Collections"
