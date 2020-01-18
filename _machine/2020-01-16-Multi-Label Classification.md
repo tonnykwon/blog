@@ -29,7 +29,17 @@ Multi-label 데이터를 Single-label로 문제를 푸는 방법이다. 아무 S
 
 익히 알고 있는 One Versus All 방법의 다른 이름이다. 각 분류마다 분류기를 학습시켜 해당 분류에 속하는 지 속하지 않는 지 예측해준다. 
 
+<p align= "center">
+    <img src = "../../assets/img/machine/ml-binary.png" width= "70%">
+    <br/>
+    <sub>Binary Relevance Data</sub>
+</p>
 
+<p align= "center">
+    <img src = "../../assets/img/machine/ml-binary-graph.png" width= "70%">
+    <br/>
+    <sub>Binary Relevance</sub>
+</p>
 
 - 단점
 
@@ -38,6 +48,38 @@ Multi-label 데이터를 Single-label로 문제를 푸는 방법이다. 아무 S
 다른 문제는 분류 불균형이다. Multi-label 문제에서 대부분 나타나는 문제라고 생각되는데, 소수의 분류들이 전체 데이터 셋에서 큰 부분을 차지하는 경우가 많다. 이러한 경우, 어느 분류기에 할당되는 데이터는 굉장히 적어 학습이 잘 안되거나 overfitting될 수 있다.
 
 
+
+#### Chain Classifier
+
+BR의 의존성 문제를 어느 정도 해소시켜줄 수 있는 방법이다. 각각 분류에 대해 학습기를 생성하는 것은 같지만, Chain rule과 같이 이전 분류기 예측값을 다음 분류기 학습에 변수로 사용한다.
+
+<p align= "center">
+    <img src = "../../assets/img/machine/ml-chain-classifier.png" width= "70%">
+    <br/>
+    <sub>Classifier Chain</sub>
+</p>
+
+$$ \hat y_j = h(x, \hat y_1, ..., , \hat y_{j-1} )$$
+
+$$ = \underset{y_j \in \{0,1\}}{\operatorname{argmax} }p(y_j \mid x, \hat y_1, ..., \hat y_{j-1}) $$
+
+
+
+### Label Powerset
+
+<p align= "center">
+    <img src = "../../assets/img/machine/ml-label-powerset.png" width= "70%", height = "50%">
+    <br/>
+    <sub>Label Powerset</sub>
+</p>
+
+
+
+- 단점
+
+분류의 조합만큼의 분류가 생기기 때문에 complexity가 굉징히 높다. 또 BR이 가지고 있던 클래스 불균형 문제를 풀기보다는 악화시킨다.
+
+또, 만약 신규 데이터에 새로운 분류 조합이 있다면 맞추기 어렵다.
 
 
 
