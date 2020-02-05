@@ -295,6 +295,9 @@ collections:
   recommender:
     output: true
     permalink: /:collection/:path/
+  code:
+    output: true
+    permalink: /:collection/:path/
 
 # Front Matter
 # Defaults
@@ -383,6 +386,17 @@ defaults:
       share: true
       related: true
       
+# _code
+  - scope:
+      path: ""
+      type: code
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: true
+      share: true
+      related: true
   # _pages
   - scope:
       path: "_pages"

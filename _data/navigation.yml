@@ -12,6 +12,9 @@ main:
      url: /psl/
    - title: "Recommendation System"
      url: /recommender/
+   - title: "Coding"
+     url: /code/
+    
   # - title: "My Portfolio"
   #   url: /portfolio/
   # - title: "Sample Collections"
