@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://tonnykwon.github.io/blog/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/bayesian/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/text/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/distributed/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/machine/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/psl/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/recommender/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/code/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/bayesian/2018-12-26-bayesian-statistics/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/bayesian/2018-12-29-binomial%20example/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/bayesian/2019-01-02-mean-only-normal/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/bayesian/2019-01-03-two-parameter-normal/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/bayesian/2019-01-10-Hierarchical-model-1/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/bayesian/2019-01-18-Hierarchical-model-2/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/bayesian/2019-05-14-monte-carlo-approximation/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/bayesian/2019-05-21-Markov-Chain-Monte-Carlo/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/bayesian/2019-05-24-Metropolis-Hastings-Proof/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/bayesian/2019-05-29-Convergence%20Diagnostic/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/bayesian/2019-06-05-Model%20Checking/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/text/2019-01-03-overview/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/text/2019-01-12-vector%20space%20model/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/text/2019-05-05-search%20engine%20implementation/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/text/2019-05-07-search%20engine%20evaluation/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/distributed/2019-01-01-Clouds-concept/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/distributed/2019-01-01-Map-Reduce/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/distributed/2019-01-08-Gossip%20Protocol/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/distributed/2019-01-08-Membership%20List/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/machine/2019-05-13-Nearest%20Neighbors/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/machine/2019-05-16-Naive%20Bayes/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/machine/2019-05-17-Support%20Vector%20Machine/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/machine/2019-05-21-Principle%20Component%20Analysis/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/machine/2019-05-24-NIPALS/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/machine/2019-05-27-Singular%20Value%20Decomposition%20-%20%EB%B3%B5%EC%82%AC%EB%B3%B8/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/machine/2019-05-28-Principal%20Coordinate%20Analysis%20-%20%EB%B3%B5%EC%82%AC%EB%B3%B8/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/machine/2019-05-31-Canonical%20Correlation%20Analysis%20-%20%EB%B3%B5%EC%82%AC%EB%B3%B8/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/machine/2019-06-04-Clustering/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/machine/2019-06-27-Expectation%20Maximization/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/machine/2019-07-25-Mixture%20of%20Gaussains/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/machine/2019-07-27-Latent%20Dirichlet%20Allocation/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/machine/2020-01-16-Multi-Label%20Classification/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/psl/2019-09-28-Degree_of_freedom/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/psl/2019-10-15-Random_Projection/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/recommender/2020-01-08-Recommendation/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/code/2020-02-05-Merge-Overlapping/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/code/2020-02-07-Connected-Cells/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/code/2020-02-07-Maximum-Subarray-Sum/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/code/2020-02-17-Count-Luck/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/code/2020-02-18-Cute-the-Tree/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/code/2020-02-20-Activity-Notification/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/code/2020-02-20-The-Full-Counting-Sort/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/code/2020-02-21-KnightL-on-a-Chessboard/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/code/2020-02-21-Lily's-Homework/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/code/2020-02-26-Between-Two-Sets/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/code/2020-02-27-Climbing-the-Leaderboard/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://tonnykwon.github.io/blog/post/first-post/</loc>
+  <lastmod>2020-02-27T02:06:54+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+
+
+</urlset>
