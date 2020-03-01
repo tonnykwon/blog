@@ -124,7 +124,15 @@ for i in range(m):
 
 ## Algorithm Adaption Method
 
+기존 classification 알고리즘을 바꾸어 Multi-label 문제를 푸는 방법이다.
 
+
+
+### K-Nearest Neighbors
+
+MLkNN은 x에서 가장 가까운 k개의 이웃 중에 가장 흔한 label을 assign하는 방법이다. 여기서 발전 시켜 베이지안 추론을 통해 각 클래스에 대한 확률을 계산할 수 있다.
+
+$$ y_j = \begin{cases} 1, \;\text{if } P(c_{j,x} \mid y_j = 1)P(y_j = 1) \geq P(c_{j,x} \mid y_j =0) P(y_j =0) \\ 0, \; \text{otherwise}\end{cases} $$
 
 
 
