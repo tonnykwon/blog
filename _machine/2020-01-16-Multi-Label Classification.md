@@ -185,14 +185,89 @@ $$c_k^i$$ 출력이 커지도록 한다. 이렇게 모든 pair에 대해 출력 
 
 
 
+## Metrics
+
+Single class와 다르게 여러 개의 class가 허용되므로 성능 평가 방법 또한 다르게 사용되어야 한다.
+
+
+
+### Hamming Loss
+
+전체 label 중 잘못 분류된 label을 의미한다.
+
+$$ \frac{1}{NL} \sum_{i=1}^N \sum_{j=1}^L I(\hat y_j^i \ne y_j^i)$$
+
+각각 label에 대해 계산하기 때문에 최소화했을때 label에 대한 의존성이 고려되지 않을 수 있다.
+
+
+
+### Exact Match
+
+모든 label에 대해 맞은 비율을 나타내는 방법이다.
+
+$$ \frac{1}{N} \sum_{i=1}^N I(\hat y_i \ne y_i) $$
+
+
+
+모두 맞춰야되기 때문에 부분적으로 맞은 prediction을 무시한다는 단점이 있다. 또한 그렇기 때문에 label에 대한 의존성이 고려된다.
+
+
+
+### Accuracy
+
+전체 predicted와 actual label 중에 맞은 predicted label 비율을 말한다.
+
+$$ \frac{1}{N} \sum_{i=1}^N \frac{\hat y_i \cap y_i}{\hat y^i \cup y_i } $$
+
+
+
+### Log Loss
+
+모델의 출력이 확률값일 때 사용되는 지표이다. Hamming Loss와 비슷하게 actual label에 대해 예측하지 못한 것에 대한 penalty를 주는 방법이다.
+
+$$ -\sum_{j=1}^L y_j \operatorname{log}(p_j) $$
+
+
+
+### Ranking Loss
+
+똑같이 모델의 출력이 확률값일 때 label ranking을 평가하는 방법이다. 각 출력 값에 대한 ranking이 실제 label과의 차이를 계산한다. 
+
+$$ \frac{1}{N} \sum_{i=1}^N \frac{ \mid S_{rank}^i \mid}{\mid Y_i \mid \mid \overline Y_i \mid} $$
+
+where $$ S_{rank}^i = \{ (u,v) \mid f_u(x_i) \leq f_v(x_i), (u,v) \in Y_i \times \overline Y_i \} $$
+
+$$Y_i = $$ i번째 데이터의 실제 label set, $$ \overline Y_i = $$ 전체 label 중 Y의 complementary set를 나타낸다. 두 set의 모든 pair $$(u, v)$$중에서 모델의 출력값이 실제 label set 값보다 complementary set의 값 크거나 같은 pair를 $$S_{rank}^i$$로 나타낸다.
+
+해당 순서가 잘못 출력된 pair 개수를 각 set 조합의 수로 normalize한 값이 ranking loss가 된다.
+
+
+
+복잡하니까 예를 들어보며 계산해보겠다.
+
+$$ y_i = [0, 1, 0, 1] $$일때, 출력값이  $$h_i = [0.2, 0.7, 0.8, 0.3]$$라고 하자. 
+
+그렇다면 모든 $$(u,v) $$ pair은 다음과 같다; $$(2, 1), (2, 3), (4, 1), (4,3)$$. 
+
+출력값으로 나타내면 $$ (0.7, 0.2), (0.7, 0.8), (0.3, 0.2), (0.3, 0.8)$$. 
+
+여기서 u에 해당되는 출력값이 v에 해당되는 출력값보다 작거나 같은 경우는 $$(0.7, 0.8), (0.3, 0.8)$$이다. 따라서 $$\mid S_{rank}^i  \mid = 2$$이고, 해당 i에 대한 loss 값은 0.5이다.
+
+
+
+여러 Metric을 살펴보았는데 그 외에도 one-error, converge, precision, recall 등 다양한 평가 방법이 존재한다. Hamming loss와 Exact match를 서로 다른 특성을 가진다. Hamming loss는 일부분을 기준으로 성능을 평가하는 반면, Exact match는 하나의 instance대로 계산을 한다. 따라서 두 성능 지표를 동시에 향상시킬 수 없다. 보통은 여러 반대되는 개념의 성능 지표를 사용하여 모델을 평가한다.
+
+
+
 ## Reference
 
 - Zhang, M. L., & Zhou, Z. H. (2013). A review on multi-label learning algorithms. *IEEE transactions on knowledge and data engineering*, *26*(8), 1819-1837.
 
 - Tsoumakas, G., Katakis, I., & Vlahavas, I. (2006, September). A review of multi-label classification methods. In *Proceedings of the 2nd ADBIS workshop on data mining and knowledge discovery (ADMKD 2006)* (pp. 99-109).
 
+- Zhang, M. L., & Zhou, Z. H. (2006). Multilabel neural networks with applications to functional genomics and text categorization. *IEEE transactions on Knowledge and Data Engineering*, *18*(10), 1338-1351.
+
 - [^1]:Tsoumakas, G., & Vlahavas, I. (2007, September). Random k-labelsets: An ensemble method for multilabel classification. In *European conference on machine learning* (pp. 406-417). Springer, Berlin, Heidelberg.
 
 - [^2]: Clare, A., & King, R. D. (2001, September). Knowledge discovery in multi-label phenotype data. In *european conference on principles of data mining and knowledge discovery* (pp. 42-53). Springer, Berlin, Heidelberg.
 
-- Zhang, M. L., & Zhou, Z. H. (2006). Multilabel neural networks with applications to functional genomics and text categorization. *IEEE transactions on Knowledge and Data Engineering*, *18*(10), 1338-1351.
