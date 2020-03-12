@@ -87,7 +87,10 @@ $$c_{ui} = 1+ \alpha r_{ui}$$
 
 $$ \underset {x*, y*} {\min} \underset {u,i} \sum c_{ui}(p_{ui} - x_u^T y_i)^2 + \lambda(\sum_u \|x_u\|^2 + \sum_i\| y_i \| ^2) $$
 
+해당 식이 일반 행렬분해 목적 함수와 다른 점은
 
+- confidence level의 사용
+- 모든 u,i pair에 대해 최적화
 
 
 
