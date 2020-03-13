@@ -1,6 +1,6 @@
 ---
-title: "Recommendation System"
-date: 2020-01-08
+title: "Alternating Least Sqaures"
+date: 2020-03-10
 categories: Recommender
 mathjax: true
 ---
@@ -69,7 +69,7 @@ $$\lambda$$는 정규화를 위한 하이퍼 파라미터로 각 절대값의 �
 
 Neighborhood model의 단점으로 유저 평가 $$ r_{ui}$$에 대한 확신이 부족하다고 위에서 언급했다. 이를 해결하기 위해 유저 u가 아이템 i에 대한 선호도를 나타내는 이진 변수 $$p_{ui}$$를 사용한다.
 
-$$ p_{ui} = \cases{ 1 & r_{ui} > 0 \cr 0 & r_{ui}= 0}$$
+$$ p_{ui} = \cases{ 1 \mkern18mu r_{ui} > 0 \\ 0 \mkern18mu r_{ui}= 0}$$
 
 만약 유저가 아이템을 사용했다면 ($$r_{ui} > 0$$) p값은 1이고 그렇지 않다면 선호가 없으므로 0이다. 
 
@@ -85,7 +85,7 @@ $$c_{ui} = 1+ \alpha r_{ui}$$
 
 해당 confidence variable 적용하면 목적 함수를 새로 작성할 수 있다.
 
-$$ \underset {x*, y*} {\min} \underset {u,i} \sum c_{ui}(p_{ui} - x_u^T y_i)^2 + \lambda(\sum_u \|x_u\|^2 + \sum_i\| y_i \| ^2) $$
+$$ L =\underset {x*, y*} {\min} \underset {u,i} \sum c_{ui}(p_{ui} - x_u^T y_i)^2 + \lambda(\sum_u \|x_u\|^2 + \sum_i\| y_i \| ^2) $$
 
 해당 식이 일반 행렬분해 목적 함수와 다른 점은
 
@@ -94,7 +94,37 @@ $$ \underset {x*, y*} {\min} \underset {u,i} \sum c_{ui}(p_{ui} - x_u^T y_i)^2 +
 
 
 
+유저가 m명, 아이템이 n개 있을 때, 목적 함수는 m*n terms를 포함하고 있다. 일반적인 유저의 규모와 아이템 개수를 생각했을 때 굉장히 큰 데이터 셋을 이루게 된다. 따라서 직접적인 최적화 방법인 stochastic gradient descent 방법보다는 다른 효과적인 방법을 사용해야한다.
 
+그 방법은 alternating-least-sqaures으로 유저나 아이템 vector를 고정시키고 다른 vector를 업데이트 하는 방식으로 이루어진다. 유저의 행렬 X를 $$ m \times f$$, 아이템 행렬 Y를 $$ n \times f$$이고 따라서 $$x_u$$는 $$  f \times 1$$이라고 하자.
+
+
+
+먼저 $$x_u$$에 대해 L을 편미분하면
+
+$$ \begin{eqnarray} \frac {\partial L}{\partial x_u} &=& \sum_i^n 2c_{ui}(p_{ui} - x_u^Ty_i)(-y_i) + 2\lambda x_u \\ &=& -2\sum_i^n (c_{ui} p_{ui} \cdot y_i +x_u^T y_i \cdot y_i) +2 \lambda x_u \\                                   &=& -\sum_i c_{ui} p_{ui} \cdot y_i + \sum_i c_{ui}x_u^Ty_i \cdot y_i + \lambda x_u \\                                   \end{eqnarray}$$
+
+$$ \therefore \sum_i c_{ui} x_u^T y_i \cdot y_i +\lambda x_u  = \sum_i c_{ui} p_{ui} \cdot y_i$$
+
+여기서 $$x_u$$는 f x 1벡터이고, $$y_i$$ 또한 f x 1 벡터이므로 $$x_u^T y_i$$를 $$y_i^T x_u$$로 변환해도 같은 스칼라값임은 똑같다. 따라서 왼쪽 부분은 아래와 같이 변환할 수 있다. I는 f x f 단위 행렬이다.
+
+$$\sum_i c_{ui} \cdot y_i \cdot y_i^T x_u  + \lambda x_u $$
+
+$$ = (\sum_i c_{ui} \cdot y_i \cdot y_i^T + \lambda I)x_u $$
+
+
+
+따라서 $$x_u$$는
+
+$$ \therefore x_u = (\sum_i c_{ui} \ y_i \ y_i^T + \lambda I)^{-1} \sum_i c_{ui} p_{ui} y_i$$
+
+$$y_i$$를 구하는 방법도 따라서 비슷하다.
+
+$$ y_i = (\sum_u c_{ui} \ x_u \ x_u^T + \lambda I) ^{-1} \sum_u c_{ui} p_{ui} x_u$$
+
+
+
+이렇게 x와 y가 구해지면 추천은 $$\hat p_{ui} = x_u^T y_i$$ 값이 높은 K개의 아이템을 유저에게 추천하면 된다.
 
 
 
