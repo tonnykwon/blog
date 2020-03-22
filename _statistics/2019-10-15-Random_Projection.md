@@ -1,7 +1,7 @@
 ---
 title: "Random Projection"
 date: 2019-10-15
-categories: psl
+categories: statistics
 mathjax: true
 ---
 

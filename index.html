@@ -5,11 +5,23 @@ toc_label: "My Table of Contents"
 toc_icon: "cog"
 author_profile: true
 ---
-<h1>Latest Post</h1>
-{% for post in site.posts limit:1 %}
-... Show the first post all big ...
+Hello <br/>
+
+Category: 
+{% for collection in site.collections %}
+	<a href = {{collection.relative_directory}}> {{collection.title}}[{{collection.docs.size}}]</a>
 {% endfor %}
-<h1>Recent Posts</h1>
-{% for post in site.posts offset:1 limit:2 %}
-... Show the next two posts ...
+
+{% assign recent_posts = "" %}
+{% for collection in site.collections %}
+	{% assign recent_posts = recent_posts | concat: collection.docs %}
 {% endfor %}
+
+{% assign recent_posts = recent_posts | sort: "date" | reverse %}
+<div class="entries-{{ page.entries_layout }}">
+	{% for post in recent_posts limit: 10 %}
+		{% include archive-single.html %}
+	{% endfor %}
+</div>
+
+

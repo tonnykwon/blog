@@ -275,27 +275,34 @@ compress_html:
 # Collections
 collections:
   bayesian:
+    title: "Bayesian"
     output: true
     permalink: /:collection/:path/
   distributed:
+    title: "Distributed System"
     output: true
     permalink: /:collection/:path/
   text:
+    title: "Text Information System"
     output: true
     permalink: /:collection/:path/
   machine:
+    title: "Machine Learning"
     output: true
     permalink: /:collection/:path/
   portfolio:
     output: true
     permalink: /:collection/:path/
-  psl:
+  statistics:
+    title: "Statistics"
     output: true
     permalink: /:collection/:path/
   recommender:
+    title: "Recommendation System"
     output: true
     permalink: /:collection/:path/
   code:
+    title: "Coding"
     output: true
     permalink: /:collection/:path/
 
@@ -362,10 +369,10 @@ defaults:
       share: true
       related: true
       
-# _psl
+# _statistics
   - scope:
       path: ""
-      type: psl
+      type: statistics
     values:
       layout: single
       author_profile: true

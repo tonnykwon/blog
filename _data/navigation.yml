@@ -8,8 +8,8 @@ main:
      url: /distributed/
    - title: "Machine Learning"
      url: /machine/
-   - title: "Statistical Learning"
-     url: /psl/
+   - title: "Statistics"
+     url: /statistics/
    - title: "Recommendation System"
      url: /recommender/
    - title: "Coding"
