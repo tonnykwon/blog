@@ -9,7 +9,7 @@ Hello <br/>
 
 Category: 
 {% for collection in site.collections %}
-	<a href = {{collection.relative_directory}}> {{collection.title}}[{{collection.docs.size}}]</a>
+	<a href = {{BASE_PATH}}{{collection.label}}> {{collection.label}}[{{collection.docs.size}}]</a>
 {% endfor %}
 
 {% assign recent_posts = "" %}
