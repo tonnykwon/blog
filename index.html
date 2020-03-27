@@ -5,13 +5,22 @@ toc_label: "My Table of Contents"
 toc_icon: "cog"
 author_profile: true
 ---
-Hello <br/>
+
+Hello
+<br/>
 
 Category: 
 {% for collection in site.collections %}
-	<a href = {{BASE_PATH}}{{collection.label}}> {{collection.label}}[{{collection.docs.size}}]</a>
+	{% assign exclude_list = "portfolio, posts" %}
+	{% if exclude_list contains collection.label%}
+	{% else %}
+		<a href = {{BASE_PATH}}{{collection.label}}> {{collection.title}} [{{collection.docs.size}}]</a>
+	{% endif %}
 {% endfor %}
 
+<h2/>
+
+<h1>Latest Posts</h1>
 {% assign recent_posts = "" %}
 {% for collection in site.collections %}
 	{% assign recent_posts = recent_posts | concat: collection.docs %}
