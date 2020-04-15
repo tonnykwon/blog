@@ -1,14 +1,10 @@
 ---
-title: "AB Testing"
+title: "AB Testing - Hypothesis"
 date: 2020-04-08
 categories: statistics
 mathjax: true
 tags: [AB, hypothesis]
 ---
-
-
-
-
 
 
 
@@ -24,11 +20,25 @@ Statistical Methods in Online AB Testing이라는 책을 읽고 정리해보려�
 
 
 
-
-
 ## Statistical Hypothesis
 
-통계 가설(Staitistical Hypothesis)은 현상간의 관계를 계량적으로 표현하는 가설을 의미한다.
+통계 가설(Staitistical Hypothesis)은 밝히고자 했던 관계에 대한 추측성 문장을 통계적 모델에 기반하여 구조화하는 것이다. 여기서 통계적 모델이란 데이터가 어떤식으로 생겨났는지(data-generating-mechanism)에 관한 통계적 가정들을 반영하는 모델이라고 볼 수 있다. 
+
+예를 들자면, '새로운 기능을 추가했을 때 고객 유지율이라는 통계량이 5% 더 증가한다'라는 실질적 가설에 대한 통계적 모델을 가정해보자. 새로운 기능을 추가했거나 하지 않았을 때의 고객 유지율은 차이가 없고, 관찰된 고객 유지율에 대한 에러는 독립적이고 동일한 분포를 가지며 정규 분포를 따른다(NIID).
+
+iid에 대한 추가적인 설명을 하자면 독립적이라는 것은 한 사건이 다른 사건에 영향을 주지 않음을 의미하고 동일한 분포를 가진다는 의미는 말그대로 같은 분포를 따른다고 가정하는 것이다(여러 번의 동전 던지기와 같음).
+
+주장하는 가설에 따라 혹은 데이터에 따라 기반하는 통계적 모델은 바뀔 수 있다. 하지만 통계적 모델을 통해 우리가 관심있어 하는 사건들에 대한 확률을 규정할 수 있다.
+
+좀 더 기술적으로는 다음과 같이 적을 수 있다.
+
+$$ M_{\theta}(x) = \{f(x;\theta), \theta \in \Theta\}, x \in X := \R_X^n $$
+
+모델 $$M$$은 x와 $$\theta$$에 관한 결합 확률 분포에 대한 함수이다(;는 x와 $$\theta$$의 성질이 다른 것을 나타낸다). $$\Theta$$ 파라미터 공간을 나타내고, X는 표본 공간을 나타낸다.
+
+
+
+## Testing
 
 
 
@@ -44,5 +54,8 @@ P라는 가정이 사실일 때, Q라는 결과를 얻는다고 해보자( $$ P 
 
 
 
-## Hypothesis
+## p-value Misinterpretation
 
+높은 p-value는 null hypothesis를 뒷받침하는 근거가 된다?
+
+통계적 유의성(statistical significance)과 실질적 유의성(practical significance)의 차이
