@@ -62,6 +62,9 @@ window를 옮겨가며 min max를 구하는 문제이다.
 
 세 번째 친구가 징검다리를 건넌 후 디딤돌에 적힌 숫자는 아래 그림과 같습니다.
 네 번째 친구가 징검다리를 건너려면, 세 번째 디딤돌에서 일곱 번째 디딤돌로 네 칸을 건너뛰어야 합니다. 하지만 k = 3 이므로 건너뛸 수 없습니다.
+
+
+
 ![step_stones_103.png](https://grepp-programmers.s3.ap-northeast-2.amazonaws.com/files/production/e44e0a83-e637-48ad-858c-4c135c3b078f/step_stones_103.png)
 
 따라서 최대 3명이 디딤돌을 모두 건널 수 있습니다.
