@@ -21,9 +21,10 @@ On the Difficulty of Evaluation Baselines: A Study on Recommender Systems라는 
 영화 평점 데이터 Movielens 10M은 추천 시스템에서 많이 사용되는 데이터 중 하나이다. 학습, 테스트 데이터를 90:10으로 나눈 뒤에 Root Mean Squared Error(RMSE)를 바탕으로 모델을 평가하는 것이 일반적이다. 평가된 모델들을 보면 다음과 같다.
 
 <p align ='center'>
-    <img src = "../assets/img/recommender/difficulty-ml10m.png" style="width: 60%"> <br/>
+    <img src = "../../assets/img/recommender/difficulty-ml10m.png" style="width: 60%"> <br/>
     <sub>모델 성능 평가(ML10M)</sub>
 </p>
+
 
 비교적 이전에 나왔던 모델들; Randomized Singluar Value Decomposition(RSVD), Biased Matrix Factorization(Biased MF), Bayesian Probalistic Matrix Factorization(BPMF) 등이 새로 나온 모델에 비해 성능이 낮다. 하지만 논문에서는 잘못된 setup에서 학습한 것이 문제라고 지적한다. 기본적인 baseline 모델들은 다음과 같다.
 
@@ -36,7 +37,7 @@ On the Difficulty of Evaluation Baselines: A Study on Recommender Systems라는 
 해당 모델들의 embedding 차원을 변경하거나 bag-of-words predictor 변수를 추가하는 등의 방식으로 비교적 새로 나온 모델들인 Local Low-Rank Matrix Approximation(LLORMA), Autoencoders Meet Collaborative Filtering(Autorec), Weighted and Ensemble Matrix Approximation(WEMAREC), I-CFN++에 비해 좋은 성능을 보였다. 
 
 <p align ='center'>
-    <img src = "../assets/img/recommender/difficulty-improved-ml10m.png" style="width: 60%"> <br/>
+    <img src = "../../assets/img/recommender/difficulty-improved-ml10m.png" style="width: 60%"> <br/>
     <sub>향상된 모델 성능(ML10M)</sub>
 </p>
 
