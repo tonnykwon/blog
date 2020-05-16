@@ -14,6 +14,14 @@ Factorization Meets the Neighborhood: a Multifaceted Collaborative Filtering Mod
 
 
 
+## 1. Introduction
+
+많은 추천 시스템들이 협업 필터링(Collaborative Filtering) 방법을 사용한다. 그 이유 중 하나는 CF는 도메인 지식이 필요하지 않고, 많은 데이터를 수집할 필요가 없어서이다. 또, 유저 행동 데이터를 이용하기에 예상치 못한 복잡한 패턴을 찾아낼 수 있다. 
+
+CF 모델은 크게 두 가지 방법으로 이루어 진다; Neighborhood approach와 latent factor model이다.
+
+Neighborhood 방법은 아이템 간의 혹은 유저 간의 관계를 계산하는 데 초점이 맞추어져 있다. 예를 들어, 아이템 관계 기반 방법은 한 유저의 어느 아이템에 대한 선호도를 
+
 <p align ='center'>
     <img src = "../../assets/img/recommender/difficulty-ml10m.png" style="width: 60%"> <br/>
     <sub>모델 성능 평가(ML10M)</sub>
