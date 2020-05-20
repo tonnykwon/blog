@@ -3,10 +3,8 @@ title: "Factorization meets the Neighborhood Part2"
 date: 2020-05-20
 categories: Recommender
 mathjax: true
-tags: [recommendation, SVD++, Asymmetric-SVD, Neflix-Prize]이전
+tags: [recommendation, SVD++, Asymmetric-SVD, Neflix-Prize]
 ---
-
-
 
 
 
