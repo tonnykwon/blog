@@ -68,7 +68,72 @@ $$ \operatorname{\underset{b*, w*, c*}{min}} \sum_{(u, i) \in R} \hat r_{ui} - \
 
 Gradient descent 방법으로 파라미터 값을 업데이트하며 구할 수 있다. 여기서 $$e_{ui} = r_{ui}-\hat r_{ui}$$을 의미한다.
 
+- $$b_u \leftarrow b_u + \gamma(e_{ui}- \lambda \cdot b_u)$$
+- $$b_i \leftarrow b_i + \gamma(e_{ui}- \lambda \cdot b_i)$$
+- $$ \forall j \in R^k(i;u): \\
+  w_{ij} \leftarrow w_{ij} + \gamma(\mid R^k(i;u) \mid^{-\frac{1}{2}} e_{ui} \cdot (r_{uj}-b_{uj}) - \lambda \cdot w_{ij})$$
+- $$ \forall j \in N^k(i;u): \\
+  c_{ij} \leftarrow c_{ij} + \gamma(\mid N^k(i;u) \mid^{-\frac{1}{2}} e_{ui} - \lambda \cdot c_{ij})$$
 
+
+
+## 4. Latent Factor Model
+
+LF의 경우, 발전된 NM과 크게 다르지 않고 행렬 분해로 바꾸어 준다. global weights인 $$w_{ij}$$와 $$c_{ij}$$을 아이템 벡터와의 내적을 통해 나타낼 수 있다.
+
+$$ w_{ij} = q_i^T x_i$$
+
+$$ c_{ij} = q_i^T y_i$$
+
+NM에서 사용된 식을 적용한다면 다음과 같다.
+
+$$ \hat r_{ui} = b_{ui} + q_i^T \big( \mid R^k(i;u) \mid^{-\frac{1}{2}} \sum_{j \in R^k(i;u)} (r_{uj} - b_{uj})x_{ij} \\
++\mid N^k(i;u) \mid^{-\frac{1}{2}} \sum_{j \in N^k(i;u)} y_{ij}\big)$$
+
+
+
+유저 벡터를 p를 대체하였기에 해당 방법을 `Asymmetric-SVD`라 부른다. ASVD를 통해 다음과 같은 효과를 노릴 수 있다.
+
+- **적어진 파라미터 수**: 더 적은 파라미터를 사용함으로써 모델의 복잡도가 낮아진다.
+- **새로운 유저:** SVD의 문제점 중 하나가 새로운 유저가 왔을 때, 다시 학습해야 해당 유저의 잠재 변수를 얻을 수 있다는 것이다. 하지만 여기서는 유저가 피드백을 남기면  재학습 없이 바로 유저 벡터를 아이템 벡터를 통해 구할 수 있다.
+- **설명성:** 유저의 이전 평가 항목 중에서 어느 부분이 예측하는 평가에 크게 영향을 미치는 지 알 수 있다.
+- **Implicit Feedback의 효율적 이용:** Implicit feedback을 활용해서 정확도를 더 높일 수 있다.
+
+
+
+<br/>
+
+아래 식은 `SVD++`로 파라미터 수가 적어지지 않았지만 Netflix data에서 Asymmetric SVD보다 높은 성능을 보였다.
+
+$$ \hat r_{ui} = b_{ui} + q_i^T \big( p_u+\mid N^k(i;u) \mid^{-\frac{1}{2}} \sum_{j \in N^k(i;u)} y_{ij}\big)$$
+
+
+
+## 5. An Integrated Model
+
+NM과 LF를 합치면 다음과 같다.
+
+$$ \hat r_{ui} = \mu + b_u + b_i + q_i^T \big( p_u+\mid N^k(i;u) \mid^{-\frac{1}{2}} \sum_{j \in N^k(i;u)} y_{ij}\big) \\ + \mid R^k(i;u) \mid^{-\frac{1}{2}} \sum_{j \in R^k(i;u)} (r_{uj} - b_{uj})w_{ij} \\
++\mid N^k(i;u) \mid^{-\frac{1}{2}} \sum_{j \in N^k(i;u)} c_{ij}$$
+
+처음 $$\mu + b_u +b_i$$ 부분은 일반적인 유저와 아이템의 특성을 통해 추측한다.  예를 들어, 이 항은 식스센스가 일반적으로 호평을 받는 영화이고, 조는 보통 긍정적으로 영화를 평가하는 것을 반영할 수 있다.
+
+두번째 항인 $$q_i^T \big( p_u+\mid N^k(i;u) \mid^{-\frac{1}{2}} \sum_{j \in N^k(i;u)} y_{ij}\big) $$은 유저 프로파일과 아이템 프로파일의 상호작용을 평가한다. 여기서는 식스센스와 조가 스릴러라는 잠재 변수에서 높은 값을 가진다는 것을 알 수 있다.
+
+마지막 항에서는 프로파일에서 얻기 힘든 세세한 부분을 조정하는 데 기여한다. 조가 식스센스과 비슷한 영화 Signs를 낮게 평가했다는 사실이 반영된다.
+
+파라미터 업데이트를 위한 gradient는 다음과 같다.
+
+- $$b_u \leftarrow b_u + \gamma(e_{ui}- \lambda \cdot b_u)$$
+- $$b_i \leftarrow b_i + \gamma(e_{ui}- \lambda \cdot b_i)$$
+- $$ q_i \leftarrow q_{ij} + \gamma(e_{ui} \cdot(p_u + \mid N^k(i;u) \mid^{-\frac{1}{2}}\sum_{j \in N(u)}y_j - \lambda \cdot q_i)$$
+- $$ p_u \leftarrow p_u + \gamma(e_{ui} \cdot q_i - \lambda \cdot p_u)$$
+- $$ \forall j \in N(u): \\
+  y_j \leftarrow y_j + \gamma(e_{ui} \mid N(u) \mid^{-\frac{1}{2}} q_i - \lambda \cdot y_j)$$
+- $$ \forall j \in R^k(i;u): \\
+  w_{ij} \leftarrow w_{ij} + \gamma(\mid R^k(i;u) \mid^{-\frac{1}{2}} e_{ui} \cdot (r_{uj}-b_{uj}) - \lambda \cdot w_{ij})$$
+- $$ \forall j \in N^k(i;u): \\
+  c_{ij} \leftarrow c_{ij} + \gamma(\mid N^k(i;u) \mid^{-\frac{1}{2}} e_{ui} - \lambda \cdot c_{ij})$$
 
 
 
