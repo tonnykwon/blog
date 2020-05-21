@@ -28,7 +28,7 @@ CF 모델은 크게 두 가지 방법으로 이루어 진다; Neighborhood appro
 
 그렇기 때문에 해당 논문에서는 Neighborhood모델과 Factor모델을 결합하여 이러한 장점을 결합하여 모델의 성능을 높이려고 한다.
 
-또 다른 점은 implicit feedback과 explicit feedback 모두 활용한다는 것이다(둘의 차이점은  <a href = '../2020-01-08-Recommendation.md'>여기에</a> 좀 더 자세히 적어놨다). Explicit 데이터가 더 중요한 정보를 담고 있다. 부정적, 긍정적 피드백 여부도 확실하고 노이즈가 없다. 하지만 대체로 explicit 데이터가 없고 impicit 데이터가 있는 경우가 많다. TV 프로그램 시청 이력이나 웹사이트 방문 기록, 상품 구매 이력이 그러하다. 아무래도 Explicit 데이터의 경우 사용자로부터의 액션을 요구하기에 구하기가 쉽지 않다. 
+또 다른 점은 implicit feedback과 explicit feedback 모두 활용한다는 것이다(둘의 차이점은  <a href = '../2020-01-08-Recommendation/'>여기에</a> 좀 더 자세히 적어놨다). Explicit 데이터가 더 중요한 정보를 담고 있다. 부정적, 긍정적 피드백 여부도 확실하고 노이즈가 없다. 하지만 대체로 explicit 데이터가 없고 impicit 데이터가 있는 경우가 많다. TV 프로그램 시청 이력이나 웹사이트 방문 기록, 상품 구매 이력이 그러하다. 아무래도 Explicit 데이터의 경우 사용자로부터의 액션을 요구하기에 구하기가 쉽지 않다. 
 
 또한, implicit 데이터 역시 중요한 정보를 담고 있다고 얘기한다. 해당 논문에서는 explicit feedback에서 얻을 수 없는 사용자 정보를 얻을 수 있다고 한다.
 
@@ -132,7 +132,7 @@ $$ \hat r_{ui} = b_u + b_i + q_i^T( (\mid  N(u) \mid ^{-0.5} \sum_{j \in R(u)} x
 
 
 
-글이 길어져서 <a href = '../2020-05-20-Factorization-Meets-The-Neighborhood2.md'>다음 파트</a>에 발전된 Neighborhood 모델과 LF 모델에 관해 쓰겠다.
+글이 길어져서 <a href = '../2020-05-20-Factorization-Meets-The-Neighborhood2/'>다음 파트</a>에 발전된 Neighborhood 모델과 LF 모델에 관해 쓰겠다.
 
 
 
