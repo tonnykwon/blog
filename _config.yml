@@ -278,6 +278,10 @@ collections:
     title: "Bayesian"
     output: true
     permalink: /:collection/:path/
+  rl:
+    title: "Reinforcement Learning"
+    output: true
+    permalink: /:collection/:path/
   distributed:
     title: "Distributed System"
     output: true
@@ -309,6 +313,18 @@ collections:
 # Front Matter
 # Defaults
 defaults:
+  # _rl
+  - scope:
+      path: ""
+      type: rl
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: true
+      share: true
+      related: true
+
   # _bayesian
   - scope:
       path: ""

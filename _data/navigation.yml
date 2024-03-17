@@ -2,6 +2,8 @@
 main:
    - title: "Bayesian"
      url: /bayesian/
+   - title: "Reinforcement Learning"
+     url: /rl/
    - title: "Text System"
      url: /text/
    - title: "Distributed System"
