@@ -4,7 +4,7 @@ title: "호텔 방 배정"
 date: 2020-04-29
 categories: Code
 mathjax: true
-tags: [union-find, programmers, kakao]상
+tags: [union-find, programmers, kakao]
 ---
 
 

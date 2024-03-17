@@ -4,7 +4,7 @@ title: "Logistic Regression"
 date: 2020-04-03
 categories: Machine
 mathjax: true
-tags = [machine-learning, logistic, linear]
+tags: [machine-learning, logistic, linear]
 ---
 
 

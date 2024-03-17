@@ -4,7 +4,7 @@ title: "Metric for Binary Classification"
 date: 2020-05-11
 categories: Machine
 mathjax: true
-tags = [machine-learning, metric, binary]
+tags: [machine-learning, metric, binary]
 ---
 
 
