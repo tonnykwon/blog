@@ -9,11 +9,14 @@ tags: [machine-learning, metric, binary, skill-rating]
 
 
 ## 목표
-- Trueskill 공부하면서 내용 및 리소스 정리
-- 추론 과정 계산식을 이해하는 데 초점
+- Trueskill 공부하면서 이해한 내용 정리
+- [논문](https://www.microsoft.com/en-us/research/uploads/prod/2018/03/trueskill2.pdf)에 나오는 계산식을 추론하는 데 초점
+ 
 
 ## 모델링
-- Trueskill은 factor graph로 표현된다. factor graph를 사용함으로써 추론 과정이 더 효율적이다.
+- Trueskill은 factor graph로 표현된다. factor graph를 사용함으로써 추론 과정이 더 효율적
+  - 그 이유는 factor graph는 directed acylic graph(dag)와 다르게 최종 추론하려는 확률 분포 계산 과정에서 중간 계산값(message)을 저장하기 때문
+  - 이러한 중간값을 반복적으로 사용하는 trueskill 모델에서 효율적이다.
 
 ## Factor graph(인자 그래프)
 - 확률 분포를 도식적으로 표현하는 방법을 확률적 그래프 모델이라 함
@@ -24,54 +27,61 @@ tags: [machine-learning, metric, binary, skill-rating]
 
 - 확률 분포를 factor graph로 표현했을 때 각 factor는 변수들의 부분 집합에 대한 분포이다.
 - 변수의 결합 분포는 인자들의 곱으로 표현될 수 있다(정규화가 불필요한 경우)
-- \(\{x_i\}\)는 변수들의 부분 집합을 지칭
+- $x_s$는 변수들의 부분 집합을 지칭
 
 ### Factor graph 예시
 - $(v, w, x, y, z)$ 의 결합 확률 분포는 아래 인자들의 곱으로 표현됨
-  $$
-  \[
-  p(v, w, x, y, z) = p(v)p(w)p(x|v, w)p(y|w)p(z|x)
-  \]
-  $$
+  $$  p(v, w, x, y, z) = p(v)p(w)p(x|v, w)p(y|w)p(z|x)$$
 - 위 인수분해에 해당하는 factor graph:
-  \[
-  \begin{array}{ccc}
-      & x & \\
-     / & | & \\
-    v - w - y - z \\
-  \end{array}
-  \]
-- 각 노드는 확률 변수, 인자(factor)는 관련 확률 변수들의 확률 분포를 의미.
-- 만약 $p(v)$ 주변 확률을 구한다고 하면, 모든 인자의 곱에서 변수 \(w\)를 제외하여 marginalization을 진행해야 함
-- 위 모든 변수가 이산형이고 \(K\)개의 값을 가질 수 있다고 하면, 각 \(w\) 값에 대해 약 \(O(K^5)\)의 곱셈과, \(O(K^4)\)의 덧셈을 필요로 함
-- 따라서, 계산 복잡도가 \(O(K^5)\)로 굉장히 높음
-  → 인수 분해를 통해 더 효율적으로 진행할 수 있음(summation을 해당되는 인자끼리만 먼저 계산)
-- https://confluence.nexon.com/pages/viewpage.action?pageId=26704877
 
-- \(v\)를 포함하는 노드를 따로 그룹지어 계산
-- 이를 factor에서 노드 \(w\)로 가는 메시지로 표현
+<p align ='center'>
+    <img src = "../../assets/img/machine/factor-graph.png" style="width: 70%"> <br/>
+    <sub>Factor Graph</sub>
+</p>
+
+- 각 노드는 확률 변수, 인자(factor)는 관련 확률 변수들의 확률 분포를 의미.
+- 만약 $p(v)$ 주변 확률을 구한다고 하면, 모든 인자의 곱에서 변수 $w$를 제외하여 marginalization을 진행해야 함
+- 위 모든 변수가 이산형이고 $K$개의 값을 가질 수 있다고 하면, 각 $w$ 값에 대해 약 $O(K^5)$의 곱셈과, $O(K^4)$의 덧셈을 필요로 함
+- 따라서, 계산 복잡도가 $O(K^5)$로 굉장히 높음
+  → 인수 분해를 통해 더 효율적으로 진행할 수 있음(summation을 해당되는 인자끼리만 먼저 계산)
+
+<p align ='center'>
+    <img src = "../../assets/img/machine/factor-graph-2.png" style="width: 70%"> <br/>
+    <sub>Factor Graph 2</sub>
+</p>
+
+- $v$를 포함하는 노드를 따로 그룹지어 계산
+
+<p align ='center'>
+    <img src = "../../assets/img/machine/factor-graph-message.png.png" style="width: 70%"> <br/>
+    <sub>Factor Graph Message</sub>
+</p>
+
+- 이를 factor에서 노드 $w$로 가는 메시지로 표현
 - 최종적으로는 다음과 같음
-  \[
-  p(v) = \sum_w p(w) \sum_{x,y,z} p(x|v, w)p(y|w)p(z|x)
-  \]
+
+<p align ='center'>
+    <img src = "../../assets/img/machine/factor-graph-message-2.png.png" style="width: 70%"> <br/>
+    <sub>Factor Graph Message</sub>
+</p>
 
 ## Belief Propagation(Sum-Product algorithm 특별 케이스)
 - 위처럼 factor끼리 message를 주고 받으면서 연산하는 방법을 belief propagation이라 함. 좀 더 일반적인 식으로 표현했을 때, 
 - 변수의 주변 확률은 해당 변수로 오는 모든 메시지의 product
-  \[
+  $$
   b(t) \propto \prod_{f \in N(t)} m_{f \to t} \quad (1)
-  \]
-  \(N(t)\)는 \(t\) 변수와 연결되어 있는 모든 factor를 의미
-- factor \(f\)에서 변수 \(t\)로 가는 메시지는 다음과 같음
-  \[
+  $$
+  $N(t)$는 $t$ 변수와 연결되어 있는 모든 factor를 의미
+- factor $f$에서 변수 $t$로 가는 메시지는 다음과 같음
+  $$
   m_{f \to t}(t) = \sum_{\{x_i\}} f(\{x_i\}) \prod_{s \in N(f) \setminus t} m_{s \to f}(s) \quad (2)
-  \]
-  변수 \(t\)에서 오는 메시지를 제외한 factor \(f\)로 오는 모든 메시지와 해당 factor \(f\) 함수의 곱을 \(x_i\)에 대해 sum out
-- 변수 \(t\)에서 factor \(f\)로 가는 메시지
-  \[
+  $$
+  변수 $t$에서 오는 메시지를 제외한 factor $f$로 오는 모든 메시지와 해당 factor $f$ 함수의 곱을 $x_i$에 대해 sum out
+- 변수 $t$에서 factor $f$로 가는 메시지
+  $$
   m_{t \to f}(t) = \prod_{g \in N(t) \setminus f} m_{g \to t}(t) \quad (3)
-  \]
-  factor \(f\)에서 오는 메시지를 제외한 변수 \(t\)로 오는 모든 메시지의 곱
+  $$
+  factor $f$에서 오는 메시지를 제외한 변수 $t$로 오는 모든 메시지의 곱
 - 변수 \(t\)의 주변 확률 \(b(t)\)는 \(t\)로 오는 모든 메시지의 곱이므로 여기서 factor \(f_1\)에서 오는 메시지만 제외하면 변수 \(t \to f_1\) 메시지와 동일함
 
 ## 기본 Trueskill 가정
