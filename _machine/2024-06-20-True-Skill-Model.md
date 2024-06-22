@@ -68,23 +68,29 @@ tags: [machine-learning, metric, binary, skill-rating]
 ## Belief Propagation(Sum-Product algorithm 특별 케이스)
 위처럼 factor끼리 message를 주고 받으면서 연산하는 방법을 belief propagation이라 함. 좀 더 일반적인 식으로 표현했을 때, 
 - 변수의 주변 확률은 해당 변수로 오는 모든 메시지의 product
+
 $$
   b(t) \propto \prod_{f \in N(t)} m_{f \to t} \quad (1)
 $$
+
 $$F_t$$는 $$t$$ 변수와 연결되어 있는 모든 factor를 의미
 
 
 - factor $$f$$에서 변수 $$t$$로 가는 메시지는 다음과 같음
+
 $$
 m_{f \to t}(t) = \sum_{\{x_i\}} f(\{x_i\}) \prod_{s \in N(f) \setminus t} m_{s \to f}(s) \quad (2)
 $$
+
 변수 $$t$$에서 오는 메시지를 제외한 factor $$f$$로 오는 모든 메시지와 해당 factor $$f$$ 함수의 곱을 $$x_i$$에 대해 sum out
 
 
 - 변수 $$t$$에서 factor $$f$$로 가는 메시지
+
 $$
 m_{t \to f}(t) = \prod_{g \in N(t) \setminus f} m_{g \to t}(t) \quad (3)
 $$
+
 factor $$f$$에서 오는 메시지를 제외한 변수 $$t$$로 오는 모든 메시지의 곱
 변수 $$t$$의 주변 확률 $$b(t)$$는 $$t$$로 오는 모든 메시지의 곱이므로 여기서 factor $$f_1$$에서 오는 메시지만 제외하면 변수 $$t \to f_1$$ 메시지와 동일함
 
