@@ -147,6 +147,6 @@ $$
 해당 모델의 factor graph
 
 <p align ='center'>
-    <img src = "../../assets/img/machine/ts-factor-graph.png" style="width: 70%"> <br/>
+    <img src = "../../assets/img/machine/ts-factor-graph.png" style="width: 50%"> <br/>
     <sub>Factor Graph Message</sub>
 </p>

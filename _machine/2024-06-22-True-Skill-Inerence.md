@@ -13,17 +13,23 @@ tags: [machine-learning, metric, binary, skill-rating]
 
 매치 결과가 주어졌을 때, 유저 실력 점수가 어떻게 업데이트되는 지 확인해본다.
 
-Trueskill에서 모든 메시지는 가우시안이거나 가우시안으로 근사된다. 이해를 위해 canonical form 대신 $\mu$, $\sigma$로 표현한다.
+Trueskill에서 모든 메시지는 가우시안이거나 가우시안으로 근사된다. 이해를 위해 canonical form 대신 $$\mu$$, $$\sigma$$로 표현한다.
 
-위 factor graph 유저 1 실력은 $\mathbf{s}_1$, 유저 2 실력은 $\mathbf{s}_2$ 라고 가정한다.
+위 factor graph 유저 1 실력은 $$\mathbf{s}_1$$, 유저 2 실력은 $$\mathbf{s}_2$$ 라고 가정한다.
 
 유저 1이 이겼을때, 유저 1의 사후 실력을 추론한다고 하면, 위 belief propagation에서 (1)번 식을 사용하여 다음과 같이 구할 수 있다.
 
-여기서 $m_1$ 은 미리 주어지는 유저 1의 사전 실력 분포, $r$은 경기 결과, $m_2$는 경기 결과로 얻은 likelihood이다.
+여기서 $$m_1$$ 은 미리 주어지는 유저 1의 사전 실력 분포, $r$은 경기 결과, $m_2$는 경기 결과로 얻은 likelihood이다.
 
-$m_1$는 사전에 주어지는 유저 1의 실력 분포로 $N(s_1|\mu_1,\sigma_1^2)$ 이다.
+$$m_1$$는 사전에 주어지는 유저 1의 실력 분포로 $$N(s_1|\mu_1,\sigma_1^2)$$ 이다.
 
-$m_2$는 그 외 변수들에서 오는 메시지에 의존하여 모든 메시지를 계산해주어야 한다. 아래 흐름에 따라 메시지를 계산한다.
+$$m_2$$는 그 외 변수들에서 오는 메시지에 의존하여 모든 메시지를 계산해주어야 한다. 아래 흐름에 따라 메시지를 계산한다.
+
+<p align ='center'>
+    <img src = "../../assets/img/machine/message_scheudle.png" style="width: 60%"> <br/>
+    <sub>Factor Graph</sub>
+</p>
+
 
 ### Skill Factor
 
