@@ -19,23 +19,40 @@ Trueskill에서 모든 메시지는 가우시안이거나 가우시안으로 근
 
 유저 1이 이겼을때, 유저 1의 사후 실력을 추론한다고 하면, 위 belief propagation에서 (1)번 식을 사용하여 다음과 같이 구할 수 있다.
 
-여기서 $$m_1$$ 은 미리 주어지는 유저 1의 사전 실력 분포, $r$은 경기 결과, $m_2$는 경기 결과로 얻은 likelihood이다.
+$$p(s_1 \mid r) = m_{ f_{s1} \rightarrow s_1 } \cdot m_{ f_{p1} \rightarrow s_1}$$
 
-$$m_1$$는 사전에 주어지는 유저 1의 실력 분포로 $$N(s_1|\mu_1,\sigma_1^2)$$ 이다.
+여기서 $$p(s_1) = m_{ f_{s1} \rightarrow s_1 }$$ 은 미리 주어지는 유저 1의 사전 실력 분포, $$r$$은 경기 결과, $$p(r \mid s_1) = m_{ f_{p1} \rightarrow s_1}$$는 경기 결과로 얻은 likelihood이다.
 
-$$m_2$$는 그 외 변수들에서 오는 메시지에 의존하여 모든 메시지를 계산해주어야 한다. 아래 흐름에 따라 메시지를 계산한다.
+$$m_{ f_{s1} \rightarrow s_1 }$$는 사전에 주어지는 유저 1의 실력 분포로 $$N(80, 30^2)$$ 이다.
+
+$$m_{ f_{p1} \rightarrow s_1}$$는 그 외 변수들에서 오는 메시지에 의존하여 모든 메시지를 계산해주어야 한다. 아래 흐름에 따라 메시지를 계산한다.
+
 
 <p align ='center'>
-    <img src = "../../assets/img/machine/message_scheudle.png" style="width: 60%"> <br/>
+    <img src = "../../assets/img/machine/message_scheudle.png" style="width: 50%"> <br/>
     <sub>Factor Graph</sub>
 </p>
 
-
 ### Skill Factor
 
-$m_1$, $m_3$는 사전에 주어진 정보로 그대로 전달된다
+<p align ='center'>
+    <img src = "../../assets/img/machine/msg_13.png" style="width: 50%"> <br/>
+    <sub>Msg 13</sub>
+</p>
 
-스킬 $s_1$에서 factor $p_1$으로 가는 메시지의 경우 $m_1$과 동일하여 따로 표기 생략
+$$m_1$$, $$m_3$$는 사전에 주어진 정보로 그대로 전달된다
+
+스킬 $$s_1$$에서 factor $$p_1$$으로 가는 메시지의 경우 $$m_1$$과 동일하여 따로 표기 생략
+
+$$m_{s_1 \rightarrow f_{p1}} = m_1, m_{s_2 \rightarrow f_{p2}} = m_3$$
+
+
+<details 그래프 및 코드>
+
+<p align ='center'>
+    <img src = "../../assets/img/machine/prior_dist.png" style="width: 50%"> <br/>
+    <sub>Prior dist</sub>
+</p>
 
 ```python
 # default setting
@@ -51,6 +68,8 @@ s2_sigma = 5
 m1 = (s1_mu, s1_sigma**2)
 m3 = (s2_mu, s2_sigma**2)
 ```
+</details>
+
 
 ### Performance factor
 
