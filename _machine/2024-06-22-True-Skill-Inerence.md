@@ -73,13 +73,34 @@ m3 = (s2_mu, s2_sigma**2)
 
 ### Performance factor
 
-Belief propagation에 따라 factor $p_1$에서 변수 $p_1$으로 나가는 메시지는
+<p align ='center'>
+    <img src = "../../assets/img/machine/msg_24.png" style="width: 50%"> <br/>
+    <sub>Message</sub>
+</p>
+
+Belief propagation에 따라 factor $$p_1$$에서 변수 $$p_1$$으로 나가는 메시지는
+
+$$
+\begin{align}m2 & = \int f_{p_1}(s_1, p_1) \cdot m_{s_1 \rightarrow f_{p_1}}(p_1) d s_1 \\&  =  \int N(s_1, 80, 30^2) \cdot N(p_1, s_1, 5^2) d s_1 \\& = \int N(s_1, 80 , 30^2) \cdot N(p_1, s_1 \cdot 1 + 0, 5^2) d s_1 \\& = N( p_1, 80, 30^2 + 5^2 )\end{align}
+$$
+
+<details x에 대한 다변량 주변 가우시안 분포와 x가 주어졌을 때의 y의 조건부 분포가 주어졌을때,>
+
+$$
+p(x) = N(x \mid \mu, \Lambda^{-1}) \\ p(y \mid x) = N(y \mid Ax + b, L^{-1}) \\ p(y) = N(y \mid A\mu + b, L^{-1} + A\Lambda^{-1}A^T)
+$$
 
 식 2.115 Bishop[2006]
+</details>
 
-$$m_2 = (m_1[0], m_1[1] + \beta^2)$$
+<details 스킬 분포에서 표준편차만 커짐>
 
-스킬 분포에서 표준편차만 커짐
+<p align ='center'>
+    <img src = "../../assets/img/machine/perf_dist.png" style="width: 50%"> <br/>
+    <sub>Performance Distribution</sub>
+</p>
+
+skill 분포에서 표준편차만 커짐
 
 ```python
 # m2, m4 
@@ -87,23 +108,43 @@ m2 = (m1[0], m1[1] + beta**2)
 m4 = (m3[0], m3[1] + beta**2)
 ```
 
+</details>
+
 ### Difference factor
 
-$m_5$는 두 메시지의 차이를 구한다. belief propagation (2)를 통해 구할 수 있다.
+<p align ='center'>
+    <img src = "../../assets/img/machine/msg_5.png" style="width: 50%"> <br/>
+    <sub>Message</sub>
+</p>
 
-difference factor에 대해 indicator 함수( $1_{[d > 0]}$ )와 dirac delta 함수( $\delta(d)$ )를 혼용해서 사용하는데 indicator 함수의 경우도 똑같이 계산되는 지 잘 모르겠음
+$$f_d$$는 두 메시지의 차이를 구한다. belief propagation (2)를 통해 구할 수 있다.
+
+$$
+\begin{align}m_5 & = \int m_2 \cdot m_4 \cdot f_d (p_1, p_2, d) dp_1 dp_2  \\& = \int N(p_1 ; \mu_1, \sigma_1^2 + \beta^2) \cdot N(p_2 ; \mu_2, \sigma_2^2 + \beta^2) \cdot\delta(d - p_1 + p_2) d p_1 d p_2 \\& = \int N(p_1 ; \mu_1, \sigma_1^2 + \beta^2)  \int_{-\infty}^\infty N(p_2 ; \mu_2, \sigma_2^2 + \beta^2) \delta(d - p_1 + p_2) d p_2 d p_1 \\\end{align}
+$$
+
+difference factor에 대해 indicator 함수($$\mathbb{I}(p_1 - p_2)$$) 와 dirac delta 함수($$\delta(d - (p_1 - p_2))$$)를 혼용해서 사용하는데 indicator 함수의 경우도 똑같이 계산되는 지 잘 모르겠음
 
 dirac delta와 $f(x)$ 합성곱을 했을 시에 $f(x)$ 분포 형태는 변화가 없이 위치만 평행 이동하게 됨(sifting property).
 
-두 독립적인 확률 변수 차이는 $N(a-b|\mu_1-\mu_2,\sigma_1^2 + \sigma_2^2)$ 이므로
+$$
+\begin{align}& = \int N(p_1 ; \mu_1, \sigma_1^2 + \beta^2) \int_{-\infty}^\inftyN(p_2; \mu_2, \sigma_2^2 + \beta^2 ) \delta(p_2 - (p_1 - d) ) d p_2 d p_1 \\& = \int N(p_1 ; \mu_1, \sigma_1^2 + \beta^2) N(p_1 - d; \mu_2, \sigma_2^2 + \beta^2 ) d p_1 \\& = \int f_{p_1} (p_1)\cdot f_{p_2} (p_1 - d) d p_1\end{align}
+$$
 
-가우시안의 합성곱은 가우시안 형태이다. 결국 마지막 계산 결과는 두 유저의 performance 차이를 구한 값과 같다.(가우시안 차이도 가우시안 형태를 가짐)유저 1과 유저 2의 퍼포먼스 차이를 $d$라고 할 때, $m_5$는 가우시안 분포로 
+두 독립적인 확률 변수 차이는 $$f_{x- y}(z) = \int f_x(x) f_y(x-z) dx$$이므로
+$$
+\begin{align}&= f_{p_1 - p_2} (d)\\& = p_1 - p_2 \\& = m_2 - m_4\end{align}
+$$
 
-따라서 $d \sim N(d|\mu_{d},\sigma_{d}^2)$ 을 가진다.
+가우시안의 합성곱은 가우시안 형태이다. 결국 마지막 계산 결과는 두 유저의 performance 차이를 구한 값과 같다.(가우시안 차이도 가우시안 형태를 가짐)유저 1과 유저 2의 퍼포먼스 차이를 $$d$$라고 할 때, $$d = p_1 - p_2$$는 가우시안 분포로 
+$$d \sim N(\mu_{p1} - \mu_{p2}, \sigma^2_{p1} + \sigma^2_{p2} - 2 \rho \sigma_{p1} \sigma_{p2})$$
+따라서 $$N(d ; \mu_1 - \mu_2, \sigma_1^2 + \sigma_2^2 + 2 \beta^2)$$을 가진다.
 
-아래 계산은 부정확할 수 있음
 
 더 큰 performance 값을 가진 유저가 이긴다고 가정했기 때문에, 유저 1이 이길 확률은 performance 차이 분포에서 차이가 0보다 큰 부분이다.
+$$
+P(p_1 > p_2) = P(d >0 ) = \Phi (\frac{\mu_1 - \mu_2}{\sqrt{\sigma_1^2 + \sigma_2^2 + 2 \beta^2}}) = \Phi(\frac{\mu_d}{\sigma_d})
+$$
 
 유저 1과 유저 2의 퍼포먼스 차이 분포
 
