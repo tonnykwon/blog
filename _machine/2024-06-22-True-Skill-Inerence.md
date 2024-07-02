@@ -129,7 +129,7 @@ difference factor에 대해 indicator 함수($$\mathbb{I}(p_1 - p_2)$$) 와 dira
 dirac delta와 $f(x)$ 합성곱을 했을 시에 $f(x)$ 분포 형태는 변화가 없이 위치만 평행 이동하게 됨(sifting property).
 
 $$
-\begin{align}& = \int N(p_1 ; \mu_1, \sigma_1^2 + \beta^2) \int_{-\infty}^\inftyN(p_2; \mu_2, \sigma_2^2 + \beta^2 ) \delta(p_2 - (p_1 - d) ) d p_2 d p_1 \\& = \int N(p_1 ; \mu_1, \sigma_1^2 + \beta^2) N(p_1 - d; \mu_2, \sigma_2^2 + \beta^2 ) d p_1 \\& = \int f_{p_1} (p_1)\cdot f_{p_2} (p_1 - d) d p_1\end{align}
+\begin{align}& = \int N(p_1 ; \mu_1, \sigma_1^2 + \beta^2) \int_{-\infty}^\infty N(p_2; \mu_2, \sigma_2^2 + \beta^2 ) \delta(p_2 - (p_1 - d) ) d p_2 d p_1 \\& = \int N(p_1 ; \mu_1, \sigma_1^2 + \beta^2) N(p_1 - d; \mu_2, \sigma_2^2 + \beta^2 ) d p_1 \\& = \int f_{p_1} (p_1)\cdot f_{p_2} (p_1 - d) d p_1\end{align}
 $$
 
 두 독립적인 확률 변수 차이는 $$f_{x- y}(z) = \int f_x(x) f_y(x-z) dx$$이므로
@@ -146,6 +146,14 @@ $$d \sim N(\mu_{p1} - \mu_{p2}, \sigma^2_{p1} + \sigma^2_{p2} - 2 \rho \sigma_{p
 $$
 P(p_1 > p_2) = P(d >0 ) = \Phi (\frac{\mu_1 - \mu_2}{\sqrt{\sigma_1^2 + \sigma_2^2 + 2 \beta^2}}) = \Phi(\frac{\mu_d}{\sigma_d})
 $$
+
+<details 그래프 및 코드>
+
+
+<p align ='center'>
+    <img src = "../../assets/img/machine/diff_dist.png" style="width: 50%"> <br/>
+    <sub>Difference Distribution</sub>
+</p>
 
 유저 1과 유저 2의 퍼포먼스 차이 분포
 
@@ -171,21 +179,48 @@ norm.cdf(m5[0]/np.sqrt(m5[1]))
 0.8316658161949806
 ```
 
+</details>
+
 ### Result Factor
 
-$r$은 관측된 값으로 유저 1이 이겼을 때는 $d > 0$ 값을 가지고, 지면 $d < 0$ 값을 가진다.
+<p align ='center'>
+    <img src = "../../assets/img/machine/msg_6.png" style="width: 50%"> <br/>
+    <sub>Message</sub>
+</p>
 
-유저 1이 이겼다고 가정했으므로 $r = 1_{[d > 0]}$ 을 적용한다.
+
+$$f_r$$은 관측된 값으로 유저 1이 이겼을 때는 $$ \mathbb{I}  d > 0$$ 값을 가지고, 지면 $$\mathbb{I}  d < 0$$ 값을 가진다.
+
+유저 1이 이겼다고 가정했으므로 $$\mathbb{I} (d>0)$$ 을 적용한다.
 
 ### Result to difference factor
 
-해당 결과를 바로 message passing하여 유저 1 사전 분포를 업데이트한다고 했을때,
+해당 결과를 바로 message passing하여 유저 1 사전 분포를 업데이트한다고 했을 때,
 
-$d > 0$ 인 값만 나오게 됨.
+<p align ='center'>
+    <img src = "../../assets/img/machine/exact_m7.png" style="width: 50%"> <br/>
+    <sub>Exact  Message</sub>
+</p>
 
-$d$가 음수인 구간에서는 $1_{[d > 0]}$ 가 성립하지 않으므로 $d$의 적분 구간은 $d \geq 0$
+$$
+\begin {align}
+m_7: m_{f_d \rightarrow p_1} 
+&= \int \int m_{d \rightarrow f_d} \cdot m_{p_2 \rightarrow f_d} \cdot f_d d \text{d} d p_2\\
+& = \int \int \mathbb{I}(p_1 - p_2 >0) \cdot \delta(d -  p_1 + p_2)
+ \cdot N(p_2; 50, 5^2+5^2) d\text{d} dp_2 \\
+& = \int \int^{p_1}_{-\infty} \delta(d -  p_1 + p_2)
+ \cdot N(p_2; 50, 5^2+5^2)  dp_2 d\text{d}\\
+& = \int \int^{p_1}_{-\infty} \delta( p_2 - (p_1 - d) )
+ \cdot N(p_2; 50, 5^2+5^2)  dp_2 d\text{d}\\
+\end {align}
+$$
 
-로 치환해서 $1_{[d > 0]}$ 
+$$p_2 = p_1 - d$$ 인 값만 나오게 됨.
+$$ = \int N(p_1  - \text{d}; 50 ,5^2 + 5^2) d \text{d} $$
+$d$가 음수인 구간에서는 $$p_2 = p_1 - d$$ 가 성립하지 않으므로 $d$의 적분 구간은 $$0 \sim \infty$$$$\begin{align}& = \int_0^{\infty} N(p_1 - \text{d} ; 50, 5^2 + 5^2) d \text{d} \\\end{align}$$
+
+$$p_1 - d = t $$로 치환해서 
+$$\begin{align}& = \int_{-\infty}^{p_1} N(t ; 50, 5^2 + 5^2) d t \\&= \Phi(p_1, 50, 5^2 +5^2) \\& = \Phi(\frac{p_1- 50}{\sqrt{2} \cdot 5})\end{align}$$ 
 
 ### Performance to skill factor
 

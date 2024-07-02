@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "_statistics/2024-07-01-AB-Testing-Trustworthiness.md",
+                "file": "_machine/2024-06-22-True-Skill-Inerence.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "_statistics/2024-07-01-AB-Testing-Trustworthiness.md",
+                "file": "_machine/2024-06-22-True-Skill-Inerence.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "_statistics/2024-07-01-AB-Testing-Trustworthiness.md",
+                "file": "_machine/2024-06-22-True-Skill-Inerence.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "_statistics/2024-07-01-AB-Testing-Trustworthiness.md"
+                "file": "_machine/2024-06-22-True-Skill-Inerence.md"
               }
             }
           }
@@ -146,6 +146,17 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "6d362ad8fd0e1272",
-  "lastOpenFiles": []
+  "active": "07d77fb94f017cc1",
+  "lastOpenFiles": [
+    "assets/img/machine/exact_m7.png",
+    "assets/img/machine/exact_m7.png.crdownload",
+    "assets/img/machine/msg_6.png",
+    "assets/img/machine/msg_6.png.crdownload",
+    "assets/img/machine/diff_dist.png",
+    "assets/img/machine/diff_dist.png.crdownload",
+    "2024-07-02.md",
+    "Untitled.canvas",
+    "_machine/2024-06-22-True-Skill-Inerence.md",
+    "_statistics/2024-07-01-AB-Testing-Trustworthiness.md"
+  ]
 }
