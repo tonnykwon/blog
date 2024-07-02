@@ -68,6 +68,7 @@ s2_sigma = 5
 m1 = (s1_mu, s1_sigma**2)
 m3 = (s2_mu, s2_sigma**2)
 ```
+
 </details>
 
 
